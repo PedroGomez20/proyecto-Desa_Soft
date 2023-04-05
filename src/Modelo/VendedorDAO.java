@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class VendedorDAO implements CRUD {
 
@@ -14,13 +15,14 @@ public class VendedorDAO implements CRUD {
     ResultSet rs;
     EntidadVendedor ev = new EntidadVendedor();
 
-    public EntidadVendedor ValidarVendedor(String dni, String user) {
-        String sql = "select * from vendedor where Dni = ? and User = ?";
+    public EntidadVendedor ValidarVendedor(String dni, String user , String id_rol ) {
+        String sql = "select *  from vendedor  where Dni = ? and User = ? and id_rol = ? ;";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
             ps.setString(1, dni);
             ps.setString(2, user);
+            ps.setString(3, id_rol);
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -30,10 +32,13 @@ public class VendedorDAO implements CRUD {
                 ev.setTel(rs.getString(4));
                 ev.setEstado(rs.getString(5));
                 ev.setUser(rs.getString(6));
-
+                 ev.setId_rol(rs.getString(7));
+               
+               
             }
         } catch (Exception e) {
         }
+        
         return ev;
     }
 

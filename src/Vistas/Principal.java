@@ -2,13 +2,82 @@ package Vistas;
 
 import java.awt.Dimension;
 import javax.swing.JInternalFrame;
+import Modelo.EntidadVendedor;
+import Modelo.VendedorDAO;
+import javax.swing.JOptionPane;
 
 public class Principal extends javax.swing.JFrame {
 
+    LoginForm asd = new LoginForm();
+    
+    
+     int valor;
+
+    public int getValor() {
+        return valor;
+        
+    }
+
+    public void setValor(int valor) {
+        this.valor = valor;
+    }
+    
+    int vals;
+   
+    public void recibir( ){
+        vals=asd.a;
+         JOptionPane.showMessageDialog(null, vals + "aaaaafinalA3333333");
+        
+         
+    }
+
     public Principal() {
+        
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
+
+      JOptionPane.showMessageDialog(null, vals + "aaaaafinalA3333333");
+
+        
+//       ev = vdao.ValidarVendedor(id_rol);
     }
+//     boolean a=true;
+//    public boolean asf(){
+////        String cosw=ev.getId_rol();
+////        
+////                         
+//
+//        if ( ev.getId_rol().equals("1")) 
+//        {
+//             a=true;
+//        }else if (ev.getId_rol().equals("2")) 
+//        {
+//           
+//             a=false;
+//        }
+//      
+//        
+//         return a;
+//         
+//         
+//    }
+
+//    public Principal(EntidadVendedor mod){
+//          initComponents();
+//        this.setExtendedState(MAXIMIZED_BOTH);
+//        
+//        this.mod =mod;
+//        
+//        if (mod.getId_rol() == 1) 
+//        {
+//            
+//        }else if (mod.getId_rol() == 2) 
+//        {
+//            jMenu3.setVisible(false);
+//            
+//        }
+//    }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -156,7 +225,7 @@ public class Principal extends javax.swing.JFrame {
         VendedorForm vf = new VendedorForm();
         CentrarVentana(vf);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
-    
+
     void CentrarVentana(JInternalFrame frame) {
         VentanaPrincipal.add(frame);
         Dimension dimension = VentanaPrincipal.getSize();

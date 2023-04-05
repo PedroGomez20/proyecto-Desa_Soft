@@ -16,6 +16,7 @@ public class Vendedor {
         this.tel = tel;
         this.estado = estado;
         this.user = user;
+        
     }
 
     public int getId() {
@@ -65,6 +66,8 @@ public class Vendedor {
     public void setUser(String user) {
         this.user = user;
     }
+
+
 
     
 }

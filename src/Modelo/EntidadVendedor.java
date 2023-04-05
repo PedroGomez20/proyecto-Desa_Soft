@@ -1,21 +1,25 @@
 
 package Modelo;
 
+import javax.swing.JOptionPane;
+
 public class EntidadVendedor {
     
     int id;
-    String dni, nom, tel, estado, user;
+    String dni, nom, tel, estado, user,id_rol;
 
     public EntidadVendedor() {
+        
     }
 
-    public EntidadVendedor(int id, String dni, String nom, String tel, String estado, String user) {
+    public EntidadVendedor(int id, String dni, String nom, String tel, String estado, String user, String id_rol  ) {
         this.id = id;
         this.dni = dni;
         this.nom = nom;
         this.tel = tel;
         this.estado = estado;
         this.user = user;
+         this.id_rol=id_rol;
     }
 
     public int getId() {
@@ -66,5 +70,18 @@ public class EntidadVendedor {
         this.user = user;
     }
 
+    public String getId_rol() {
+        return id_rol;
+    }
+
+    public void setId_rol(String id_rol) {
+        this.id_rol = id_rol;
+    }
+    
+    
+    
+    
+    
+    
     
 }
