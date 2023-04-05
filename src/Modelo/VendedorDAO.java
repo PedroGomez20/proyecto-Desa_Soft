@@ -15,7 +15,10 @@ public class VendedorDAO implements CRUD {
     ResultSet rs;
     EntidadVendedor ev = new EntidadVendedor();
 
-    public EntidadVendedor ValidarVendedor(String dni, String user , String id_rol ) {
+    
+    
+    
+    public EntidadVendedor ValidarVendedor(String dni, String user, String id_rol) {
         String sql = "select *  from vendedor  where Dni = ? and User = ? and id_rol = ? ;";
         try {
             con = cn.Conectar();
@@ -32,20 +35,20 @@ public class VendedorDAO implements CRUD {
                 ev.setTel(rs.getString(4));
                 ev.setEstado(rs.getString(5));
                 ev.setUser(rs.getString(6));
-                 ev.setId_rol(rs.getString(7));
-               
-               
+                ev.setId_rol(rs.getString(7));
+
             }
         } catch (Exception e) {
         }
-        
+
         return ev;
     }
 
     @Override
+    
     public List listar() {
         List<Vendedor> lista = new ArrayList<>();
-        String sql = "select * from vendedor";
+        String sql = "SELECT v.IdVendedor,v.Dni,v.Nombres,v.Telefono,v.Estado, v.User,r.nombre_rol FROM vendedor v INNER JOIN rol r ON v.id_rol = r.id_rol ";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -58,6 +61,7 @@ public class VendedorDAO implements CRUD {
                 v.setTel(rs.getString(4));
                 v.setEstado(rs.getString(5));
                 v.setUser(rs.getString(6));
+                v.setId_rol(rs.getString(7));
                 lista.add(v);
             }
         } catch (Exception e) {
@@ -68,25 +72,7 @@ public class VendedorDAO implements CRUD {
     @Override
     public int add(Object[] o) {
         int r = 0;
-        String sql = "insert into vendedor(Dni, Nombres, Telefono, Estado, User) values(?, ?, ?, ?, ?)";
-        try {
-            con = cn.Conectar();
-            ps = con.prepareStatement(sql);
-            ps.setObject(1, o[0]);
-            ps.setObject(2, o[1]);
-            ps.setObject(3, o[2]);
-            ps.setObject(4, o[3]);
-            ps.setObject(5, o[4]);
-            r = ps.executeUpdate();
-        } catch (Exception e) {
-        }
-        return r;
-    }
-
-    @Override
-    public int actualizar(Object[] o) {
-        int r = 0;
-        String sql = "update vendedor set Dni = ?, Nombres = ?, Telefono = ?, Estado = ?, User = ? where IdVendedor = ?";
+        String sql = "INSERT INTO vendedor( Dni, Nombres, Telefono, Estado, User ,  id_rol) values(?, ?, ?, ?, ?,?)";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -96,6 +82,28 @@ public class VendedorDAO implements CRUD {
             ps.setObject(4, o[3]);
             ps.setObject(5, o[4]);
             ps.setObject(6, o[5]);
+            r = ps.executeUpdate();
+        } catch (Exception e) {
+            
+            JOptionPane.showMessageDialog(null, e +"erorr");
+        }
+        return r;
+    }
+
+    @Override
+    public int actualizar(Object[] o) {
+        int r = 0;
+        String sql = "update vendedor set Dni = ?, Nombres = ?, Telefono = ?, Estado = ?, User = ? , id_rol=? where IdVendedor = ?";
+        try {
+            con = cn.Conectar();
+            ps = con.prepareStatement(sql);
+            ps.setObject(1, o[0]);
+            ps.setObject(2, o[1]);
+            ps.setObject(3, o[2]);
+            ps.setObject(4, o[3]);
+            ps.setObject(5, o[4]);
+            ps.setObject(6, o[5]);
+            ps.setObject(7, o[6]);
             r = ps.executeUpdate();
         } catch (Exception e) {
         }

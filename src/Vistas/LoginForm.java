@@ -99,11 +99,7 @@ public class LoginForm extends javax.swing.JFrame {
                     m.show();
                 }
 
-                Principal p = new Principal();
-//                p.getValor(a);
-//                int vals = p.getValor();
-//                p.setVisible(true);
-//JOptionPane.showMessageDialog(this, ev.setId_rol(a));
+//              
                 dispose();
 
             } else {

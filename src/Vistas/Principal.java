@@ -2,81 +2,27 @@ package Vistas;
 
 import java.awt.Dimension;
 import javax.swing.JInternalFrame;
-import Modelo.EntidadVendedor;
-import Modelo.VendedorDAO;
-import javax.swing.JOptionPane;
+
 
 public class Principal extends javax.swing.JFrame {
 
-    LoginForm asd = new LoginForm();
     
     
-     int valor;
-
-    public int getValor() {
-        return valor;
-        
-    }
-
-    public void setValor(int valor) {
-        this.valor = valor;
-    }
     
-    int vals;
+  
    
-//    public void recibir( ){
-//        vals=asd.a;
-//         JOptionPane.showMessageDialog(null, vals + "aaaaafinalA3333333");
-//        
-//         
-//    }
 
     public Principal() {
         
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
 
-      JOptionPane.showMessageDialog(null, vals + "aaaaafinalA3333333");
+      
 
         
-//       ev = vdao.ValidarVendedor(id_rol);
-    }
-//     boolean a=true;
-//    public boolean asf(){
-////        String cosw=ev.getId_rol();
-////        
-////                         
-//
-//        if ( ev.getId_rol().equals("1")) 
-//        {
-//             a=true;
-//        }else if (ev.getId_rol().equals("2")) 
-//        {
-//           
-//             a=false;
-//        }
-//      
-//        
-//         return a;
-//         
-//         
-//    }
 
-//    public Principal(EntidadVendedor mod){
-//          initComponents();
-//        this.setExtendedState(MAXIMIZED_BOTH);
-//        
-//        this.mod =mod;
-//        
-//        if (mod.getId_rol() == 1) 
-//        {
-//            
-//        }else if (mod.getId_rol() == 2) 
-//        {
-//            jMenu3.setVisible(false);
-//            
-//        }
-//    }
+    }
+
     
 
     @SuppressWarnings("unchecked")
@@ -91,11 +37,12 @@ public class Principal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,11 +50,11 @@ public class Principal extends javax.swing.JFrame {
         VentanaPrincipal.setLayout(VentanaPrincipalLayout);
         VentanaPrincipalLayout.setHorizontalGroup(
             VentanaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 511, Short.MAX_VALUE)
         );
         VentanaPrincipalLayout.setVerticalGroup(
             VentanaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 266, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/menu.png"))); // NOI18N
@@ -147,14 +94,6 @@ public class Principal extends javax.swing.JFrame {
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/reporte.png"))); // NOI18N
         jMenu3.setText("Mantenimiento");
 
-        jMenuItem4.setText("Cliente");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem4);
-
         jMenuItem5.setText("Producto");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,6 +119,19 @@ public class Principal extends javax.swing.JFrame {
         jMenu4.add(jMenuItem7);
 
         jMenuBar1.add(jMenu4);
+
+        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/cliente.png"))); // NOI18N
+        jMenu5.setText("Clientes");
+
+        jMenuItem4.setText("Cliente");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
 
@@ -208,21 +160,25 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         VentasForm vf = new VentasForm();
+        vf.show(true);
         CentrarVentana(vf);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         ClienteForm cf = new ClienteForm();
+         cf .show(true);
         CentrarVentana(cf);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         ProductoForm pf = new ProductoForm();
+         pf.show(true);
         CentrarVentana(pf);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         VendedorForm vf = new VendedorForm();
+         vf.show(true);
         CentrarVentana(vf);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
@@ -244,6 +200,7 @@ public class Principal extends javax.swing.JFrame {
     public static javax.swing.JMenu jMenu2;
     public static javax.swing.JMenu jMenu3;
     public static javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     public static javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
