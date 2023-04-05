@@ -24,12 +24,12 @@ public class Principal extends javax.swing.JFrame {
     
     int vals;
    
-    public void recibir( ){
-        vals=asd.a;
-         JOptionPane.showMessageDialog(null, vals + "aaaaafinalA3333333");
-        
-         
-    }
+//    public void recibir( ){
+//        vals=asd.a;
+//         JOptionPane.showMessageDialog(null, vals + "aaaaafinalA3333333");
+//        
+//         
+//    }
 
     public Principal() {
         
@@ -240,11 +240,11 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane VentanaPrincipal;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenuBar jMenuBar1;
+    public static javax.swing.JMenu jMenu1;
+    public static javax.swing.JMenu jMenu2;
+    public static javax.swing.JMenu jMenu3;
+    public static javax.swing.JMenu jMenu4;
+    public static javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;

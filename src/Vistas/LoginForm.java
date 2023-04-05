@@ -1,18 +1,22 @@
 package Vistas;
 
+import Modelo.Conexion;
 import Modelo.EntidadVendedor;
 import Modelo.VendedorDAO;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-
 
 public class LoginForm extends javax.swing.JFrame {
 
     VendedorDAO vdao = new VendedorDAO();
     EntidadVendedor ev = new EntidadVendedor();
-    int a;
-    
+    String a;
+
     int aa;
+    String id_rol;
 
     public LoginForm() {
         initComponents();
@@ -22,29 +26,50 @@ public class LoginForm extends javax.swing.JFrame {
         TxtUser.setText("emp01");
         TxtPass.setText("12345678");
     }
-    
-    
-    
-    
-    
+
+    Connection con;
+    Conexion cn = new Conexion();
+    PreparedStatement ps;
+    ResultSet rs;
+
+    public LoginForm(String id_rol) {
+        this.id_rol = id_rol;
+    }
+
+    public String getId_rol() {
+        return id_rol;
+    }
+
+    public void setId_rol(String id_rol) {
+        this.id_rol = id_rol;
+    }
+
     public void Validar() {
         String dni = TxtPass.getText();
         String user = TxtUser.getText();
 //        int id_rol =Integer.parseInt(TxtUser1.getText());
-        String id_rol = TxtUser1.getText();
+
 //     String rol = TxtUser1.getText();
 //     
 //     int id_rol= Integer.parseInt(rol);
 //     ev.setId_rol(id_rol);
+//        if (id_rol.equals("1")) {
+//            a = 1;
+//        } else if (TxtUser1.getText().equals("2")) {
+//            a = 2;
+//        }
+//        JOptionPane.showMessageDialog(this, a + "A3333333");
+//        
+//        aa=a;
+        if (combo1.getSelectedItem().equals("ADMIN")) {
+             a = "1";
 
-        if (id_rol.equals("1")) {
-            a = 1;
-        } else if (TxtUser1.getText().equals("2")) {
-            a = 2;
+        } else if (combo1.getSelectedItem().equals("VENDEDOR")) {
+             a = "2";
+
         }
-        JOptionPane.showMessageDialog(this, a + "A3333333");
-        
-        aa=a;
+
+        String id_rol = a;
         if (TxtUser.getText().equals("") || TxtPass.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "DEBE INGRESAR DATOS EN LAs CAJAS DE TEXTO");
             TxtUser.requestFocus();
@@ -59,11 +84,26 @@ public class LoginForm extends javax.swing.JFrame {
 //                    a = true;
 //
 //                }
+                if (combo1.getSelectedItem().equals("ADMIN")) {
+                    
+
+                    Principal m = new Principal();
+                    m.show();
+
+                } else if (combo1.getSelectedItem().equals("VENDEDOR")) {
+                    
+                    Principal m = new Principal();
+
+                    m.jMenu3.setVisible(false);
+                    
+                    m.show();
+                }
+
                 Principal p = new Principal();
-                p.getValor(a);
-                int vals = p.getValor();
-                p.setVisible(true);
-JOptionPane.showMessageDialog(this, vals + "finalA3333333");
+//                p.getValor(a);
+//                int vals = p.getValor();
+//                p.setVisible(true);
+//JOptionPane.showMessageDialog(this, ev.setId_rol(a));
                 dispose();
 
             } else {
@@ -71,20 +111,29 @@ JOptionPane.showMessageDialog(this, vals + "finalA3333333");
 
                 TxtUser.requestFocus();
 
-         
             }
-             
-           
+
         }
 
-        
+    }
+
+    void ocultar() {
+        if (combo1.getSelectedItem().equals("ADMIN")) {
+            String a = "1";
+
+            Principal m = new Principal();
+            m.show();
+
+        } else if (combo1.getSelectedItem().equals("VENDEDOR")) {
+            String a = "2";
+            Principal m = new Principal();
+
+            m.jMenu2.setVisible(false);
+            m.jMenu4.setVisible(false);
+            m.show();
+        }
 
     }
-    
-   
-  
-    
-   
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -95,11 +144,9 @@ JOptionPane.showMessageDialog(this, vals + "finalA3333333");
         TxtUser = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         TxtPass = new javax.swing.JPasswordField();
-        BtnIngresar = new javax.swing.JButton();
         combo1 = new javax.swing.JComboBox<>();
+        BtnIngresar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        m = new javax.swing.JLabel();
-        TxtUser1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -122,18 +169,18 @@ JOptionPane.showMessageDialog(this, vals + "finalA3333333");
             }
         });
 
-        BtnIngresar.setText("INGRESAR");
-        BtnIngresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnIngresarActionPerformed(evt);
-            }
-        });
-
         combo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMIN", "VENDEDOR" }));
         combo1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         combo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 combo1ActionPerformed(evt);
+            }
+        });
+
+        BtnIngresar.setText("INGRESAR");
+        BtnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnIngresarActionPerformed(evt);
             }
         });
 
@@ -145,12 +192,7 @@ JOptionPane.showMessageDialog(this, vals + "finalA3333333");
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(combo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(BtnIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                             .addComponent(TxtUser, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TxtPass)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -158,7 +200,13 @@ JOptionPane.showMessageDialog(this, vals + "finalA3333333");
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel2))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(BtnIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                        .addGap(21, 21, 21))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(combo1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,15 +220,13 @@ JOptionPane.showMessageDialog(this, vals + "finalA3333333");
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TxtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(BtnIngresar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(combo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(BtnIngresar)
+                .addGap(27, 27, 27))
         );
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/desbloquear.png"))); // NOI18N
-
-        m.setText("jLabel4");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -190,31 +236,17 @@ JOptionPane.showMessageDialog(this, vals + "finalA3333333");
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(90, 90, 90)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(m, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 10, Short.MAX_VALUE)
-                                .addComponent(TxtUser1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(67, 67, 67)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(m)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(TxtUser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(21, 21, 21)
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -229,9 +261,11 @@ JOptionPane.showMessageDialog(this, vals + "finalA3333333");
 //        } else if (TxtUser1.getText().equals("2")) {
 //            a = 2;
 //        }
-
+//        ocultar();
         Validar();
+
         JOptionPane.showMessageDialog(this, a + "Aasaswqqqqqa");
+
 
     }//GEN-LAST:event_BtnIngresarActionPerformed
 
@@ -287,12 +321,10 @@ JOptionPane.showMessageDialog(this, vals + "finalA3333333");
     private javax.swing.JButton BtnIngresar;
     private javax.swing.JPasswordField TxtPass;
     private javax.swing.JTextField TxtUser;
-    private javax.swing.JTextField TxtUser1;
-    private javax.swing.JComboBox<String> combo1;
+    public static javax.swing.JComboBox<String> combo1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel m;
     // End of variables declaration//GEN-END:variables
 }
