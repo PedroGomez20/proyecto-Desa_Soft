@@ -5,6 +5,7 @@ import Modelo.VendedorDAO;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
+
 public class LoginForm extends javax.swing.JFrame {
 
     VendedorDAO vdao = new VendedorDAO();
