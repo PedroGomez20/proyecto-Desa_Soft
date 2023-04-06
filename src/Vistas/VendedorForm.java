@@ -116,8 +116,8 @@ public class VendedorForm extends javax.swing.JInternalFrame {
             obj[2] = tel;
             obj[3] = es;
             obj[4] = user;
-            obj[5] = id;
-             obj[6] = rol;
+            obj[5] = rol;
+             obj[6] = id;
             dao.actualizar(obj);
             
             }else if(comborol.getSelectedItem().equals("VENDEDOR"))
