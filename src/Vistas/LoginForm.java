@@ -23,8 +23,10 @@ public class LoginForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
 
         //DATOS TEMPORALES
-        TxtUser.setText("emp01");
-        TxtPass.setText("12345678");
+//        TxtUser.setText("emp01");
+//        TxtPass.setText("12345678");
+ TxtUser.setText("root");
+        TxtPass.setText("root");
     }
 
     Connection con;
@@ -90,6 +92,8 @@ public class LoginForm extends javax.swing.JFrame {
                     Principal m = new Principal();
                     m.show();
 
+                    
+                    
                 } else if (combo1.getSelectedItem().equals("VENDEDOR")) {
                     
                     Principal m = new Principal();
@@ -97,6 +101,10 @@ public class LoginForm extends javax.swing.JFrame {
                     m.jMenu3.setVisible(false);
                     
                     m.show();
+                    
+                    ClienteForm cf = new ClienteForm();
+                        cf.BtnEliminar.setVisible(false);
+                        cf.show(false);
                 }
 
 //              

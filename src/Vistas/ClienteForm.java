@@ -323,7 +323,7 @@ public class ClienteForm extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnActualizar;
     private javax.swing.JButton BtnAgregar;
-    private javax.swing.JButton BtnEliminar;
+    public static javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnNuevo;
     private javax.swing.JComboBox<String> CbxEstado;
     private javax.swing.JTable TablaC;

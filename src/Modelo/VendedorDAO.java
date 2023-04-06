@@ -106,6 +106,9 @@ public class VendedorDAO implements CRUD {
             ps.setObject(7, o[6]);
             r = ps.executeUpdate();
         } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, e +"erorr");
+
+            
         }
         return r;
     }

@@ -69,13 +69,13 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         
         } else if (comborol.getSelectedItem().equals("VENDEDOR")) {
            roll = "2";
-           comborol.getSelectedItem().equals("2");
+//           comborol.getSelectedItem().equals("2");
            String dni = TxtDni.getText();
         String nom = TxtNombres.getText();
         String tel = TxtTelefono.getText();
         String es = CbxEstado.getSelectedItem().toString();
         String user = TxtUser.getText();
-        String rol = comborol.getSelectedItem().toString();
+       String rol = roll;
        
         Object[] ob = new Object[6];
         ob[0] = dni;
@@ -93,18 +93,23 @@ public class VendedorForm extends javax.swing.JInternalFrame {
          
         
     }
-
+ String  roll ;
     void Actualizar() {
+        
         int fila = TablaV.getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UNA FILA");
         } else {
-            String dni = TxtDni.getText();
+            
+           if (comborol.getSelectedItem().equals("ADMINISTRADOR")) {
+                roll="1";
+                
+                String dni = TxtDni.getText();
             String nom = TxtNombres.getText();
             String tel = TxtTelefono.getText();
             String es = CbxEstado.getSelectedItem().toString();
             String user = TxtUser.getText();
-             String rol = comborol.getSelectedItem().toString();
+             String rol = roll;
             Object[] obj = new Object[7];
             obj[0] = dni;
             obj[1] = nom;
@@ -113,6 +118,25 @@ public class VendedorForm extends javax.swing.JInternalFrame {
             obj[4] = user;
             obj[5] = id;
              obj[6] = rol;
+            dao.actualizar(obj);
+            
+            }else if(comborol.getSelectedItem().equals("VENDEDOR"))
+             roll="2";
+                
+                String dni = TxtDni.getText();
+            String nom = TxtNombres.getText();
+            String tel = TxtTelefono.getText();
+            String es = CbxEstado.getSelectedItem().toString();
+            String user = TxtUser.getText();
+             String rol = roll;
+            Object[] obj = new Object[7];
+            obj[0] = dni;
+            obj[1] = nom;
+            obj[2] = tel;
+            obj[3] = es;
+            obj[4] = user;
+            obj[5] = rol;
+             obj[6] = id;
             dao.actualizar(obj);
         }
     }
@@ -185,6 +209,11 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         jLabel4.setText("USUARIO:");
 
         CbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "1", "0" }));
+        CbxEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CbxEstadoActionPerformed(evt);
+            }
+        });
 
         BtnAgregar.setText("AGREGAR");
         BtnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -395,19 +424,29 @@ public class VendedorForm extends javax.swing.JInternalFrame {
             String tel = TablaV.getValueAt(fila, 3).toString();
             String es = TablaV.getValueAt(fila, 4).toString();
             String user = TablaV.getValueAt(fila, 5).toString();
-            String rol = TablaV.getValueAt(fila, 5).toString();
+            String rol = TablaV.getValueAt(fila, 6).toString();
             TxtDni.setText(dni);
             TxtNombres.setText(nom);
             TxtTelefono.setText(tel);
             CbxEstado.setSelectedItem(es);
             TxtUser.setText(user);
             comborol.setSelectedItem(rol);
+            
+            if (rol.equals("ADMINISTRADOR")) {
+                roll="1";
+            }else if(rol.equals("VENDEDOR")){
+                roll="2";
+            }
         }
     }//GEN-LAST:event_TablaVMouseClicked
 
     private void comborolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comborolActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comborolActionPerformed
+
+    private void CbxEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbxEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CbxEstadoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
