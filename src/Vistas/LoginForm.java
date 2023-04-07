@@ -2,11 +2,16 @@ package Vistas;
 
 import Modelo.Conexion;
 import Modelo.EntidadVendedor;
+import Modelo.Listado_rol;
+import Modelo.Rol_combo;
 import Modelo.VendedorDAO;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class LoginForm extends javax.swing.JFrame {
@@ -21,7 +26,7 @@ public class LoginForm extends javax.swing.JFrame {
     public LoginForm() {
         initComponents();
         setLocationRelativeTo(null);
-
+cargarcombo(combo1);
         //DATOS TEMPORALES
 //        TxtUser.setText("emp01");
 //        TxtPass.setText("12345678");
@@ -29,10 +34,8 @@ public class LoginForm extends javax.swing.JFrame {
         TxtPass.setText("root");
     }
 
-    Connection con;
     Conexion cn = new Conexion();
-    PreparedStatement ps;
-    ResultSet rs;
+    Connection con = cn.Conectar();//////23
 
     public LoginForm(String id_rol) {
         this.id_rol = id_rol;
@@ -189,7 +192,6 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
-        combo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMINISTRADOR", "VENDEDOR", "GERENTE" }));
         combo1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         combo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -335,6 +337,31 @@ public class LoginForm extends javax.swing.JFrame {
                 new LoginForm().setVisible(true);
             }
         });
+    }
+    private void cargarcombo(JComboBox c) {
+
+        DefaultComboBoxModel combo = new DefaultComboBoxModel();
+
+        c.setModel(combo);
+        Listado_rol lr = new Listado_rol();
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT nombre_rol FROM rol");
+            while (rs.next()) {
+                Rol_combo rc = new Rol_combo();
+                
+                rc.setNom_rol(rs.getString(1));
+                lr.Agregar_rol(rc);
+                combo.addElement(rc.getNom_rol());
+//                JOptionPane.showMessageDialog(null, "se realio bien ");
+
+            }
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, e + "se realio mal ");
+
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
