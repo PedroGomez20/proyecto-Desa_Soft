@@ -1,5 +1,6 @@
 package Modelo;
 
+import Vistas.Principal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +16,7 @@ public class VendedorDAO implements CRUD {
     ResultSet rs;
     EntidadVendedor ev = new EntidadVendedor();
 
-    
+  
     
     
     public EntidadVendedor ValidarVendedor(String dni, String user, String id_rol) {
@@ -37,6 +38,8 @@ public class VendedorDAO implements CRUD {
                 ev.setUser(rs.getString(6));
                 ev.setId_rol(rs.getString(7));
 
+                
+               
             }
         } catch (Exception e) {
         }

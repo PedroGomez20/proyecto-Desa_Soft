@@ -25,7 +25,7 @@ public class LoginForm extends javax.swing.JFrame {
         //DATOS TEMPORALES
 //        TxtUser.setText("emp01");
 //        TxtPass.setText("12345678");
- TxtUser.setText("root");
+        TxtUser.setText("root");
         TxtPass.setText("root");
     }
 
@@ -63,13 +63,17 @@ public class LoginForm extends javax.swing.JFrame {
 //        JOptionPane.showMessageDialog(this, a + "A3333333");
 //        
 //        aa=a;
-        if (combo1.getSelectedItem().equals("ADMIN")) {
-             a = "1";
+        if (combo1.getSelectedItem().equals("ADMINISTRADOR")) {
+            a = "1";
 
         } else if (combo1.getSelectedItem().equals("VENDEDOR")) {
-             a = "2";
+            a = "2";
+
+        }else if (combo1.getSelectedItem().equals("GERENTE")) {
+            a = "5";
 
         }
+
 
         String id_rol = a;
         if (TxtUser.getText().equals("") || TxtPass.getText().equals("")) {
@@ -86,25 +90,37 @@ public class LoginForm extends javax.swing.JFrame {
 //                    a = true;
 //
 //                }
-                if (combo1.getSelectedItem().equals("ADMIN")) {
-                    
+                if (combo1.getSelectedItem().equals("ADMINISTRADOR")) {
 
                     Principal m = new Principal();
+                    m.jMenu2.setVisible(false);
                     m.show();
+                    ClienteForm cfa = new ClienteForm();
+                    cfa.setVass(true);
+//                    cfa.ocultar(true);
+                    cfa.show();
+                    
 
-                    
-                    
                 } else if (combo1.getSelectedItem().equals("VENDEDOR")) {
-                    
+
                     Principal m = new Principal();
 
-                    m.jMenu3.setVisible(false);
-                    
+//                    m.jMenu3.setVisible(false);
+                    m.jMenuItem6.setVisible(false);
+
                     m.show();
-                    
-                    ClienteForm cf = new ClienteForm();
-                        cf.BtnEliminar.setVisible(false);
-                        cf.show(false);
+
+                    //ocualtar el boton 
+                    ClienteForm cfa = new ClienteForm();
+                    cfa.setVass(false);
+                    cfa.show();
+
+                } else if (combo1.getSelectedItem().equals("GERENTE")) {
+
+                    Principal m = new Principal();
+
+                    m.show();
+
                 }
 
 //              
@@ -121,23 +137,23 @@ public class LoginForm extends javax.swing.JFrame {
 
     }
 
-    void ocultar() {
-        if (combo1.getSelectedItem().equals("ADMIN")) {
-            String a = "1";
-
-            Principal m = new Principal();
-            m.show();
-
-        } else if (combo1.getSelectedItem().equals("VENDEDOR")) {
-            String a = "2";
-            Principal m = new Principal();
-
-            m.jMenu2.setVisible(false);
-            m.jMenu4.setVisible(false);
-            m.show();
-        }
-
-    }
+//    void ocultar() {
+//        if (combo1.getSelectedItem().equals("ADMIN")) {
+//            String a = "1";
+//
+//            Principal m = new Principal();
+//            m.show();
+//
+//        } else if (combo1.getSelectedItem().equals("VENDEDOR")) {
+//            String a = "2";
+//            Principal m = new Principal();
+//
+//            m.jMenu2.setVisible(false);
+//            m.jMenu4.setVisible(false);
+//            m.show();
+//        }
+//
+//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -173,7 +189,7 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
 
-        combo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMIN", "VENDEDOR" }));
+        combo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMINISTRADOR", "VENDEDOR", "GERENTE" }));
         combo1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         combo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,7 +225,7 @@ public class LoginForm extends javax.swing.JFrame {
                         .addComponent(BtnIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
                         .addGap(21, 21, 21))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(combo1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(combo1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(

@@ -1,5 +1,7 @@
 package Vistas;
 
+import Modelo.EntidadVendedor;
+import Modelo.Vendedor;
 import java.awt.Dimension;
 import javax.swing.JInternalFrame;
 
@@ -10,15 +12,15 @@ public class Principal extends javax.swing.JFrame {
     
     
   
-   
-
+   Vendedor ve = new Vendedor();
+EntidadVendedor ver =new EntidadVendedor();
     public Principal() {
         
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
 
-      
-
+//      ClienteForm cfa = new ClienteForm();
+//                        cfa.ocultar(false);
         
 
     }
@@ -30,6 +32,8 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         VentanaPrincipal = new javax.swing.JDesktopPane();
+        jlusuario = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -46,15 +50,30 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel2.setText("USUARIO:");
+
+        VentanaPrincipal.setLayer(jlusuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        VentanaPrincipal.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout VentanaPrincipalLayout = new javax.swing.GroupLayout(VentanaPrincipal);
         VentanaPrincipal.setLayout(VentanaPrincipalLayout);
         VentanaPrincipalLayout.setHorizontalGroup(
             VentanaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 511, Short.MAX_VALUE)
+            .addGroup(VentanaPrincipalLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(jlusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(289, Short.MAX_VALUE))
         );
         VentanaPrincipalLayout.setVerticalGroup(
             VentanaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(VentanaPrincipalLayout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addGroup(VentanaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/menu.png"))); // NOI18N
@@ -196,6 +215,7 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane VentanaPrincipal;
+    private javax.swing.JLabel jLabel2;
     public static javax.swing.JMenu jMenu1;
     public static javax.swing.JMenu jMenu2;
     public static javax.swing.JMenu jMenu3;
@@ -206,8 +226,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
+    public static javax.swing.JMenuItem jMenuItem5;
+    public static javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    public static javax.swing.JLabel jlusuario;
     // End of variables declaration//GEN-END:variables
 }

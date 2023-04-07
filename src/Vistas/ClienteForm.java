@@ -19,6 +19,9 @@ public class ClienteForm extends javax.swing.JInternalFrame {
 
         initComponents();
         listar();
+        BtnEliminar.setVisible(isVass());
+         
+       
     }
 
     void listar() {
@@ -92,6 +95,23 @@ public class ClienteForm extends javax.swing.JInternalFrame {
             i = i - 1;
         }
     }
+    
+    //para oacultar lo botones;
+   boolean vass = true;
+   
+   public boolean isVass() {
+        return vass;
+    }
+
+    public void setVass(boolean vass) {
+        this.vass = vass;
+    }
+   
+  
+
+    
+    
+     
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -334,7 +354,7 @@ public class ClienteForm extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
+    public static javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
