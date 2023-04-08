@@ -5,6 +5,8 @@
  */
 package Modelo;
 
+import Vistas.VendedorForm;
+
 /**
  *
  * @author prgc1
@@ -29,5 +31,13 @@ public class Id_rol {
     public void setId(int id) {
         this.id = id;
     }
+    
+    
+    public void sss(){
+         VendedorForm vf =new VendedorForm();
+         vf.id_rol_usu(id);
+    }
+   
+  
     
 }

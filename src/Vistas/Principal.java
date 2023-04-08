@@ -228,6 +228,7 @@ EntidadVendedor ver =new EntidadVendedor();
         ClienteForm cf = new ClienteForm();
          cf .show(true);
         CentrarVentana(cf);
+       
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
