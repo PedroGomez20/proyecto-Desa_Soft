@@ -1,7 +1,9 @@
 package Vistas;
 
 import Modelo.Conexion;
+import Modelo.Id_rol;
 import Modelo.Listado_rol;
+import Modelo.Listado_rol_id;
 import Modelo.Rol_combo;
 import Modelo.Vendedor;
 import Modelo.VendedorDAO;
@@ -33,6 +35,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
 
         initComponents();
         cargarcombo(comborool);
+        id_rol_sele();
         listar();
 
 //        rec.Rellenar( "nombre_rol", comborol1);
@@ -128,7 +131,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UNA FILA");
         } else {
 
-            if (comborol.getSelectedItem().equals("ADMINISTRADOR")) {
+            if (comborool.getSelectedItem().equals("ADMINISTRADOR")) {
                 roll = "1";
 
                 String dni = TxtDni.getText();
@@ -147,7 +150,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
                 obj[6] = id;
                 dao.actualizar(obj);
 
-            } else if (comborol.getSelectedItem().equals("VENDEDOR")) {
+            } else if (comborool.getSelectedItem().equals("VENDEDOR")) {
                 roll = "2";
 
                 String dni = TxtDni.getText();
@@ -165,7 +168,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
                 obj[5] = rol;
                 obj[6] = id;
                 dao.actualizar(obj);
-            } else if (comborol.getSelectedItem().equals("GERENTE")) {
+            } else if (comborool.getSelectedItem().equals("GERENTE")) {
                 roll = "5";
 
                 String dni = TxtDni.getText();
@@ -204,7 +207,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         TxtUser.setText("");
         CbxEstado.setSelectedIndex(0);
         TxtDni.requestFocus();
-        comborol.setSelectedIndex(0);
+        comborool.setSelectedIndex(0);
     }
 
     void LimpiarTabla() {
@@ -234,8 +237,8 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         TxtUser = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        comborol = new javax.swing.JComboBox<>();
         comborool = new javax.swing.JComboBox<>();
+        id_rol_sele = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaV = new javax.swing.JTable();
@@ -294,13 +297,6 @@ public class VendedorForm extends javax.swing.JInternalFrame {
 
         jLabel6.setText("ROL:");
 
-        comborol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--NULL--", "ADMINISTRADOR", "VENDEDOR", "GERENTE" }));
-        comborol.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comborolActionPerformed(evt);
-            }
-        });
-
         comborool.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboroolActionPerformed(evt);
@@ -324,23 +320,27 @@ public class VendedorForm extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TxtDni)
-                            .addComponent(TxtNombres, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                            .addComponent(TxtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                            .addComponent(TxtUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(TxtDni)
+                                    .addComponent(TxtNombres, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                                    .addComponent(TxtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
+                                .addGap(18, 18, 18))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(TxtUser)
+                                .addGap(18, 18, 18)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(BtnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(BtnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(BtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(BtnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(comborol, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(CbxEstado, javax.swing.GroupLayout.Alignment.LEADING, 0, 160, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(comborool, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(CbxEstado, 0, 160, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(comborool, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(91, 91, 91))
+                        .addComponent(id_rol_sele, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(79, 79, 79))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -371,13 +371,18 @@ public class VendedorForm extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(comborool, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(comborol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(id_rol_sele, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(comborool, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 12, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -486,19 +491,17 @@ public class VendedorForm extends javax.swing.JInternalFrame {
             TxtTelefono.setText(tel);
             CbxEstado.setSelectedItem(es);
             TxtUser.setText(user);
-            comborol.setSelectedItem(rol);
+            comborool.setSelectedItem(rol);
 
             if (rol.equals("ADMINISTRADOR")) {
                 roll = "1";
             } else if (rol.equals("VENDEDOR")) {
                 roll = "2";
+            }else if (rol.equals("GERENTE")) {
+                roll = "3";
             }
         }
     }//GEN-LAST:event_TablaVMouseClicked
-
-    private void comborolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comborolActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comborolActionPerformed
 
     private void CbxEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbxEstadoActionPerformed
         // TODO add your handling code here:
@@ -520,8 +523,8 @@ public class VendedorForm extends javax.swing.JInternalFrame {
     private javax.swing.JTextField TxtNombres;
     private javax.swing.JTextField TxtTelefono;
     private javax.swing.JTextField TxtUser;
-    private javax.swing.JComboBox<String> comborol;
     public javax.swing.JComboBox<String> comborool;
+    public javax.swing.JLabel id_rol_sele;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -536,13 +539,15 @@ public class VendedorForm extends javax.swing.JInternalFrame {
     private void cargarcombo(JComboBox c) {
 
         DefaultComboBoxModel combo = new DefaultComboBoxModel();
-
+        
         c.setModel(combo);
         Listado_rol lr = new Listado_rol();
+        
         try {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT nombre_rol FROM rol");
             while (rs.next()) {
+                
                 Rol_combo rc = new Rol_combo();
                 
                 rc.setNom_rol(rs.getString(1));
@@ -550,6 +555,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
                 combo.addElement(rc.getNom_rol());
 //                JOptionPane.showMessageDialog(null, "se realio bien ");
 
+                
             }
         } catch (Exception e) {
 
@@ -557,5 +563,45 @@ public class VendedorForm extends javax.swing.JInternalFrame {
 
         }
 
+    }
+    
+    
+    public void id_rol_sele(){
+        
+       
+        
+        
+        
+        
+//         try {
+//            Statement st = con.createStatement();
+//            ResultSet rs;
+//           
+//            
+//             if (comborool.getSelectedItem().equals("ADMINISTRADOR")) {
+//                  rs= st.executeQuery("SELECT id_rol FROM rol WHERE nombre_rol = 'ADMINISTRADOR'");
+//                  Rol_combo rc = new Rol_combo();
+//                     
+//                 rc.setId(rs.getInt(1));
+//             
+//                 String cov_id= String.valueOf(rc.getId());
+//               id_rol_sele.setText(cov_id);
+//                  
+//             }
+//                
+////                Rol_combo rc = new Rol_combo();
+////                
+////                rc.setNom_rol(rs.getString(1));
+////                lr.Agregar_rol(rc);
+////                combo.addElement(rc.getNom_rol());
+//////                JOptionPane.showMessageDialog(null, "se realio bien ");
+//
+//                
+//            
+//        } catch (Exception e) {
+//
+//            JOptionPane.showMessageDialog(null, e + "se realio mal ");
+//
+//        }
     }
 }

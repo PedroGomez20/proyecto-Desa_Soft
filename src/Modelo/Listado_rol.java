@@ -1,6 +1,7 @@
 
 package Modelo;
 
+import Vistas.VendedorForm;
 import java.util.ArrayList;
 
 
@@ -8,6 +9,7 @@ public class Listado_rol {
     
     ArrayList<Rol_combo>lista;
     
+  
     public Listado_rol(){ 
         lista=new ArrayList();
     }
@@ -16,4 +18,14 @@ public class Listado_rol {
         lista.add(r);
         
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
+

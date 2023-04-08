@@ -22,9 +22,24 @@ EntidadVendedor ver =new EntidadVendedor();
 //      ClienteForm cfa = new ClienteForm();
 //                        cfa.ocultar(false);
         
+//jlusuario.setText(ve.getUser());
+
 
     }
+    private String dato;
+    
+    public void usuario(String dato){
+        this.dato = dato;
+        jlusuario.setText(dato);
+    }
 
+    
+      private String rol_usuario;
+    
+    public void usuario_rol(String rol_usuario){
+        this.rol_usuario = rol_usuario;
+        jlrol.setText(rol_usuario);
+    }
     
 
     @SuppressWarnings("unchecked")
@@ -32,8 +47,10 @@ EntidadVendedor ver =new EntidadVendedor();
     private void initComponents() {
 
         VentanaPrincipal = new javax.swing.JDesktopPane();
-        jlusuario = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jlusuario = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jlrol = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -50,30 +67,54 @@ EntidadVendedor ver =new EntidadVendedor();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 0, 51));
         jLabel2.setText("USUARIO:");
 
-        VentanaPrincipal.setLayer(jlusuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jlusuario.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
+        jlusuario.setForeground(new java.awt.Color(51, 255, 0));
+
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel3.setText("CARGO (ROL):");
+
+        jlrol.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        jlrol.setForeground(new java.awt.Color(51, 255, 0));
+
         VentanaPrincipal.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        VentanaPrincipal.setLayer(jlusuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        VentanaPrincipal.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        VentanaPrincipal.setLayer(jlrol, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout VentanaPrincipalLayout = new javax.swing.GroupLayout(VentanaPrincipal);
         VentanaPrincipal.setLayout(VentanaPrincipalLayout);
         VentanaPrincipalLayout.setHorizontalGroup(
             VentanaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(VentanaPrincipalLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jlusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(289, Short.MAX_VALUE))
+                .addGap(75, 75, 75)
+                .addGroup(VentanaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(VentanaPrincipalLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlrol, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(VentanaPrincipalLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         VentanaPrincipalLayout.setVerticalGroup(
             VentanaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(VentanaPrincipalLayout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addGroup(VentanaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addGap(70, 70, 70)
+                .addGroup(VentanaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jlusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(VentanaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlrol, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/menu.png"))); // NOI18N
@@ -158,11 +199,11 @@ EntidadVendedor ver =new EntidadVendedor();
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(VentanaPrincipal, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(VentanaPrincipal)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(VentanaPrincipal, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(VentanaPrincipal)
         );
 
         pack();
@@ -216,6 +257,7 @@ EntidadVendedor ver =new EntidadVendedor();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane VentanaPrincipal;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     public static javax.swing.JMenu jMenu1;
     public static javax.swing.JMenu jMenu2;
     public static javax.swing.JMenu jMenu3;
@@ -229,6 +271,7 @@ EntidadVendedor ver =new EntidadVendedor();
     public static javax.swing.JMenuItem jMenuItem5;
     public static javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    public static javax.swing.JLabel jlrol;
     public static javax.swing.JLabel jlusuario;
     // End of variables declaration//GEN-END:variables
 }

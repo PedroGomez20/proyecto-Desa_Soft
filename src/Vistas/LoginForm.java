@@ -15,40 +15,40 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class LoginForm extends javax.swing.JFrame {
-
+    
     VendedorDAO vdao = new VendedorDAO();
     EntidadVendedor ev = new EntidadVendedor();
     String a;
-
+    
     int aa;
     String id_rol;
-
+    
     public LoginForm() {
         initComponents();
         setLocationRelativeTo(null);
-cargarcombo(combo1);
+        cargarcombo(combo1);
         //DATOS TEMPORALES
 //        TxtUser.setText("emp01");
 //        TxtPass.setText("12345678");
         TxtUser.setText("root");
         TxtPass.setText("root");
     }
-
+    
     Conexion cn = new Conexion();
     Connection con = cn.Conectar();//////23
 
     public LoginForm(String id_rol) {
         this.id_rol = id_rol;
     }
-
+    
     public String getId_rol() {
         return id_rol;
     }
-
+    
     public void setId_rol(String id_rol) {
         this.id_rol = id_rol;
     }
-
+    
     public void Validar() {
         String dni = TxtPass.getText();
         String user = TxtUser.getText();
@@ -68,16 +68,15 @@ cargarcombo(combo1);
 //        aa=a;
         if (combo1.getSelectedItem().equals("ADMINISTRADOR")) {
             a = "1";
-
+            
         } else if (combo1.getSelectedItem().equals("VENDEDOR")) {
             a = "2";
-
-        }else if (combo1.getSelectedItem().equals("GERENTE")) {
+            
+        } else if (combo1.getSelectedItem().equals("GERENTE")) {
             a = "5";
-
+            
         }
-
-
+        
         String id_rol = a;
         if (TxtUser.getText().equals("") || TxtPass.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "DEBE INGRESAR DATOS EN LAs CAJAS DE TEXTO");
@@ -94,50 +93,55 @@ cargarcombo(combo1);
 //
 //                }
                 if (combo1.getSelectedItem().equals("ADMINISTRADOR")) {
-
+                    
                     Principal m = new Principal();
                     m.jMenu2.setVisible(false);
+                    
+                    m.usuario(TxtUser.getText());
+                    m.usuario_rol((String) combo1.getSelectedItem());
                     m.show();
                     ClienteForm cfa = new ClienteForm();
                     cfa.setVass(true);
 //                    cfa.ocultar(true);
                     cfa.show();
                     
-
+                    
                 } else if (combo1.getSelectedItem().equals("VENDEDOR")) {
-
+                    
                     Principal m = new Principal();
 
 //                    m.jMenu3.setVisible(false);
                     m.jMenuItem6.setVisible(false);
-
+                     m.usuario(TxtUser.getText());
+                      m.usuario_rol((String) combo1.getSelectedItem());
                     m.show();
 
                     //ocualtar el boton 
                     ClienteForm cfa = new ClienteForm();
                     cfa.setVass(false);
                     cfa.show();
-
+                    
                 } else if (combo1.getSelectedItem().equals("GERENTE")) {
-
+                    
                     Principal m = new Principal();
-
+                     m.usuario(TxtUser.getText());
+                      m.usuario_rol((String) combo1.getSelectedItem());
                     m.show();
-
+                    
                 }
 
 //              
                 dispose();
-
+                
             } else {
                 JOptionPane.showMessageDialog(this, "DEBE INGRESAR DATOS VALIDOS");
-
+                
                 TxtUser.requestFocus();
-
+                
             }
-
+            
         }
-
+        
     }
 
 //    void ocultar() {
@@ -157,7 +161,6 @@ cargarcombo(combo1);
 //        }
 //
 //    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -284,10 +287,10 @@ cargarcombo(combo1);
 //            a = 2;
 //        }
 //        ocultar();
+       
         Validar();
-
-        JOptionPane.showMessageDialog(this, a + "Aasaswqqqqqa");
-
+         
+        
 
     }//GEN-LAST:event_BtnIngresarActionPerformed
 
@@ -306,7 +309,7 @@ cargarcombo(combo1);
     private void combo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_combo1ActionPerformed
-
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -338,10 +341,11 @@ cargarcombo(combo1);
             }
         });
     }
+    
     private void cargarcombo(JComboBox c) {
-
+        
         DefaultComboBoxModel combo = new DefaultComboBoxModel();
-
+        
         c.setModel(combo);
         Listado_rol lr = new Listado_rol();
         try {
@@ -357,11 +361,11 @@ cargarcombo(combo1);
 
             }
         } catch (Exception e) {
-
+            
             JOptionPane.showMessageDialog(null, e + "se realio mal ");
-
+            
         }
-
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
