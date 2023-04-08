@@ -1,9 +1,9 @@
 package Vistas;
 
 import Modelo.Conexion;
-import Modelo.Id_rol;
+
 import Modelo.Listado_rol;
-import Modelo.Listado_rol_id;
+
 import Modelo.Rol_combo;
 import Modelo.Vendedor;
 import Modelo.VendedorDAO;
