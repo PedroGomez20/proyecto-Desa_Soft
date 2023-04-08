@@ -601,6 +601,8 @@ public class VendedorForm extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
+    
+    
     private void cargarcombo(JComboBox c) {
 
         DefaultComboBoxModel combo = new DefaultComboBoxModel();
