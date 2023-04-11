@@ -3,6 +3,7 @@ package Vistas;
 import Modelo.Conexion;
 
 import Modelo.Listado_rol;
+import Modelo.Rol_DAO;
 
 import Modelo.Rol_combo;
 import Modelo.Vendedor;
@@ -42,10 +43,10 @@ public class VendedorForm extends javax.swing.JInternalFrame {
 
 //        rec.Rellenar( "nombre_rol", comborol1);
     }
-    
-    
-      private String rol_usuario;
-     public void usuario_rol(String rol_usuario){
+
+    private String rol_usuario;
+
+    public void usuario_rol(String rol_usuario) {
         this.rol_usuario = rol_usuario;
         jlrol.setText(rol_usuario);
     }
@@ -84,10 +85,9 @@ public class VendedorForm extends javax.swing.JInternalFrame {
 ////                this.id_num.setModel(new DefaultComboBoxModel(this.id_rol_sele(this.comborool.getSelectedItem().toString())));
 //
 //            }
-            roll= (String)  id_num.getSelectedItem();
-           
-//             comborol.getSelectedItem(roll);
+            roll = (String) id_num.getSelectedItem();
 
+//             comborol.getSelectedItem(roll);
 //            String rsol= comborol.getSelectedItem().toString(roll);
             String dni = TxtDni.getText();
             String nom = TxtNombres.getText();
@@ -106,7 +106,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
             dao.add(ob);
 
         } else if (comborool.getSelectedItem().equals("VENDEDOR")) {
-            roll= (String)  id_num.getSelectedItem();
+            roll = (String) id_num.getSelectedItem();
 //           comborol.getSelectedItem().equals("2");
             String dni = TxtDni.getText();
             String nom = TxtNombres.getText();
@@ -124,7 +124,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
             ob[5] = rol;
             dao.add(ob);
         } else if (comborool.getSelectedItem().equals("GERENTE")) {
-           roll= (String)  id_num.getSelectedItem();
+            roll = (String) id_num.getSelectedItem();
 //           comborol.getSelectedItem().equals("2");
             String dni = TxtDni.getText();
             String nom = TxtNombres.getText();
@@ -238,6 +238,20 @@ public class VendedorForm extends javax.swing.JInternalFrame {
             modelo.removeRow(i);
             i = i - 1;
         }
+    }
+//    String cb;
+//    
+//    public void obt_id_rol(String cb){
+//        this.cb=cb;
+//       
+//    }
+    
+    
+    public void rol_nom(){
+         String ro = comborool.getSelectedItem().toString();
+          Object[] ob = new Object[4];
+        ob[0] = ro;
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -556,15 +570,19 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         if (evt.getStateChange() == ItemEvent.SELECTED) {
 
             if (this.comborool.getSelectedIndex() == 0) {
+//                Rol_DAO rd = new Rol_DAO();
+//                rd.rol_ge(comborool.getSelectedItem().toString());
+
                 id_1_rol(id_num);
 //                this.id_num.setModel(new DefaultComboBoxModel(this.id_rol_sele(this.comborool.getSelectedItem().toString())));
 
             }
-            if (this.comborool.getSelectedIndex()  ==1) {
+            if (this.comborool.getSelectedIndex() == 1) {
                 id_2_rol(id_num);
 //                this.id_num.setModel(new DefaultComboBoxModel(this.id_rol_sele(this.comborool.getSelectedItem().toString())));
 
-            }if (this.comborool.getSelectedIndex()  ==2) {
+            }
+            if (this.comborool.getSelectedIndex() == 2) {
                 id_3_rol(id_num);
 //                this.id_num.setModel(new DefaultComboBoxModel(this.id_rol_sele(this.comborool.getSelectedItem().toString())));
 
@@ -601,8 +619,6 @@ public class VendedorForm extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    
-    
     private void cargarcombo(JComboBox c) {
 
         DefaultComboBoxModel combo = new DefaultComboBoxModel();
@@ -638,11 +654,15 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         c.setModel(combo);
         Listado_rol lr = new Listado_rol();
 
+//        Rol_DAO rd = new Rol_DAO();
+//        rd.id_1_rol();
         try {
             Statement st = con.createStatement();
 
             if (comborool.getSelectedItem().equals("ADMINISTRADOR")) {
-                ResultSet rs = st.executeQuery("SELECT id_rol FROM rol WHERE nombre_rol = 'ADMINISTRADOR'");
+//                 Rol_combo rc = new Rol_combo();
+//                combo.addElement(rc.getNom_id());
+                ResultSet rs = st.executeQuery("SELECT id_rol FROM rol WHERE nombre_rol ='ADMINISTRADOR'");
                 while (rs.next()) {
 
                     Rol_combo rc = new Rol_combo();
@@ -684,9 +704,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
 
         }
     }
-    
-    
-    
+
     public void id_3_rol(JComboBox c) {
 
         DefaultComboBoxModel combo = new DefaultComboBoxModel();
@@ -697,7 +715,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         try {
             Statement st = con.createStatement();
 
-           if (comborool.getSelectedItem().equals("GERENTE")) {
+            if (comborool.getSelectedItem().equals("GERENTE")) {
                 ResultSet rs = st.executeQuery("SELECT id_rol FROM rol WHERE nombre_rol = 'GERENTE'");
                 while (rs.next()) {
 
@@ -723,8 +741,6 @@ public class VendedorForm extends javax.swing.JInternalFrame {
 
         try {
             Statement st = con.createStatement();
-
-             
 
         } catch (Exception e) {
 

@@ -95,7 +95,7 @@ public class LoginForm extends javax.swing.JFrame {
                 if (combo1.getSelectedItem().equals("ADMINISTRADOR")) {
                     
                     Principal m = new Principal();
-                    m.jMenu2.setVisible(false);
+//                    m.jMenu2.setVisible(false);
                     
                     m.usuario(TxtUser.getText());
                     m.usuario_rol((String) combo1.getSelectedItem());
