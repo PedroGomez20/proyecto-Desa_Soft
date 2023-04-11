@@ -3,6 +3,7 @@ package Modelo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 public class VentasDAO {
 
@@ -42,6 +43,7 @@ public class VentasDAO {
             ps.setString(6, v.getEstado());
             r = ps.executeUpdate();
         } catch (Exception e) {
+                 JOptionPane.showMessageDialog(null, e);
         }
         return r;
     }

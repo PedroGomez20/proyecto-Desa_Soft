@@ -35,7 +35,7 @@ public class VentasForm extends javax.swing.JInternalFrame {
 
     public static String fechaActual() {
         Date fecha = new Date();
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-YYYY");
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("YYYY-MM-dd");
         return formatoFecha.format(fecha);
     }
 
@@ -483,7 +483,7 @@ public class VentasForm extends javax.swing.JInternalFrame {
 
     void guardarVenta() {
         int idc = cliente.getId();
-        int idv = 1;
+        int idv = 5;
         String serie = TxtSerie.getText();
         String fecha = TxtFecha.getText();
         double monto = tpagar;
@@ -499,8 +499,30 @@ public class VentasForm extends javax.swing.JInternalFrame {
     }
 
     void guardarDetalle() {
+        
+//         String idv = vdao.IdVentas();
+//        int idve = Integer.parseInt(idv);
+//        
+//       
+//        String serie = TxtCodProduc.getText();
+//        
+//        String fecha = TxtFecha.getText();
+//        double monto = tpagar;
+//        String estado = "1";
+// 
+//        v.setIdCliente(idc);
+//        v.setIdVendedor(idv);
+//        v.setSerie(serie);
+//        v.setFecha(fecha);
+//        v.setMonto(monto);
+//        v.setEstado(estado);
+//        vdao.guardarVentas(v);
+        
+        
+        
         String idv = vdao.IdVentas();
         int idve = Integer.parseInt(idv);
+        
         for (int i = 0; i < TablaDetalle.getRowCount(); i++) {
             int idp = Integer.parseInt(TablaDetalle.getValueAt(i, 1).toString());
             int cant = Integer.parseInt(TablaDetalle.getValueAt(i, 3).toString());
