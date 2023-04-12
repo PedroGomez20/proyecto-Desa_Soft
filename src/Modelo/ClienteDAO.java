@@ -16,7 +16,7 @@ public class ClienteDAO implements CRUD {
     //METODO BUSQUEDA INTERFAZ VENTAS
     public Cliente listarID(String dni) {
         Cliente c = new Cliente();
-        String sql = "select * from cliente where Dni = ?";
+        String sql = "select * from cliente where IdCliente = ?";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);

@@ -523,13 +523,16 @@ public class VentasForm extends javax.swing.JInternalFrame {
         String idv = vdao.IdVentas();
         int idve = Integer.parseInt(idv);
         
+        String id_pro = TxtCodProduc.getText();
+         int idpro = Integer.parseInt(id_pro);
+        
         for (int i = 0; i < TablaDetalle.getRowCount(); i++) {
             int idp = Integer.parseInt(TablaDetalle.getValueAt(i, 1).toString());
             int cant = Integer.parseInt(TablaDetalle.getValueAt(i, 3).toString());
             double pre = Double.parseDouble(TablaDetalle.getValueAt(i, 4).toString());
 
             dv.setIdVentas(idve);
-            dv.setIdProducto(idp);
+            dv.setIdProducto(idpro);
             dv.setCantidad(cant);
             dv.setPreVenta(pre);
             vdao.guardarDetalleVentas(dv);

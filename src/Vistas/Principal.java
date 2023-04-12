@@ -5,42 +5,33 @@ import Modelo.Vendedor;
 import java.awt.Dimension;
 import javax.swing.JInternalFrame;
 
-
 public class Principal extends javax.swing.JFrame {
 
-    
-    
-    
-  
-   Vendedor ve = new Vendedor();
-EntidadVendedor ver =new EntidadVendedor();
+    Vendedor ve = new Vendedor();
+    EntidadVendedor ver = new EntidadVendedor();
+
     public Principal() {
-        
+
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
 
 //      ClienteForm cfa = new ClienteForm();
 //                        cfa.ocultar(false);
-        
 //jlusuario.setText(ve.getUser());
-
-
     }
     private String dato;
-    
-    public void usuario(String dato){
+
+    public void usuario(String dato) {
         this.dato = dato;
         jlusuario.setText(dato);
     }
 
-    
-      private String rol_usuario;
-    
-    public void usuario_rol(String rol_usuario){
+    private String rol_usuario;
+
+    public void usuario_rol(String rol_usuario) {
         this.rol_usuario = rol_usuario;
         jlrol.setText(rol_usuario);
     }
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -64,6 +55,8 @@ EntidadVendedor ver =new EntidadVendedor();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -183,13 +176,29 @@ EntidadVendedor ver =new EntidadVendedor();
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/cliente.png"))); // NOI18N
         jMenu5.setText("Clientes");
 
-        jMenuItem4.setText("Cliente");
+        jMenuItem4.setText("AGREGAR");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
             }
         });
         jMenu5.add(jMenuItem4);
+
+        jMenuItem8.setText("MODIFICAR");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem8);
+
+        jMenuItem9.setText("ELIMINAR");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem9);
 
         jMenuBar1.add(jMenu5);
 
@@ -226,22 +235,43 @@ EntidadVendedor ver =new EntidadVendedor();
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         ClienteForm cf = new ClienteForm();
-         cf .show(true);
+        cf.show(true);
         CentrarVentana(cf);
-       
+
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         ProductoForm pf = new ProductoForm();
-         pf.show(true);
+        pf.show(true);
         CentrarVentana(pf);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         VendedorForm vf = new VendedorForm();
-         vf.show(true);
+        vf.show(true);
         CentrarVentana(vf);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+
+//        new ClienteForm_UP().setVisible(true);
+//        this.setVisible(true);
+        ClienteForm_UP cup = new ClienteForm_UP();
+        cup.show(true);
+        CentrarVentana(cup);
+
+//        new ClienteForm_UP().setVisible(true);
+
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        // TODO add your handling code here:
+        
+        ClienteForm_DE cde = new ClienteForm_DE();
+        cde.show(true);
+        CentrarVentana(cde);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     void CentrarVentana(JInternalFrame frame) {
         VentanaPrincipal.add(frame);
@@ -272,6 +302,8 @@ EntidadVendedor ver =new EntidadVendedor();
     public static javax.swing.JMenuItem jMenuItem5;
     public static javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     public static javax.swing.JLabel jlrol;
     public static javax.swing.JLabel jlusuario;
     // End of variables declaration//GEN-END:variables
