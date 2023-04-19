@@ -6,17 +6,17 @@ package Modelo;
 public class Vendedor {
     
     int id , id_rol_rol;
-    String dni, nom, tel, estado, user,id_rol;
+    String dni, nom, tel,  user,id_rol;
 
     public Vendedor() {
     }
 
-    public Vendedor(int id, String dni, String nom, String tel, String estado, String user,String id_rol, int id_rol_rol) {
+    public Vendedor(int id, String dni, String nom, String tel,  String user,String id_rol, int id_rol_rol) {
         this.id = id;
         this.dni = dni;
         this.nom = nom;
         this.tel = tel;
-        this.estado = estado;
+        
         this.user = user;
          this.id_rol = id_rol;
         
@@ -44,9 +44,7 @@ public class Vendedor {
         return tel;
     }
 
-    public String getEstado() {
-        return estado;
-    }
+   
 
     public String getUser() {
         return user;
@@ -70,10 +68,7 @@ public class Vendedor {
         this.tel = tel;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
+   
     public void setUser(String user) {
         this.user = user;
     }

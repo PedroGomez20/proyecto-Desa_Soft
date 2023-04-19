@@ -5,6 +5,7 @@ import Modelo.EntidadVendedor;
 import Modelo.Listado_rol;
 import Modelo.Rol_combo;
 import Modelo.VendedorDAO;
+import Modelo.encriptacion;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,14 +16,14 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class LoginForm extends javax.swing.JFrame {
-    
+
     VendedorDAO vdao = new VendedorDAO();
     EntidadVendedor ev = new EntidadVendedor();
     String a;
-    
+
     int aa;
     String id_rol;
-    
+
     public LoginForm() {
         initComponents();
         setLocationRelativeTo(null);
@@ -33,125 +34,103 @@ public class LoginForm extends javax.swing.JFrame {
         TxtUser.setText("root");
         TxtPass.setText("root");
     }
-    
+
     Conexion cn = new Conexion();
     Connection con = cn.Conectar();//////23
-  String encriptada = "";
+    String encriptada = "";
     String aEnccriptar = "";
-    VendedorDAO dao =new VendedorDAO();
-    
+  
+    encriptacion encrip = new encriptacion();
+
     public LoginForm(String id_rol) {
         this.id_rol = id_rol;
     }
-    
+
     public String getId_rol() {
         return id_rol;
     }
-    
+
     public void setId_rol(String id_rol) {
         this.id_rol = id_rol;
     }
-    
+
     public void Validar() {
         String dni = TxtPass.getText();
-      aEnccriptar=dni;
-      encriptada= dao.Encriptar(aEnccriptar);
-        
-        String user = TxtUser.getText();
-//        int id_rol =Integer.parseInt(TxtUser1.getText());
+        aEnccriptar = dni;
+        encriptada = encrip.Encriptar(aEnccriptar);
 
-//     String rol = TxtUser1.getText();
-//     
-//     int id_rol= Integer.parseInt(rol);
-//     ev.setId_rol(id_rol);
-//        if (id_rol.equals("1")) {
-//            a = 1;
-//        } else if (TxtUser1.getText().equals("2")) {
-//            a = 2;
-//        }
-//        JOptionPane.showMessageDialog(this, a + "A3333333");
-//        
-//        aa=a;
+        String user = TxtUser.getText();
+
         if (combo1.getSelectedItem().equals("ADMINISTRADOR")) {
             a = "1";
-            
+
         } else if (combo1.getSelectedItem().equals("VENDEDOR")) {
             a = "2";
-            
+
         } else if (combo1.getSelectedItem().equals("GERENTE")) {
             a = "5";
-            
+
         }
-        
+
         String id_rol = a;
         if (TxtUser.getText().equals("") || TxtPass.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "DEBE INGRESAR DATOS EN LAs CAJAS DE TEXTO");
             TxtUser.requestFocus();
         } else {
-            
+
             ev = vdao.ValidarVendedor(encriptada, user, id_rol);
             if (ev.getUser() != null && ev.getDni() != null && ev.getId_rol() != null) {
 
-//                if ("1".equals(id_rol)) {
-//
-//                    a = false;
-//                } else if ("2".equals(id_rol)) {
-//                    a = true;
-//
-//                }
                 if (combo1.getSelectedItem().equals("ADMINISTRADOR")) {
-                    
+
                     Principal m = new Principal();
 //                    m.jMenu2.setVisible(false);
-                    
 
                     m.usuario(TxtUser.getText());
-                    
-                    
+
                     m.usuario_rol((String) combo1.getSelectedItem());
                     m.show();
                     ClienteForm cfa = new ClienteForm();
                     cfa.setVass(true);
 //                    cfa.ocultar(true);
                     cfa.show();
-                    
-                    
+
                 } else if (combo1.getSelectedItem().equals("VENDEDOR")) {
-                    
+
                     Principal m = new Principal();
 
 //                    m.jMenu3.setVisible(false);
                     m.jMenuItem6.setVisible(false);
-                     m.usuario(TxtUser.getText());
-                      m.usuario_rol((String) combo1.getSelectedItem());
+                    m.usuario(TxtUser.getText());
+                    m.usuario_rol((String) combo1.getSelectedItem());
                     m.show();
 
                     //ocualtar el boton 
                     ClienteForm cfa = new ClienteForm();
                     cfa.setVass(false);
                     cfa.show();
-                    
+
                 } else if (combo1.getSelectedItem().equals("GERENTE")) {
-                    
+
                     Principal m = new Principal();
-                     m.usuario(TxtUser.getText());
-                      m.usuario_rol((String) combo1.getSelectedItem());
+                    m.usuario(TxtUser.getText());
+                    m.usuario_rol((String) combo1.getSelectedItem());
                     m.show();
-                    
+
                 }
 
 //              
                 dispose();
-                
+
             } else {
                 JOptionPane.showMessageDialog(this, "DEBE INGRESAR DATOS VALIDOS");
-                
+
                 TxtUser.requestFocus();
-                
+
             }
-            
+
         }
-        
+
     }
 
 //    void ocultar() {
@@ -297,10 +276,9 @@ public class LoginForm extends javax.swing.JFrame {
 //            a = 2;
 //        }
 //        ocultar();
-       
+
         Validar();
-         
-        
+
 
     }//GEN-LAST:event_BtnIngresarActionPerformed
 
@@ -319,7 +297,7 @@ public class LoginForm extends javax.swing.JFrame {
     private void combo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_combo1ActionPerformed
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -351,11 +329,11 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void cargarcombo(JComboBox c) {
-        
+
         DefaultComboBoxModel combo = new DefaultComboBoxModel();
-        
+
         c.setModel(combo);
         Listado_rol lr = new Listado_rol();
         try {
@@ -363,7 +341,7 @@ public class LoginForm extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery("SELECT nombre_rol FROM rol");
             while (rs.next()) {
                 Rol_combo rc = new Rol_combo();
-                
+
                 rc.setNom_rol(rs.getString(1));
                 lr.Agregar_rol(rc);
                 combo.addElement(rc.getNom_rol());
@@ -371,11 +349,11 @@ public class LoginForm extends javax.swing.JFrame {
 
             }
         } catch (Exception e) {
-            
+
             JOptionPane.showMessageDialog(null, e + "se realio mal ");
-            
+
         }
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

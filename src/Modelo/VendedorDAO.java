@@ -22,9 +22,7 @@ public class VendedorDAO implements CRUD {
     EntidadVendedor ev = new EntidadVendedor();
 
   
-       String encriptada = "";
-    String aEnccriptar = "";
-    String convsect;
+     
 
     
     public EntidadVendedor ValidarVendedor(String dni, String user, String id_rol) {
@@ -42,9 +40,9 @@ public class VendedorDAO implements CRUD {
                 ev.setDni(rs.getString(2));
                 ev.setNom(rs.getString(3));
                 ev.setTel(rs.getString(4));
-                ev.setEstado(rs.getString(5));
-                ev.setUser(rs.getString(6));
-                ev.setId_rol(rs.getString(7));
+//                ev.setEstado(rs.getString(5));
+                ev.setUser(rs.getString(5));
+                ev.setId_rol(rs.getString(6));
 
                 
                
@@ -56,63 +54,12 @@ public class VendedorDAO implements CRUD {
     }
 
  
-     String LLAVE = "SomosProgramadores";
-
-    // Clave de encriptación / desencriptación
-    public SecretKeySpec CrearCalve(String llave) {
-        try {
-            byte[] cadena = llave.getBytes("UTF-8");
-            MessageDigest md = MessageDigest.getInstance("SHA-1");
-            cadena = md.digest(cadena);
-            cadena = Arrays.copyOf(cadena, 16);
-            SecretKeySpec secretKeySpec = new SecretKeySpec(cadena, "AES");
-            return secretKeySpec;
-        } catch (Exception e) {
-            return null;
-        }
-
-    }
-
-    // Encriptar
-    public String Encriptar(String encriptar) {
-
-        try {
-            SecretKeySpec secretKeySpec = CrearCalve(LLAVE);
-            Cipher cipher = Cipher.getInstance("AES");
-            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
-
-            byte[] cadena = encriptar.getBytes("UTF-8");
-            byte[] encriptada = cipher.doFinal(cadena);
-            String cadena_encriptada = Base64.encode(encriptada);
-            return cadena_encriptada;
-
-        } catch (Exception e) {
-            return "";
-        }
-    }
-
-    // Des-encriptación
-    public String Desencriptar(String desencriptar) {
-
-        try {
-            SecretKeySpec secretKeySpec = CrearCalve(LLAVE);
-            Cipher cipher = Cipher.getInstance("AES");
-            cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
-
-            byte[] cadena = Base64.decode(desencriptar);
-            byte[] desencriptacioon = cipher.doFinal(cadena);
-            String cadena_desencriptada = new String(desencriptacioon);
-            return cadena_desencriptada;
-
-        } catch (Exception e) {
-            return "";
-        }
-    }
+     
        @Override
     
     public List listar() {
         List<Vendedor> lista = new ArrayList<>();
-        String sql = "SELECT v.IdVendedor,v.Dni,v.Nombres,v.Telefono,v.Estado, v.User,r.nombre_rol FROM vendedor v INNER JOIN rol r ON v.id_rol = r.id_rol ";
+        String sql = "SELECT v.IdVendedor,v.Dni,v.Nombres,v.Telefono, v.User,r.nombre_rol FROM vendedor v INNER JOIN rol r ON v.id_rol = r.id_rol ORDER BY v.IdVendedor ASC ";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -120,15 +67,15 @@ public class VendedorDAO implements CRUD {
             while (rs.next()) {
                 Vendedor v = new Vendedor();
                 v.setId(rs.getInt(1));
-                convsect= rs.getString(2);
-                encriptada = Encriptar(convsect);
-                
-                v.setDni(encriptada);
+//                convsect= rs.getString(2);
+//                encriptada = Encriptar(convsect);
+//                 v.setDni(encriptada);
+                v.setDni(rs.getString(2));
                 v.setNom(rs.getString(3));
                 v.setTel(rs.getString(4));
-                v.setEstado(rs.getString(5));
-                v.setUser(rs.getString(6));
-                v.setId_rol(rs.getString(7));
+                
+                v.setUser(rs.getString(5));
+                v.setId_rol(rs.getString(6));
                 lista.add(v);
             }
         } catch (Exception e) {
@@ -139,7 +86,7 @@ public class VendedorDAO implements CRUD {
     @Override
     public int add(Object[] o) {
         int r = 0;
-        String sql = "INSERT INTO vendedor( Dni, Nombres, Telefono, Estado, User ,  id_rol) values(?, ?, ?, ?, ?,?)";
+        String sql = "INSERT INTO vendedor( Dni, Nombres, Telefono,  User ,  id_rol) values(?, ?, ?, ?,?)";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -148,7 +95,7 @@ public class VendedorDAO implements CRUD {
             ps.setObject(3, o[2]);
             ps.setObject(4, o[3]);
             ps.setObject(5, o[4]);
-            ps.setObject(6, o[5]);
+//            ps.setObject(6, o[5]);
             r = ps.executeUpdate();
         } catch (Exception e) {
             
@@ -160,7 +107,7 @@ public class VendedorDAO implements CRUD {
     @Override
     public int actualizar(Object[] o) {
         int r = 0;
-        String sql = "update vendedor set Dni = ?, Nombres = ?, Telefono = ?, Estado = ?, User = ? , id_rol=? where IdVendedor = ?";
+        String sql = "update vendedor set Dni = ?, Nombres = ?, Telefono = ?, User = ? , id_rol=? where IdVendedor = ?";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -170,7 +117,7 @@ public class VendedorDAO implements CRUD {
             ps.setObject(4, o[3]);
             ps.setObject(5, o[4]);
             ps.setObject(6, o[5]);
-            ps.setObject(7, o[6]);
+//            ps.setObject(7, o[6]);
             r = ps.executeUpdate();
         } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, e +"erorr");
