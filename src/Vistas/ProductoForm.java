@@ -106,8 +106,8 @@ public class ProductoForm extends javax.swing.JInternalFrame {
         TxtPrecio = new javax.swing.JTextField();
         TxtStock = new javax.swing.JTextField();
         CbxEstado = new javax.swing.JComboBox<>();
-        BtnAgregar = new javax.swing.JButton();
         BtnActualizar = new javax.swing.JButton();
+        BtnAgregar = new javax.swing.JButton();
         BtnEliminar = new javax.swing.JButton();
         BtnNuevo = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -131,17 +131,17 @@ public class ProductoForm extends javax.swing.JInternalFrame {
 
         CbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "1", "0" }));
 
-        BtnAgregar.setText("AGREGAR");
-        BtnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnAgregarActionPerformed(evt);
-            }
-        });
-
         BtnActualizar.setText("ACTUALIZAR");
         BtnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnActualizarActionPerformed(evt);
+            }
+        });
+
+        BtnAgregar.setText("AGREGAR");
+        BtnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAgregarActionPerformed(evt);
             }
         });
 
@@ -322,7 +322,7 @@ public class ProductoForm extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnActualizar;
-    private javax.swing.JButton BtnAgregar;
+    public javax.swing.JButton BtnAgregar;
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnNuevo;
     private javax.swing.JComboBox<String> CbxEstado;

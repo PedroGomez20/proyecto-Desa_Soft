@@ -10,12 +10,17 @@ import Modelo.Vendedor;
 import Modelo.VendedorDAO;
 import static Vistas.LoginForm.combo1;
 import static Vistas.Principal.jlrol;
+import com.sun.org.apache.xml.internal.security.utils.Base64;
 import java.awt.event.ItemEvent;
+import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -32,6 +37,11 @@ public class VendedorForm extends javax.swing.JInternalFrame {
     DefaultTableModel modelo = new DefaultTableModel();
 
     int id;
+    String encriptada = "";
+    String aEnccriptar = "";
+    String convsect;
+    String sectdec,dese;
+//    VendedorForm vfd = new VendedorForm();
 
     public VendedorForm() {
 
@@ -59,12 +69,67 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         id_rol_sele.setText(con_v);
     }
 
+    String LLAVE = "SomosProgramadores";
+
+    // Clave de encriptación / desencriptación
+    public SecretKeySpec CrearCalve(String llave) {
+        try {
+            byte[] cadena = llave.getBytes("UTF-8");
+            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            cadena = md.digest(cadena);
+            cadena = Arrays.copyOf(cadena, 16);
+            SecretKeySpec secretKeySpec = new SecretKeySpec(cadena, "AES");
+            return secretKeySpec;
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
+    // Encriptar
+    public String Encriptar(String encriptar) {
+
+        try {
+            SecretKeySpec secretKeySpec = CrearCalve(LLAVE);
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
+
+            byte[] cadena = encriptar.getBytes("UTF-8");
+            byte[] encriptada = cipher.doFinal(cadena);
+            String cadena_encriptada = Base64.encode(encriptada);
+            return cadena_encriptada;
+
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    // Des-encriptación
+    public String Desencriptar(String desencriptar) {
+
+        try {
+            SecretKeySpec secretKeySpec = CrearCalve(LLAVE);
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
+
+            byte[] cadena = Base64.decode(desencriptar);
+            byte[] desencriptacioon = cipher.doFinal(cadena);
+            String cadena_desencriptada = new String(desencriptacioon);
+            return cadena_desencriptada;
+
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
     void listar() {
+
         List<Vendedor> lista = dao.listar();
         modelo = (DefaultTableModel) TablaV.getModel();
         Object[] ob = new Object[7];
         for (int i = 0; i < lista.size(); i++) {
             ob[0] = lista.get(i).getId();
+//            convsect = lista.get(i).getDni().toString();
             ob[1] = lista.get(i).getDni();
             ob[2] = lista.get(i).getNom();
             ob[3] = lista.get(i).getTel();
@@ -72,8 +137,10 @@ public class VendedorForm extends javax.swing.JInternalFrame {
             ob[5] = lista.get(i).getUser();
             ob[6] = lista.get(i).getId_rol();
             modelo.addRow(ob);
+//            JOptionPane.showMessageDialog(null, convsect);
         }
         TablaV.setModel(modelo);
+
     }
 
     void Agregar() {
@@ -245,13 +312,12 @@ public class VendedorForm extends javax.swing.JInternalFrame {
 //        this.cb=cb;
 //       
 //    }
-    
-    
-    public void rol_nom(){
-         String ro = comborool.getSelectedItem().toString();
-          Object[] ob = new Object[4];
+
+    public void rol_nom() {
+        String ro = comborool.getSelectedItem().toString();
+        Object[] ob = new Object[4];
         ob[0] = ro;
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -263,7 +329,6 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        TxtDni = new javax.swing.JTextField();
         TxtNombres = new javax.swing.JTextField();
         TxtTelefono = new javax.swing.JTextField();
         CbxEstado = new javax.swing.JComboBox<>();
@@ -278,6 +343,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         id_rol_sele = new javax.swing.JLabel();
         id_num = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
+        TxtDni = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaV = new javax.swing.JTable();
@@ -289,7 +355,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel1.setText("DNI:");
+        jLabel1.setText("CONTRASEÑA:");
 
         jLabel2.setText("NOMBRES:");
 
@@ -356,30 +422,14 @@ public class VendedorForm extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addGap(30, 30, 30)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(TxtDni)
-                                    .addComponent(TxtNombres, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                                    .addComponent(TxtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
-                                .addGap(18, 18, 18))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(TxtUser)
-                                .addGap(18, 18, 18)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(BtnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BtnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BtnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(comborool, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -389,7 +439,23 @@ public class VendedorForm extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(id_num, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(id_rol_sele, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(id_rol_sele, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(TxtUser, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                                .addGap(18, 18, 18))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(TxtNombres, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                                    .addComponent(TxtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                                    .addComponent(TxtDni))
+                                .addGap(18, 18, 18)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(BtnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BtnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BtnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(79, 79, 79))
         );
         jPanel1Layout.setVerticalGroup(
@@ -399,9 +465,9 @@ public class VendedorForm extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TxtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
-                            .addComponent(BtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(BtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TxtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(TxtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -434,7 +500,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
                                 .addComponent(comborool, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(id_num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel7)))
-                        .addGap(0, 16, Short.MAX_VALUE)))
+                        .addGap(0, 20, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -469,7 +535,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -533,19 +599,28 @@ public class VendedorForm extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UNA FILA");
         } else {
             id = Integer.parseInt(TablaV.getValueAt(fila, 0).toString());
+
             String dni = TablaV.getValueAt(fila, 1).toString();
+            
+            sectdec = dni;
+            dese=Desencriptar(sectdec);
+            
             String nom = TablaV.getValueAt(fila, 2).toString();
             String tel = TablaV.getValueAt(fila, 3).toString();
             String es = TablaV.getValueAt(fila, 4).toString();
             String user = TablaV.getValueAt(fila, 5).toString();
             String rol = TablaV.getValueAt(fila, 6).toString();
-            TxtDni.setText(dni);
+            TxtDni.setText(dese);
             TxtNombres.setText(nom);
             TxtTelefono.setText(tel);
             CbxEstado.setSelectedItem(es);
             TxtUser.setText(user);
             comborool.setSelectedItem(rol);
 
+//            aEnccriptar =dni ;
+//        encriptada = Encriptar(aEnccriptar);
+//        JOptionPane.showMessageDialog(null, encriptada);
+//        JOptionPane.showMessageDialog(null, Desencriptar(encriptada));
             if (rol.equals("ADMINISTRADOR")) {
                 roll = "1";
             } else if (rol.equals("VENDEDOR")) {
@@ -600,7 +675,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
     private javax.swing.JButton BtnNuevo;
     private javax.swing.JComboBox<String> CbxEstado;
     private javax.swing.JTable TablaV;
-    private javax.swing.JTextField TxtDni;
+    private javax.swing.JPasswordField TxtDni;
     private javax.swing.JTextField TxtNombres;
     private javax.swing.JTextField TxtTelefono;
     private javax.swing.JTextField TxtUser;

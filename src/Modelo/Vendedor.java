@@ -1,6 +1,8 @@
 
 package Modelo;
 
+
+
 public class Vendedor {
     
     int id , id_rol_rol;
@@ -24,7 +26,13 @@ public class Vendedor {
         return id;
     }
 
+    
+   
+
     public String getDni() {
+        
+        
+        
         return dni;
     }
 
@@ -50,6 +58,8 @@ public class Vendedor {
 
     public void setDni(String dni) {
         this.dni = dni;
+        
+        
     }
 
     public void setNom(String nom) {
