@@ -120,7 +120,7 @@ public class VendedorDAO implements CRUD {
             while (rs.next()) {
                 Vendedor v = new Vendedor();
                 v.setId(rs.getInt(1));
-                convsect=rs.getString(2);
+                convsect= rs.getString(2);
                 encriptada = Encriptar(convsect);
                 
                 v.setDni(encriptada);

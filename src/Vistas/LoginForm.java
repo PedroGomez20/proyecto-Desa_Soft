@@ -36,7 +36,10 @@ public class LoginForm extends javax.swing.JFrame {
     
     Conexion cn = new Conexion();
     Connection con = cn.Conectar();//////23
-
+  String encriptada = "";
+    String aEnccriptar = "";
+    VendedorDAO dao =new VendedorDAO();
+    
     public LoginForm(String id_rol) {
         this.id_rol = id_rol;
     }
@@ -51,6 +54,9 @@ public class LoginForm extends javax.swing.JFrame {
     
     public void Validar() {
         String dni = TxtPass.getText();
+      aEnccriptar=dni;
+      encriptada= dao.Encriptar(aEnccriptar);
+        
         String user = TxtUser.getText();
 //        int id_rol =Integer.parseInt(TxtUser1.getText());
 
@@ -82,7 +88,8 @@ public class LoginForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "DEBE INGRESAR DATOS EN LAs CAJAS DE TEXTO");
             TxtUser.requestFocus();
         } else {
-            ev = vdao.ValidarVendedor(dni, user, id_rol);
+            
+            ev = vdao.ValidarVendedor(encriptada, user, id_rol);
             if (ev.getUser() != null && ev.getDni() != null && ev.getId_rol() != null) {
 
 //                if ("1".equals(id_rol)) {

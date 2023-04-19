@@ -176,6 +176,9 @@ public class VendedorForm extends javax.swing.JInternalFrame {
             roll = (String) id_num.getSelectedItem();
 //           comborol.getSelectedItem().equals("2");
             String dni = TxtDni.getText();
+            convsect= dni;
+            encriptada=Encriptar(convsect);
+            
             String nom = TxtNombres.getText();
             String tel = TxtTelefono.getText();
             String es = CbxEstado.getSelectedItem().toString();
@@ -183,7 +186,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
             String rol = roll;
 
             Object[] ob = new Object[6];
-            ob[0] = dni;
+            ob[0] = encriptada;
             ob[1] = nom;
             ob[2] = tel;
             ob[3] = es;
