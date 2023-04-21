@@ -41,13 +41,7 @@ public class Producto {
         this.nom = nom;
     }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
+  
 
     public double getPrecio() {
         return precio;

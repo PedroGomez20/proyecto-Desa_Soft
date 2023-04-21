@@ -27,7 +27,7 @@ public class ClienteDAO implements CRUD {
                 c.setDni(rs.getString(2));
                 c.setNom(rs.getString(3));
                 c.setDir(rs.getString(4));
-                c.setEstado(rs.getString(5));
+//                c.setEstado(rs.getString(5));
             }
         } catch (Exception e) {
         }
@@ -49,7 +49,7 @@ public class ClienteDAO implements CRUD {
                 c.setDni(rs.getString(2));
                 c.setNom(rs.getString(3));
                 c.setDir(rs.getString(4));
-                c.setEstado(rs.getString(5));
+//                c.setEstado(rs.getString(5));
                 lista.add(c);
             }
         } catch (Exception e) {
@@ -60,14 +60,14 @@ public class ClienteDAO implements CRUD {
     @Override
     public int add(Object[] o) {
         int r = 0;
-        String sql = "insert into cliente(Dni, Nombres, Direccion, Estado) values(?, ?, ?, ?)";
+        String sql = "insert into cliente(Dni, Nombres, Direccion) values(?, ?, ?)";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
             ps.setObject(1, o[0]);
             ps.setObject(2, o[1]);
             ps.setObject(3, o[2]);
-            ps.setObject(4, o[3]);
+//            ps.setObject(4, o[3]);
             r = ps.executeUpdate();
         } catch (Exception e) {
         }
@@ -77,7 +77,7 @@ public class ClienteDAO implements CRUD {
     @Override
     public int actualizar(Object[] o) {
         int r = 0;
-        String sql = "update cliente set Dni = ?, Nombres = ?, Direccion = ?, Estado = ? where IdCliente = ?";
+        String sql = "update cliente set Dni = ?, Nombres = ?, Direccion = ? where IdCliente = ?";
         try {
             con = cn.Conectar();
             ps = con.prepareStatement(sql);
@@ -85,7 +85,7 @@ public class ClienteDAO implements CRUD {
             ps.setObject(2, o[1]);
             ps.setObject(3, o[2]);
             ps.setObject(4, o[3]);
-            ps.setObject(5, o[4]);
+//            ps.setObject(5, o[4]);
             r = ps.executeUpdate();
         } catch (Exception e) {
         }

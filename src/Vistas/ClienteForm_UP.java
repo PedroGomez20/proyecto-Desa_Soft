@@ -27,13 +27,13 @@ public class ClienteForm_UP extends javax.swing.JInternalFrame {
     void listar() {
         List<Cliente> lista = dao.listar();
         modelo = (DefaultTableModel) TablaC.getModel();
-        Object[] ob = new Object[5];
+        Object[] ob = new Object[4];
         for (int i = 0; i < lista.size(); i++) {
             ob[0] = lista.get(i).getId();
             ob[1] = lista.get(i).getDni();
             ob[2] = lista.get(i).getNom();
             ob[3] = lista.get(i).getDir();
-            ob[4] = lista.get(i).getEstado();
+//            ob[4] = lista.get(i).getEstado();
             modelo.addRow(ob);
         }
         TablaC.setModel(modelo);
@@ -49,13 +49,13 @@ public class ClienteForm_UP extends javax.swing.JInternalFrame {
             String dni = TxtDni.getText();
             String nom = TxtNombres.getText();
             String dir = TxtDireccion.getText();
-            String es = CbxEstado.getSelectedItem().toString();
+//            String es = CbxEstado.getSelectedItem().toString();
             Object[] obj = new Object[5];
             obj[0] = dni;
             obj[1] = nom;
             obj[2] = dir;
-            obj[3] = es;
-            obj[4] = id;
+//            obj[3] = es;
+            obj[3] = id;
             dao.actualizar(obj);
         }
     }
@@ -66,7 +66,7 @@ public class ClienteForm_UP extends javax.swing.JInternalFrame {
         TxtDni.setText("");
         TxtNombres.setText("");
         TxtDireccion.setText("");
-        CbxEstado.setSelectedIndex(0);
+//        CbxEstado.setSelectedIndex(0);
         TxtDni.requestFocus();
     }
 
@@ -208,11 +208,11 @@ public class ClienteForm_UP extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID", "DNI", "NOMBRES", "DIRECCION", "ESTADO"
+                "ID", "DNI", "NOMBRES", "DIRECCION"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -286,11 +286,11 @@ public class ClienteForm_UP extends javax.swing.JInternalFrame {
             String dni = TablaC.getValueAt(fila, 1).toString();
             String nom = TablaC.getValueAt(fila, 2).toString();
             String dir = TablaC.getValueAt(fila, 3).toString();
-            String es = TablaC.getValueAt(fila, 4).toString();
+//            String es = TablaC.getValueAt(fila, 4).toString();
             TxtDni.setText(dni);
             TxtNombres.setText(nom);
             TxtDireccion.setText(dir);
-            CbxEstado.setSelectedItem(es);
+//            CbxEstado.setSelectedItem(es);
         }
     }//GEN-LAST:event_TablaCMouseClicked
 

@@ -29,12 +29,12 @@ public class ClienteForm extends javax.swing.JInternalFrame {
         String dni = TxtDni.getText();
         String nom = TxtNombres.getText();
         String dir = TxtDireccion.getText();
-        String es = CbxEstado.getSelectedItem().toString();
-        Object[] ob = new Object[4];
+//        String es = CbxEstado.getSelectedItem().toString();
+        Object[] ob = new Object[3];
         ob[0] = dni;
         ob[1] = nom;
         ob[2] = dir;
-        ob[3] = es;
+//        ob[3] = es;
         dao.add(ob);
     }
 
@@ -103,7 +103,7 @@ public class ClienteForm extends javax.swing.JInternalFrame {
 
         jLabel4.setText("ESTADO:");
 
-        CbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "1", "0" }));
+        CbxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "1", "0", "FRECUENTE" }));
 
         BtnAgregar.setBackground(new java.awt.Color(204, 255, 255));
         BtnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/agregar-usuario.png"))); // NOI18N

@@ -67,14 +67,12 @@
                       <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="TxtNombres" max="32767" attributes="0"/>
                       <Component id="TxtPrecio" pref="160" max="32767" attributes="0"/>
                       <Component id="TxtStock" pref="160" max="32767" attributes="0"/>
-                      <Component id="CbxEstado" alignment="0" pref="160" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -83,7 +81,7 @@
                       <Component id="BtnEliminar" alignment="0" max="32767" attributes="0"/>
                       <Component id="BtnNuevo" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="227" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -113,11 +111,7 @@
                       </Group>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="CbxEstado" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                      <Component id="BtnNuevo" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="BtnNuevo" min="-2" pref="22" max="-2" attributes="0"/>
                   <EmptySpace pref="15" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -139,30 +133,11 @@
             <Property name="text" type="java.lang.String" value="STOCK:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel4">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="ESTADO:"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JTextField" name="TxtNombres">
         </Component>
         <Component class="javax.swing.JTextField" name="TxtPrecio">
         </Component>
         <Component class="javax.swing.JTextField" name="TxtStock">
-        </Component>
-        <Component class="javax.swing.JComboBox" name="CbxEstado">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="SELECCIONAR"/>
-                <StringItem index="1" value="1"/>
-                <StringItem index="2" value="0"/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JButton" name="BtnActualizar">
           <Properties>
@@ -241,12 +216,11 @@
             <Component class="javax.swing.JTable" name="TablaP">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="0">
+                  <Table columnCount="4" rowCount="0">
                     <Column editable="false" title="ID" type="java.lang.Object"/>
                     <Column editable="false" title="NOMBRES" type="java.lang.Object"/>
                     <Column editable="false" title="PRECIO" type="java.lang.Object"/>
                     <Column editable="false" title="STOCK" type="java.lang.Object"/>
-                    <Column editable="false" title="ESTADO" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
