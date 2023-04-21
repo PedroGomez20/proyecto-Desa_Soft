@@ -210,6 +210,11 @@ public class Principal extends javax.swing.JFrame {
         jMenu6.setText("Productos");
 
         jMenuItem10.setText("AGREGAR");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem10);
 
         jMenuItem11.setText("MODIFICAR");
@@ -303,17 +308,29 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
         // TODO add your handling code here:
+        ProductoForm_DELETE cf = new ProductoForm_DELETE();
+        cf.show(true);
+        CentrarVentana(cf);
+        
+        
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
         // TODO add your handling code here:
         
-        ProductoForm pf =new ProductoForm();
-        pf.BtnAgregar.setVisible(false);
-        pf.show(true);
+        ProductoForm_UP pf =new ProductoForm_UP();
+       pf.show(true);
         CentrarVentana(pf);
         
     }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        // TODO add your handling code here:
+        
+         ProductoForm pf =new ProductoForm();
+       pf.show(true);
+        CentrarVentana(pf);
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     void CentrarVentana(JInternalFrame frame) {
         VentanaPrincipal.add(frame);
@@ -339,7 +356,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     public static javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
+    public javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;

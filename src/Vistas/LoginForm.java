@@ -90,10 +90,13 @@ public class LoginForm extends javax.swing.JFrame {
 
                     m.usuario_rol((String) combo1.getSelectedItem());
                     m.show();
-                    ClienteForm cfa = new ClienteForm();
-                    cfa.setVass(true);
-//                    cfa.ocultar(true);
-                    cfa.show();
+                    
+                    
+                    
+//                    ClienteForm cfa = new ClienteForm();
+//                    cfa.setVass(true);
+////                    cfa.ocultar(true);
+//                    cfa.show();
 
                 } else if (combo1.getSelectedItem().equals("VENDEDOR")) {
 
