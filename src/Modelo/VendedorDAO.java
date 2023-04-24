@@ -1,16 +1,10 @@
 package Modelo;
 
-import Vistas.Principal;
-import com.sun.org.apache.xml.internal.security.utils.Base64;
-import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 import javax.swing.JOptionPane;
 
 public class VendedorDAO implements CRUD {
@@ -21,10 +15,6 @@ public class VendedorDAO implements CRUD {
     ResultSet rs;
     EntidadVendedor ev = new EntidadVendedor();
 
-  
-     
-
-    
     public EntidadVendedor ValidarVendedor(String dni, String user, String id_rol) {
         String sql = "select *  from vendedor  where Dni = ? and User = ? and id_rol = ? ;";
         try {
@@ -40,12 +30,9 @@ public class VendedorDAO implements CRUD {
                 ev.setDni(rs.getString(2));
                 ev.setNom(rs.getString(3));
                 ev.setTel(rs.getString(4));
-//                ev.setEstado(rs.getString(5));
                 ev.setUser(rs.getString(5));
                 ev.setId_rol(rs.getString(6));
 
-                
-               
             }
         } catch (Exception e) {
         }
@@ -53,10 +40,8 @@ public class VendedorDAO implements CRUD {
         return ev;
     }
 
- 
-     
-       @Override
-    
+    @Override
+
     public List listar() {
         List<Vendedor> lista = new ArrayList<>();
         String sql = "SELECT v.IdVendedor,v.Dni,v.Nombres,v.Telefono, v.User,r.nombre_rol FROM vendedor v INNER JOIN rol r ON v.id_rol = r.id_rol ORDER BY v.IdVendedor ASC ";
@@ -67,13 +52,10 @@ public class VendedorDAO implements CRUD {
             while (rs.next()) {
                 Vendedor v = new Vendedor();
                 v.setId(rs.getInt(1));
-//                convsect= rs.getString(2);
-//                encriptada = Encriptar(convsect);
-//                 v.setDni(encriptada);
                 v.setDni(rs.getString(2));
                 v.setNom(rs.getString(3));
                 v.setTel(rs.getString(4));
-                
+
                 v.setUser(rs.getString(5));
                 v.setId_rol(rs.getString(6));
                 lista.add(v);
@@ -95,11 +77,10 @@ public class VendedorDAO implements CRUD {
             ps.setObject(3, o[2]);
             ps.setObject(4, o[3]);
             ps.setObject(5, o[4]);
-//            ps.setObject(6, o[5]);
             r = ps.executeUpdate();
         } catch (Exception e) {
-            
-            JOptionPane.showMessageDialog(null, e +"erorr");
+
+            JOptionPane.showMessageDialog(null, e + "erorr");
         }
         return r;
     }
@@ -117,12 +98,10 @@ public class VendedorDAO implements CRUD {
             ps.setObject(4, o[3]);
             ps.setObject(5, o[4]);
             ps.setObject(6, o[5]);
-//            ps.setObject(7, o[6]);
             r = ps.executeUpdate();
         } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, e +"erorr");
+            JOptionPane.showMessageDialog(null, e + "erorr");
 
-            
         }
         return r;
     }

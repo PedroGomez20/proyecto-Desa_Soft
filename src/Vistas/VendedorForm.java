@@ -43,36 +43,21 @@ public class VendedorForm extends javax.swing.JInternalFrame {
     String aEnccriptar = "";
 
     String sectdec, dese;
-//    VendedorForm vfd = new VendedorForm();
 
     public VendedorForm() {
 
         initComponents();
-
         cargarcombo(comborool);
-//        id_rol_sele(id_num);
         listar();
 
-//        rec.Rellenar( "nombre_rol", comborol1);
     }
 
-    private String rol_usuario;
-
-    public void usuario_rol(String rol_usuario) {
-        this.rol_usuario = rol_usuario;
-        jlrol.setText(rol_usuario);
-    }
-
-    int rol_id_general;
-
-    public void id_rol_usu(int rol_id_general) {
-        this.rol_id_general = rol_id_general;
-        String con_v = String.valueOf(rol_id_general);
-        id_rol_sele.setText(con_v);
-    }
-
-    
-
+    //
+//    private String rol_usuario;
+//    public void usuario_rol(String rol_usuario) {
+//        this.rol_usuario = rol_usuario;
+//        jlrol.setText(rol_usuario);
+//    }
     void listar() {
 
         List<Vendedor> lista = dao.listar();
@@ -80,96 +65,45 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         Object[] ob = new Object[7];
         for (int i = 0; i < lista.size(); i++) {
             ob[0] = lista.get(i).getId();
-//            convsect = lista.get(i).getDni().toString();
             ob[1] = lista.get(i).getDni();
             ob[2] = lista.get(i).getNom();
             ob[3] = lista.get(i).getTel();
-           
             ob[4] = lista.get(i).getUser();
             ob[5] = lista.get(i).getId_rol();
             modelo.addRow(ob);
-//            JOptionPane.showMessageDialog(null, convsect);
         }
         TablaV.setModel(modelo);
 
     }
+    //ESTA VARIABLE (roll) NOS AYUDA A OBTENER EL VALOR DEL COMBO BOX (id_mun) QUE HACE REFERENCIA A LA LLAVE PRIMARIA DEL LA TABLA ROL
+    String roll;
 
     void Agregar() {
 
-        String roll;
-        if (comborool.getSelectedItem().equals("ADMINISTRADOR")) {
+        // AQUI LA VARIABLE roll TOMARA EL VALOR DEL COMBO BOX id_num QUE HACE REFERENCIA AL ID DE LA TABLA ROL
+        roll = (String) id_num.getSelectedItem();
 
-            roll = (String) id_num.getSelectedItem();
+        //ES LA CONTRASENIA DEL USUARIO 
+        String dni = TxtDni.getText();
 
+        //ESTA VARIABLE aEncriptar NOS AYUDA A PODER OBTENER EL VALOR DE  LA CONTRASENIA DEL EMPLEADO , EL VALOR DE LA VARIABLE dni LO TENDRA LA VARIABLE aEncriptar
+        aEnccriptar = dni;
 
-            String dni = TxtDni.getText();
+        //ESTA VARIABLE encriptada NOS AYUDA A ENCRIPTAR LA CONTRASENIA DE LA VARIABLE aEncriptar CON METODO Encriptar QUE ESTA EN  MODELO > encriptacion CON LA VARIABLE encrip hacemos el llamado de esa clase.
+        encriptada = encrip.Encriptar(aEnccriptar);
 
-            aEnccriptar = dni;
-            encriptada = encrip.Encriptar(aEnccriptar);
-
-            String nom = TxtNombres.getText();
-            String tel = TxtTelefono.getText();
-//            String es = CbxEstado.getSelectedItem().toString();
-            String user = TxtUser.getText();
-            String rol = roll;
-
-            Object[] ob = new Object[6];
-            ob[0] = encriptada;
-            ob[1] = nom;
-            ob[2] = tel;
-//            ob[3] = es;
-            ob[3] = user;
-            ob[4] = rol;
-            dao.add(ob);
-
-        } else if (comborool.getSelectedItem().equals("VENDEDOR")) {
-            roll = (String) id_num.getSelectedItem();
-//           comborol.getSelectedItem().equals("2");
-            String dni = TxtDni.getText();
-            aEnccriptar = dni;
-            encriptada = encrip.Encriptar(aEnccriptar);
-
-            String nom = TxtNombres.getText();
-            String tel = TxtTelefono.getText();
-//            String es = CbxEstado.getSelectedItem().toString();
-            String user = TxtUser.getText();
-            String rol = roll;
-
-            Object[] ob = new Object[6];
-            ob[0] = encriptada;
-            ob[1] = nom;
-            ob[2] = tel;
-//            ob[3] = es;
-            ob[3] = user;
-            ob[4] = rol;
-            dao.add(ob);
-            
-        } else if (comborool.getSelectedItem().equals("GERENTE")) {
-            roll = (String) id_num.getSelectedItem();
-//           comborol.getSelectedItem().equals("2");
-            String dni = TxtDni.getText();
-            aEnccriptar = dni;
-            encriptada = encrip.Encriptar(aEnccriptar);
-
-            String nom = TxtNombres.getText();
-            String tel = TxtTelefono.getText();
-//            String es = CbxEstado.getSelectedItem().toString();
-            String user = TxtUser.getText();
-            String rol = roll;
-
-            Object[] ob = new Object[6];
-            ob[0] = encriptada;
-            ob[1] = nom;
-            ob[2] = tel;
-//            ob[3] = es;
-            ob[3] = user;
-            ob[4] = rol;
-            dao.add(ob);
-
-        }
-
+        String nom = TxtNombres.getText();
+        String tel = TxtTelefono.getText();
+        String user = TxtUser.getText();
+        String rol = roll;
+        Object[] ob = new Object[6];
+        ob[0] = encriptada;
+        ob[1] = nom;
+        ob[2] = tel;
+        ob[3] = user;
+        ob[4] = rol;
+        dao.add(ob);
     }
-    String roll;
 
     void Actualizar() {
 
@@ -177,72 +111,26 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         if (fila == -1) {
             JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UNA FILA");
         } else {
-
-            if (comborool.getSelectedItem().equals("ADMINISTRADOR")) {
-                roll = "1";
-
-                String dni = TxtDni.getText();
-                aEnccriptar = dni;
+            // AQUI LA VARIABLE roll TOMARA EL VALOR DEL COMBO BOX id_num QUE HACE REFERENCIA AL ID DE LA TABLA ROL
+            roll = (String) id_num.getSelectedItem();
+            //ES LA CONTRASENIA DEL USUARIO 
+            String dni = TxtDni.getText();
+            //ESTA VARIABLE aEncriptar NOS AYUDA A PODER OBTENER EL VALOR DE  LA CONTRASENIA DEL EMPLEADO , EL VALOR DE LA VARIABLE dni LO TENDRA LA VARIABLE aEncriptar
+            aEnccriptar = dni;
+            //ESTA VARIABLE encriptada NOS AYUDA A ENCRIPTAR LA CONTRASENIA DE LA VARIABLE aEncriptar CON METODO Encriptar QUE ESTA EN  MODELO > encriptacion CON LA VARIABLE encrip hacemos el llamado de esa clase.
             encriptada = encrip.Encriptar(aEnccriptar);
-            
-                String nom = TxtNombres.getText();
-                String tel = TxtTelefono.getText();
-//                String es = CbxEstado.getSelectedItem().toString();
-                String user = TxtUser.getText();
-                String rol = roll;
-                Object[] obj = new Object[7];
-                obj[0] = encriptada;
-                obj[1] = nom;
-                obj[2] = tel;
-//                obj[3] = es;
-                obj[3] = user;
-                obj[4] = rol;
-                obj[5] = id;
-                dao.actualizar(obj);
-
-            } else if (comborool.getSelectedItem().equals("VENDEDOR")) {
-                roll = "2";
-
-                String dni = TxtDni.getText();
-                aEnccriptar = dni;
-            encriptada = encrip.Encriptar(aEnccriptar);
-            
-                String nom = TxtNombres.getText();
-                String tel = TxtTelefono.getText();
-//                String es = CbxEstado.getSelectedItem().toString();
-                String user = TxtUser.getText();
-                String rol = roll;
-                Object[] obj = new Object[7];
-                obj[0] = encriptada;
-                obj[1] = nom;
-                obj[2] = tel;
-//                obj[3] = es;
-                obj[3] = user;
-                obj[4] = rol;
-                obj[5] = id;
-                dao.actualizar(obj);
-            } else if (comborool.getSelectedItem().equals("GERENTE")) {
-                roll = "5";
-
-                String dni = TxtDni.getText();
-                aEnccriptar = dni;
-            encriptada = encrip.Encriptar(aEnccriptar);
-            
-                String nom = TxtNombres.getText();
-                String tel = TxtTelefono.getText();
-//                String es = CbxEstado.getSelectedItem().toString();
-                String user = TxtUser.getText();
-                String rol = roll;
-                Object[] obj = new Object[7];
-                obj[0] = encriptada;
-                obj[1] = nom;
-                obj[2] = tel;
-//                obj[3] = es;
-                obj[3] = user;
-                obj[4] = rol;
-                obj[5] = id;
-                dao.actualizar(obj);
-            }
+            String nom = TxtNombres.getText();
+            String tel = TxtTelefono.getText();
+            String user = TxtUser.getText();
+            String rol = roll;
+            Object[] obj = new Object[7];
+            obj[0] = encriptada;
+            obj[1] = nom;
+            obj[2] = tel;
+            obj[3] = user;
+            obj[4] = rol;
+            obj[5] = id;
+            dao.actualizar(obj);
         }
     }
 
@@ -261,7 +149,6 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         TxtNombres.setText("");
         TxtTelefono.setText("");
         TxtUser.setText("");
-//        CbxEstado.setSelectedIndex(0);
         TxtDni.requestFocus();
         comborool.setSelectedIndex(0);
     }
@@ -272,7 +159,6 @@ public class VendedorForm extends javax.swing.JInternalFrame {
             i = i - 1;
         }
     }
-
 
     public void rol_nom() {
         String ro = comborool.getSelectedItem().toString();
@@ -299,7 +185,6 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         TxtUser = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         comborool = new javax.swing.JComboBox<>();
-        id_rol_sele = new javax.swing.JLabel();
         id_num = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         TxtDni = new javax.swing.JPasswordField();
@@ -393,7 +278,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(id_num, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE))
+                        .addContainerGap(220, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(TxtNombres, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
@@ -408,9 +293,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
                             .addComponent(BtnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(BtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(BtnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)))
-                .addComponent(id_rol_sele, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79))
+                        .addGap(208, 208, 208))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -454,9 +337,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
                         .addComponent(comborool, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(id_num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel7)))
-                .addGap(4, 4, 4)
-                .addComponent(id_rol_sele, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -555,31 +436,24 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         } else {
             id = Integer.parseInt(TablaV.getValueAt(fila, 0).toString());
 
+            //ASIGNACION DE VALOR A LA VARIABLE dni
             String dni = TablaV.getValueAt(fila, 1).toString();
-
+            //ESTA VARIABLE sectdec (secreto-desencriptar) nos ayudara a obtener el valor encriptado de la contrasenia del empleado
             sectdec = dni;
+
+            //LA VARIABLE dese NOS AYUDARA A DESENCRIPTAR LA CONTRASENIA PARA QUE EL EMPLEADO NO VEA ALGO DIFERENTE EN SU CONTRASENIA Y VEA QUE ES LA MISMA.
+            //PODEMOS HACER LA DESENCRIPTACION CON EL METODO Desencriptar QUE ES EN LA CLASE encriptacion CON LA VARIABLE encrip Y LE MANDAMOS LA VARIABLE sectdec YA QUE AHI ESTA LA CONTRASENIA
             dese = encrip.Desencriptar(sectdec);
 
             String nom = TablaV.getValueAt(fila, 2).toString();
             String tel = TablaV.getValueAt(fila, 3).toString();
-//            String es = TablaV.getValueAt(fila, 4).toString();
             String user = TablaV.getValueAt(fila, 4).toString();
             String rol = TablaV.getValueAt(fila, 5).toString();
             TxtDni.setText(dese);
             TxtNombres.setText(nom);
             TxtTelefono.setText(tel);
-//            CbxEstado.setSelectedItem(es);
             TxtUser.setText(user);
             comborool.setSelectedItem(rol);
-
-//           
-            if (rol.equals("ADMINISTRADOR")) {
-                roll = "1";
-            } else if (rol.equals("VENDEDOR")) {
-                roll = "2";
-            } else if (rol.equals("GERENTE")) {
-                roll = "3";
-            }
         }
     }//GEN-LAST:event_TablaVMouseClicked
 
@@ -587,27 +461,26 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboroolActionPerformed
 
+    //ESTA ACCION ES CUANDO SE REALIZA ALGUN CAMBIO EN EL CMOBO BOX PARA QUE ESTE ACTUALIZANDO CON LOS METODOS PARA OBTENER EL ID ROL LINEA 551 EN ADELANTE
     private void comboroolItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboroolItemStateChanged
         // TODO add your handling code here:
 
+        //ESTE IF HACE REFERENCIA A QUE SI SE OBTIENE ALGUN CAMBIO Y SEA IGUAL EVENTO SELECCIONADO
         if (evt.getStateChange() == ItemEvent.SELECTED) {
 
+            // ESTE IF OBTENEMOS LA DIRECCION QUE SE SELECCIONO EN EL COMBO BOX comborool POR MEDIO DE INDEX
             if (this.comborool.getSelectedIndex() == 0) {
-//                Rol_DAO rd = new Rol_DAO();
-//                rd.rol_ge(comborool.getSelectedItem().toString());
 
+                // LLAMAMOS AL METODO QUE ESTA EN LA LINEA 551 Y LE MANDAMDO COMO id_num YA QUE ES UN COMBO BOX Y ESTA PIDIENDO ESE OBJECTO
                 id_1_rol(id_num);
-//                this.id_num.setModel(new DefaultComboBoxModel(this.id_rol_sele(this.comborool.getSelectedItem().toString())));
 
             }
             if (this.comborool.getSelectedIndex() == 1) {
                 id_2_rol(id_num);
-//                this.id_num.setModel(new DefaultComboBoxModel(this.id_rol_sele(this.comborool.getSelectedItem().toString())));
 
             }
             if (this.comborool.getSelectedIndex() == 2) {
                 id_3_rol(id_num);
-//                this.id_num.setModel(new DefaultComboBoxModel(this.id_rol_sele(this.comborool.getSelectedItem().toString())));
 
             }
 
@@ -619,8 +492,8 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 //        int fila = TablaV.getSelectedRow();
 //         String dni = TablaV.getValueAt(fila, 1).toString();
-         
-        
+
+
     }//GEN-LAST:event_desencriptarbtnActionPerformed
 
 
@@ -637,7 +510,6 @@ public class VendedorForm extends javax.swing.JInternalFrame {
     public javax.swing.JComboBox<String> comborool;
     private javax.swing.JButton desencriptarbtn;
     private javax.swing.JComboBox<String> id_num;
-    public javax.swing.JLabel id_rol_sele;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -684,17 +556,15 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         c.setModel(combo);
         Listado_rol lr = new Listado_rol();
 
-//        Rol_DAO rd = new Rol_DAO();
-//        rd.id_1_rol();
+        //AQUI HACEMOS UNA SENTENCIA SQL PARA LA OBTENCION DEL ID ROL DE LA TABLA ROL
         try {
             Statement st = con.createStatement();
 
+            //AQUI HACEMOS COMPARACIONES SI EL USUARIO SELECCIONA EN EL COMBO BOX comborool alguna de las 3 opciones debera hacer una consulta sql con dicha opcion que seleccione y obtendra el ID DE ESE ROL
             if (comborool.getSelectedItem().equals("ADMINISTRADOR")) {
-//                 Rol_combo rc = new Rol_combo();
-//                combo.addElement(rc.getNom_id());
                 ResultSet rs = st.executeQuery("SELECT id_rol FROM rol WHERE nombre_rol ='ADMINISTRADOR'");
                 while (rs.next()) {
-
+                    //Rol_combo ES UNA CLASE DONDE ESTA LOS SET AND GET
                     Rol_combo rc = new Rol_combo();
 
                     rc.setNom_id(rs.getString(1));
@@ -707,6 +577,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
 
         }
     }
+// ES LO MISMO QUE EL ANTERIOR PERO SOLO CAMBIA EL TIPO DE SELECCION QUE HACE EL USUARIO VENDEDOR, ADMIN, GERENTE
 
     public void id_2_rol(JComboBox c) {
 
@@ -762,50 +633,4 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         }
     }
 
-    public void id_rol_sele(JComboBox c) {
-
-        DefaultComboBoxModel combo = new DefaultComboBoxModel();
-
-        c.setModel(combo);
-        Listado_rol lr = new Listado_rol();
-
-        try {
-            Statement st = con.createStatement();
-
-        } catch (Exception e) {
-
-            JOptionPane.showMessageDialog(null, e + "se realio mal ");
-
-        }
-//         try {
-//            Statement st = con.createStatement();
-//            ResultSet rs;
-//           
-//            
-//             if (comborool.getSelectedItem().equals("ADMINISTRADOR")) {
-//                  rs= st.executeQuery("SELECT id_rol FROM rol WHERE nombre_rol = 'ADMINISTRADOR'");
-//                  Rol_combo rc = new Rol_combo();
-//                     
-//                 rc.setId(rs.getInt(1));
-//             
-//                 String cov_id= String.valueOf(rc.getId());
-//               id_rol_sele.setText(cov_id);
-//                  
-//             }
-//                
-////                Rol_combo rc = new Rol_combo();
-////                
-////                rc.setNom_rol(rs.getString(1));
-////                lr.Agregar_rol(rc);
-////                combo.addElement(rc.getNom_rol());
-//////                JOptionPane.showMessageDialog(null, "se realio bien ");
-//
-//                
-//            
-//        } catch (Exception e) {
-//
-//            JOptionPane.showMessageDialog(null, e + "se realio mal ");
-//
-//        }
-    }
 }

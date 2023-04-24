@@ -5,13 +5,13 @@ package Modelo;
 
 public class Vendedor {
     
-    int id , id_rol_rol;
+    int id ;
     String dni, nom, tel,  user,id_rol;
 
     public Vendedor() {
     }
 
-    public Vendedor(int id, String dni, String nom, String tel,  String user,String id_rol, int id_rol_rol) {
+    public Vendedor(int id, String dni, String nom, String tel,  String user,String id_rol) {
         this.id = id;
         this.dni = dni;
         this.nom = nom;
@@ -81,14 +81,7 @@ public class Vendedor {
         this.id_rol = id_rol;
     }
 
-    public int getId_rol_rol() {
-        return id_rol_rol;
-    }
-
-    public void setId_rol_rol(int id_rol_rol) {
-        this.id_rol_rol = id_rol_rol;
-    }
-
+  
    
 
    
