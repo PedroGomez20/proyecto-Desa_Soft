@@ -28,6 +28,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class VendedorForm extends javax.swing.JInternalFrame {
+// Rol_DAO sas = new Rol_DAO();
 
     Conexion cn = new Conexion();
     Connection con = cn.Conectar();//////23
@@ -35,7 +36,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
     VendedorDAO dao = new VendedorDAO();
     Vendedor vd = new Vendedor();
     encriptacion encrip = new encriptacion();
-
+Rol_DAO sas = new Rol_DAO();
     DefaultTableModel modelo = new DefaultTableModel();
 
     int id;
@@ -45,10 +46,15 @@ public class VendedorForm extends javax.swing.JInternalFrame {
     String sectdec, dese;
 
     public VendedorForm() {
-
+     
         initComponents();
+
         cargarcombo(comborool);
         listar();
+        sas.cargarcombo(prueba);
+//        sas.cargarcombo1(prueba);
+//        sas.cargarcombo1(prueba);
+//        sas.cargarcombo1(comborool);
 
     }
 
@@ -189,6 +195,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         TxtDni = new javax.swing.JPasswordField();
         desencriptarbtn = new javax.swing.JButton();
+        prueba = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaV = new javax.swing.JTable();
@@ -258,6 +265,8 @@ public class VendedorForm extends javax.swing.JInternalFrame {
             }
         });
 
+        prueba.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "item", "1", "2" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -294,6 +303,10 @@ public class VendedorForm extends javax.swing.JInternalFrame {
                             .addComponent(BtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(BtnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(208, 208, 208))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(prueba, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(129, 129, 129))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -337,7 +350,9 @@ public class VendedorForm extends javax.swing.JInternalFrame {
                         .addComponent(comborool, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(id_num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel7)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(prueba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -465,7 +480,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
     private void comboroolItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboroolItemStateChanged
         // TODO add your handling code here:
 
-        //ESTE IF HACE REFERENCIA A QUE SI SE OBTIENE ALGUN CAMBIO Y SEA IGUAL EVENTO SELECCIONADO
+//        ESTE IF HACE REFERENCIA A QUE SI SE OBTIENE ALGUN CAMBIO Y SEA IGUAL EVENTO SELECCIONADO
         if (evt.getStateChange() == ItemEvent.SELECTED) {
 
             // ESTE IF OBTENEMOS LA DIRECCION QUE SE SELECCIONO EN EL COMBO BOX comborool POR MEDIO DE INDEX
@@ -519,6 +534,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JComboBox<String> prueba;
     // End of variables declaration//GEN-END:variables
 
     private void cargarcombo(JComboBox c) {
@@ -538,8 +554,6 @@ public class VendedorForm extends javax.swing.JInternalFrame {
                 rc.setNom_rol(rs.getString(1));
                 lr.Agregar_rol(rc);
                 combo.addElement(rc.getNom_rol());
-//                JOptionPane.showMessageDialog(null, "se realio bien ");
-
             }
         } catch (Exception e) {
 
