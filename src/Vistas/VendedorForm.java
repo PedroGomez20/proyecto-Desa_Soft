@@ -36,7 +36,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
     VendedorDAO dao = new VendedorDAO();
     Vendedor vd = new Vendedor();
     encriptacion encrip = new encriptacion();
-Rol_DAO sas = new Rol_DAO();
+    Rol_DAO sas = new Rol_DAO();
     DefaultTableModel modelo = new DefaultTableModel();
 
     int id;
@@ -46,24 +46,16 @@ Rol_DAO sas = new Rol_DAO();
     String sectdec, dese;
 
     public VendedorForm() {
-     
+
         initComponents();
 
-        cargarcombo(comborool);
+//        cargarcombo(comborool);
         listar();
-        sas.cargarcombo(prueba);
-//        sas.cargarcombo1(prueba);
-//        sas.cargarcombo1(prueba);
-//        sas.cargarcombo1(comborool);
+        sas.cargarcombo(comborool);
+
 
     }
 
-    //
-//    private String rol_usuario;
-//    public void usuario_rol(String rol_usuario) {
-//        this.rol_usuario = rol_usuario;
-//        jlrol.setText(rol_usuario);
-//    }
     void listar() {
 
         List<Vendedor> lista = dao.listar();
@@ -195,7 +187,6 @@ Rol_DAO sas = new Rol_DAO();
         jLabel7 = new javax.swing.JLabel();
         TxtDni = new javax.swing.JPasswordField();
         desencriptarbtn = new javax.swing.JButton();
-        prueba = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaV = new javax.swing.JTable();
@@ -265,8 +256,6 @@ Rol_DAO sas = new Rol_DAO();
             }
         });
 
-        prueba.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "item", "1", "2" }));
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -303,10 +292,6 @@ Rol_DAO sas = new Rol_DAO();
                             .addComponent(BtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(BtnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(208, 208, 208))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(prueba, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(129, 129, 129))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,9 +335,7 @@ Rol_DAO sas = new Rol_DAO();
                         .addComponent(comborool, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(id_num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel7)))
-                .addGap(18, 18, 18)
-                .addComponent(prueba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -485,17 +468,19 @@ Rol_DAO sas = new Rol_DAO();
 
             // ESTE IF OBTENEMOS LA DIRECCION QUE SE SELECCIONO EN EL COMBO BOX comborool POR MEDIO DE INDEX
             if (this.comborool.getSelectedIndex() == 0) {
-
-                // LLAMAMOS AL METODO QUE ESTA EN LA LINEA 551 Y LE MANDAMDO COMO id_num YA QUE ES UN COMBO BOX Y ESTA PIDIENDO ESE OBJECTO
                 id_1_rol(id_num);
+                // LLAMAMOS AL METODO QUE ESTA EN LA LINEA 551 Y LE MANDAMDO COMO id_num YA QUE ES UN COMBO BOX Y ESTA PIDIENDO ESE OBJECTO
 
             }
             if (this.comborool.getSelectedIndex() == 1) {
+
                 id_2_rol(id_num);
+//               ;
 
             }
             if (this.comborool.getSelectedIndex() == 2) {
                 id_3_rol(id_num);
+//                
 
             }
 
@@ -504,9 +489,6 @@ Rol_DAO sas = new Rol_DAO();
     }//GEN-LAST:event_comboroolItemStateChanged
 
     private void desencriptarbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desencriptarbtnActionPerformed
-        // TODO add your handling code here:
-//        int fila = TablaV.getSelectedRow();
-//         String dni = TablaV.getValueAt(fila, 1).toString();
 
 
     }//GEN-LAST:event_desencriptarbtnActionPerformed
@@ -534,34 +516,7 @@ Rol_DAO sas = new Rol_DAO();
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JComboBox<String> prueba;
     // End of variables declaration//GEN-END:variables
-
-    private void cargarcombo(JComboBox c) {
-
-        DefaultComboBoxModel combo = new DefaultComboBoxModel();
-
-        c.setModel(combo);
-        Listado_rol lr = new Listado_rol();
-
-        try {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT nombre_rol FROM rol");
-            while (rs.next()) {
-
-                Rol_combo rc = new Rol_combo();
-
-                rc.setNom_rol(rs.getString(1));
-                lr.Agregar_rol(rc);
-                combo.addElement(rc.getNom_rol());
-            }
-        } catch (Exception e) {
-
-            JOptionPane.showMessageDialog(null, e + "se realio mal ");
-
-        }
-
-    }
 
     public void id_1_rol(JComboBox c) {
 

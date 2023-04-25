@@ -8,25 +8,29 @@ import Modelo.VendedorDAO;
 import Modelo.encriptacion;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import Modelo.Rol_DAO;
+import java.awt.event.ItemEvent;
 
 public class LoginForm extends javax.swing.JFrame {
 
+    Rol_DAO rdao = new Rol_DAO();
     VendedorDAO vdao = new VendedorDAO();
     EntidadVendedor ev = new EntidadVendedor();
     String a;
     String id_rol;
-    
 
     public LoginForm() {
         initComponents();
         setLocationRelativeTo(null);
-        cargarcombo(combo1);
+        //LLENAMOS EL COMBO BOX CON DATOS DE LA BASE DE DATOS
+        rdao.cargarcombo(combo1);
+        //OCULTAMOS EL COMBO BOX PARA QUE EL USUARIO NO SE CONFUNDA EN ESE COMBO BOX DEL ID ROL QUE ES AUTOMATICO ESE NUMERO
+        numero_id_rol.setVisible(false);
         
         //DATOS TEMPORALES
 //        TxtUser.setText("emp01");
@@ -39,41 +43,23 @@ public class LoginForm extends javax.swing.JFrame {
     Connection con = cn.Conectar();//////23
     String encriptada = "";
     String aEnccriptar = "";
-  
+
+    //LLAMAMOS A LA CLASE encriptacion PARA OBTENER LOS METODOS ADECUADOS PARA QUE SE ENCRIPTE LA CONTRASENA ESCRITA POR EL EMPLEADO PARA INICIAR SESION
     encriptacion encrip = new encriptacion();
 
-    public LoginForm(String id_rol) {
-        this.id_rol = id_rol;
-    }
-
-    public String getId_rol() {
-        return id_rol;
-    }
-
-    public void setId_rol(String id_rol) {
-        this.id_rol = id_rol;
-    }
-
     public void Validar() {
-        
+
+        //OBTENEMOS EL VALOR ESCRITO Y SE GUARDA EN dni
         String dni = TxtPass.getText();
+        //EL VALOR DE dni PASARA A LA VARIABLE aEnccriptar 
         aEnccriptar = dni;
+        //CON LA VARIABLE aEnccriptar TOMARA EL VALOR DE LA ENCRIPTACION CON EL METODO Encriptar DE LA CLASE QUE LLAMAMOS Y LE MANDAMOS COMO PARAMETRO LA VARIABLE aEnccriptar
         encriptada = encrip.Encriptar(aEnccriptar);
-
+        //OBTENEMOS EL VALOR DE USER
         String user = TxtUser.getText();
+        //EN EL VALOR DE COMBO BOX OCULTO LO TOMARA LA VARIABLE id_rol YA QUE PARA HACER LA VALIDACION SE NECESITA UN NUMERO QUE CORRESPONDE AL ID ROL
+        id_rol = (String) numero_id_rol.getSelectedItem();
 
-        if (combo1.getSelectedItem().equals("ADMINISTRADOR")) {
-            a = "1";
-
-        } else if (combo1.getSelectedItem().equals("VENDEDOR")) {
-            a = "2";
-
-        } else if (combo1.getSelectedItem().equals("GERENTE")) {
-            a = "5";
-
-        }
-
-        String id_rol = a;
         if (TxtUser.getText().equals("") || TxtPass.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "DEBE INGRESAR DATOS EN LAs CAJAS DE TEXTO");
             TxtUser.requestFocus();
@@ -82,44 +68,40 @@ public class LoginForm extends javax.swing.JFrame {
             ev = vdao.ValidarVendedor(encriptada, user, id_rol);
             if (ev.getUser() != null && ev.getDni() != null && ev.getId_rol() != null) {
 
-                if (combo1.getSelectedItem().equals("ADMINISTRADOR")) {
-
+                //ESTOS IF ANINADOS HACE REFERENCIA A QUE OPCION SELECCIONO EL USUARIO EN CUESTION DE ROL
+                //LA OPCION 0 ES ADMIN , 1 ES VENDEDOR, 2 ES GENERENTE
+                //Y CON ESTO PODEMOS OCULTAR LAS OPCIONES QUE VA TENER CADA ROL
+                if (combo1.getSelectedIndex() == 0) {
+                    //LLAMAMOS LA CLASE Principal 
                     Principal m = new Principal();
-//                    m.jMenu2.setVisible(false);
-
+                    //AQUI MANDAMOS EL VALOR USER PARA QUE SE MUESTRE EN LA VENTANA PRINCIPAL
                     m.usuario(TxtUser.getText());
-
+                    //AQUI MANDAMOS EL VALOR DEL COMBO BOX A LA VENTANA PRINCIPAL
                     m.usuario_rol((String) combo1.getSelectedItem());
                     m.show();
-                    
-                    
-                    
 
+                } else if (combo1.getSelectedIndex() == 1) {
 
-                } else if (combo1.getSelectedItem().equals("VENDEDOR")) {
-
+                    //VENDEDOR
                     Principal m = new Principal();
-
-//                    m.jMenu3.setVisible(false);
+                    //PARA EL ROL DE VENDEDOR ESTARAN OCULTOS ALGUNAS OPCIONES COMO SON MOD Y ELIMINAR CUALQUIER MENU SEGUN SEA EL CASO
                     m.jMenuItem6.setVisible(false);
+                    m.vendedor.setVisible(false);
+                    
+                    //AQUI MANDAMOS EL VALOR USER PARA QUE SE MUESTRE EN LA VENTANA PRINCIPAL
                     m.usuario(TxtUser.getText());
+                    //AQUI MANDAMOS EL VALOR DEL COMBO BOX A LA VENTANA PRINCIPAL
                     m.usuario_rol((String) combo1.getSelectedItem());
                     m.show();
 
-                   
-
-                } else if (combo1.getSelectedItem().equals("GERENTE")) {
+                } else if (combo1.getSelectedIndex() == 2) {
 
                     Principal m = new Principal();
                     m.usuario(TxtUser.getText());
                     m.usuario_rol((String) combo1.getSelectedItem());
                     m.show();
-
                 }
-
-//              
                 dispose();
-
             } else {
                 JOptionPane.showMessageDialog(this, "DEBE INGRESAR DATOS VALIDOS");
 
@@ -131,23 +113,90 @@ public class LoginForm extends javax.swing.JFrame {
 
     }
 
-//    void ocultar() {
-//        if (combo1.getSelectedItem().equals("ADMIN")) {
-//            String a = "1";
-//
-//            Principal m = new Principal();
-//            m.show();
-//
-//        } else if (combo1.getSelectedItem().equals("VENDEDOR")) {
-//            String a = "2";
-//            Principal m = new Principal();
-//
-//            m.jMenu2.setVisible(false);
-//            m.jMenu4.setVisible(false);
-//            m.show();
-//        }
-//
-//    }
+    //AQUI SON CONSULTAS SQL PARA LLENAR EL COMBO BOX OCULTO QUE ESTA EL ID ROL
+    public void id_1_rol(JComboBox c) {
+
+        DefaultComboBoxModel combo = new DefaultComboBoxModel();
+
+        c.setModel(combo);
+        Listado_rol lr = new Listado_rol();
+
+        //AQUI HACEMOS UNA SENTENCIA SQL PARA LA OBTENCION DEL ID ROL DE LA TABLA ROL
+        try {
+            Statement st = con.createStatement();
+
+            //AQUI HACEMOS COMPARACIONES SI EL USUARIO SELECCIONA EN EL COMBO BOX comborool alguna de las 3 opciones debera hacer una consulta sql con dicha opcion que seleccione y obtendra el ID DE ESE ROL
+            if (combo1.getSelectedItem().equals("ADMINISTRADOR")) {
+                ResultSet rs = st.executeQuery("SELECT id_rol FROM rol WHERE nombre_rol ='ADMINISTRADOR'");
+                while (rs.next()) {
+                    //Rol_combo ES UNA CLASE DONDE ESTA LOS SET AND GET
+                    Rol_combo rc = new Rol_combo();
+
+                    rc.setNom_id(rs.getString(1));
+                    lr.Agregar_rol(rc);
+                    combo.addElement(rc.getNom_id());
+
+                }
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void id_2_rol(JComboBox c) {
+
+        DefaultComboBoxModel combo = new DefaultComboBoxModel();
+
+        c.setModel(combo);
+        Listado_rol lr = new Listado_rol();
+
+        try {
+            Statement st = con.createStatement();
+
+            if (combo1.getSelectedItem().equals("VENDEDOR")) {
+                ResultSet rs = st.executeQuery("SELECT id_rol FROM rol WHERE nombre_rol = 'VENDEDOR'");
+                while (rs.next()) {
+
+                    Rol_combo rc = new Rol_combo();
+
+                    rc.setNom_rol(rs.getString(1));
+                    lr.Agregar_rol(rc);
+                    combo.addElement(rc.getNom_rol());
+
+                }
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void id_3_rol(JComboBox c) {
+
+        DefaultComboBoxModel combo = new DefaultComboBoxModel();
+
+        c.setModel(combo);
+        Listado_rol lr = new Listado_rol();
+
+        try {
+            Statement st = con.createStatement();
+
+            if (combo1.getSelectedItem().equals("GERENTE")) {
+                ResultSet rs = st.executeQuery("SELECT id_rol FROM rol WHERE nombre_rol = 'GERENTE'");
+                while (rs.next()) {
+
+                    Rol_combo rc = new Rol_combo();
+
+                    rc.setNom_rol(rs.getString(1));
+                    lr.Agregar_rol(rc);
+                    combo.addElement(rc.getNom_rol());
+
+                }
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -159,8 +208,8 @@ public class LoginForm extends javax.swing.JFrame {
         TxtPass = new javax.swing.JPasswordField();
         combo1 = new javax.swing.JComboBox<>();
         BtnIngresar = new javax.swing.JButton();
+        numero_id_rol = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -184,6 +233,11 @@ public class LoginForm extends javax.swing.JFrame {
         });
 
         combo1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        combo1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                combo1ItemStateChanged(evt);
+            }
+        });
         combo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 combo1ActionPerformed(evt);
@@ -204,22 +258,19 @@ public class LoginForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(TxtUser, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TxtPass)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(BtnIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                        .addComponent(BtnIngresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(21, 21, 21))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(combo1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(TxtUser, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TxtPass, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(combo1, 0, 197, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(numero_id_rol, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(79, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,7 +284,9 @@ public class LoginForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TxtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(combo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(combo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(numero_id_rol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(BtnIngresar)
                 .addGap(27, 27, 27))
@@ -241,35 +294,27 @@ public class LoginForm extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/desbloquear.png"))); // NOI18N
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)))
+                .addGap(21, 21, 21)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -306,6 +351,34 @@ public class LoginForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_combo1ActionPerformed
 
+    private void combo1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo1ItemStateChanged
+        // TODO add your handling code here:
+//AQUI ES CUANDO SE REALIZA UN CAMBIO EN EL COMBO BOX NOMBRE DEL ROL DE IGUAL FORMA SE REALIZA LA CONSULTA SQL SEGUN SEA LA OPCION
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+
+            // ESTE IF OBTENEMOS LA DIRECCION QUE SE SELECCIONO EN EL COMBO BOX comborool POR MEDIO DE INDEX
+            //0 ES ADMIN, 1 VENDEDOR, 2 GERENTE
+            if (this.combo1.getSelectedIndex() == 0) {
+                // LLAMAMOS AL METODO QUE ESTA EN LA LINEA 551 Y LE MANDAMDO COMO id_num YA QUE ES UN COMBO BOX Y ESTA PIDIENDO ESE OBJECTO
+                id_1_rol(numero_id_rol);
+                
+
+            }
+            if (this.combo1.getSelectedIndex() == 1) {
+
+                id_2_rol(numero_id_rol);
+//               ;
+
+            }
+            if (this.combo1.getSelectedIndex() == 2) {
+                id_3_rol(numero_id_rol);
+//                
+
+            }
+
+        }
+    }//GEN-LAST:event_combo1ItemStateChanged
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -338,40 +411,16 @@ public class LoginForm extends javax.swing.JFrame {
         });
     }
 
-    private void cargarcombo(JComboBox c) {
-
-        DefaultComboBoxModel combo = new DefaultComboBoxModel();
-
-        c.setModel(combo);
-        Listado_rol lr = new Listado_rol();
-        try {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT nombre_rol FROM rol");
-            while (rs.next()) {
-                Rol_combo rc = new Rol_combo();
-
-                rc.setNom_rol(rs.getString(1));
-                lr.Agregar_rol(rc);
-                combo.addElement(rc.getNom_rol());
-
-            }
-        } catch (Exception e) {
-
-            JOptionPane.showMessageDialog(null, e + "se realio mal ");
-
-        }
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnIngresar;
     private javax.swing.JPasswordField TxtPass;
     private javax.swing.JTextField TxtUser;
     public static javax.swing.JComboBox<String> combo1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JComboBox<String> numero_id_rol;
     // End of variables declaration//GEN-END:variables
 }

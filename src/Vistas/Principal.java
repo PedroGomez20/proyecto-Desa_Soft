@@ -46,21 +46,25 @@ public class Principal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        ventas = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        reportes = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
+        clientes = new javax.swing.JMenu();
+        add_cliente = new javax.swing.JMenuItem();
+        up_cliente = new javax.swing.JMenuItem();
+        de_cliente = new javax.swing.JMenuItem();
+        productos = new javax.swing.JMenu();
+        add_producto = new javax.swing.JMenuItem();
+        up_producto = new javax.swing.JMenuItem();
+        de_producto = new javax.swing.JMenuItem();
+        vendedor = new javax.swing.JMenu();
+        add_vendedor = new javax.swing.JMenuItem();
+        up_vendedor = new javax.swing.JMenuItem();
+        de_vendedor = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,7 +102,7 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(340, Short.MAX_VALUE))
         );
         VentanaPrincipalLayout.setVerticalGroup(
             VentanaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,7 +115,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(VentanaPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlrol, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/menu.png"))); // NOI18N
@@ -135,8 +139,8 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/bienes.png"))); // NOI18N
-        jMenu2.setText("Ventas");
+        ventas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/bienes.png"))); // NOI18N
+        ventas.setText("Ventas");
 
         jMenuItem3.setText("GenerarVenta");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -144,9 +148,9 @@ public class Principal extends javax.swing.JFrame {
                 jMenuItem3ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        ventas.add(jMenuItem3);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(ventas);
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/reporte.png"))); // NOI18N
         jMenu3.setText("Mantenimiento");
@@ -169,71 +173,90 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
-        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/grafico-de-barras.png"))); // NOI18N
-        jMenu4.setText("Reportes");
+        reportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/grafico-de-barras.png"))); // NOI18N
+        reportes.setText("Reportes");
 
         jMenuItem7.setText("Reporte de Venta");
-        jMenu4.add(jMenuItem7);
+        reportes.add(jMenuItem7);
 
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(reportes);
 
-        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/cliente.png"))); // NOI18N
-        jMenu5.setText("Clientes");
+        clientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/cliente.png"))); // NOI18N
+        clientes.setText("Clientes");
 
-        jMenuItem4.setText("AGREGAR");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        add_cliente.setText("AGREGAR");
+        add_cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                add_clienteActionPerformed(evt);
             }
         });
-        jMenu5.add(jMenuItem4);
+        clientes.add(add_cliente);
 
-        jMenuItem8.setText("MODIFICAR");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        up_cliente.setText("MODIFICAR");
+        up_cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                up_clienteActionPerformed(evt);
             }
         });
-        jMenu5.add(jMenuItem8);
+        clientes.add(up_cliente);
 
-        jMenuItem9.setText("ELIMINAR");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+        de_cliente.setText("ELIMINAR");
+        de_cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
+                de_clienteActionPerformed(evt);
             }
         });
-        jMenu5.add(jMenuItem9);
+        clientes.add(de_cliente);
 
-        jMenuBar1.add(jMenu5);
+        jMenuBar1.add(clientes);
 
-        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/productos.png"))); // NOI18N
-        jMenu6.setText("Productos");
+        productos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/productos.png"))); // NOI18N
+        productos.setText("Productos");
 
-        jMenuItem10.setText("AGREGAR");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+        add_producto.setText("AGREGAR");
+        add_producto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
+                add_productoActionPerformed(evt);
             }
         });
-        jMenu6.add(jMenuItem10);
+        productos.add(add_producto);
 
-        jMenuItem11.setText("MODIFICAR");
-        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+        up_producto.setText("MODIFICAR");
+        up_producto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem11ActionPerformed(evt);
+                up_productoActionPerformed(evt);
             }
         });
-        jMenu6.add(jMenuItem11);
+        productos.add(up_producto);
 
-        jMenuItem12.setText("ELIMINAR");
-        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+        de_producto.setText("ELIMINAR");
+        de_producto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
+                de_productoActionPerformed(evt);
             }
         });
-        jMenu6.add(jMenuItem12);
+        productos.add(de_producto);
 
-        jMenuBar1.add(jMenu6);
+        jMenuBar1.add(productos);
+
+        vendedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/users_clients_group_16774.png"))); // NOI18N
+        vendedor.setText("VENDEDOR");
+
+        add_vendedor.setText("AGREGAR");
+        vendedor.add(add_vendedor);
+
+        up_vendedor.setText("MODIFICAR");
+        up_vendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                up_vendedorActionPerformed(evt);
+            }
+        });
+        vendedor.add(up_vendedor);
+
+        de_vendedor.setText("ELIMINAR");
+        vendedor.add(de_vendedor);
+
+        jMenuBar1.add(vendedor);
 
         setJMenuBar(jMenuBar1);
 
@@ -266,12 +289,12 @@ public class Principal extends javax.swing.JFrame {
         CentrarVentana(vf);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void add_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_clienteActionPerformed
         ClienteForm cf = new ClienteForm();
         cf.show(true);
         CentrarVentana(cf);
 
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_add_clienteActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         ProductoForm pf = new ProductoForm();
@@ -285,7 +308,7 @@ public class Principal extends javax.swing.JFrame {
         CentrarVentana(vf);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+    private void up_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up_clienteActionPerformed
         // TODO add your handling code here:
 
 //        new ClienteForm_UP().setVisible(true);
@@ -296,41 +319,45 @@ public class Principal extends javax.swing.JFrame {
 
 //        new ClienteForm_UP().setVisible(true);
 
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
+    }//GEN-LAST:event_up_clienteActionPerformed
 
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+    private void de_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_de_clienteActionPerformed
         // TODO add your handling code here:
         
         ClienteForm_DE cde = new ClienteForm_DE();
         cde.show(true);
         CentrarVentana(cde);
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
+    }//GEN-LAST:event_de_clienteActionPerformed
 
-    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+    private void de_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_de_productoActionPerformed
         // TODO add your handling code here:
         ProductoForm_DELETE cf = new ProductoForm_DELETE();
         cf.show(true);
         CentrarVentana(cf);
         
         
-    }//GEN-LAST:event_jMenuItem12ActionPerformed
+    }//GEN-LAST:event_de_productoActionPerformed
 
-    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+    private void up_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up_productoActionPerformed
         // TODO add your handling code here:
         
         ProductoForm_UP pf =new ProductoForm_UP();
        pf.show(true);
         CentrarVentana(pf);
         
-    }//GEN-LAST:event_jMenuItem11ActionPerformed
+    }//GEN-LAST:event_up_productoActionPerformed
 
-    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+    private void add_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_productoActionPerformed
         // TODO add your handling code here:
         
          ProductoForm pf =new ProductoForm();
        pf.show(true);
         CentrarVentana(pf);
-    }//GEN-LAST:event_jMenuItem10ActionPerformed
+    }//GEN-LAST:event_add_productoActionPerformed
+
+    private void up_vendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up_vendedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_up_vendedorActionPerformed
 
     void CentrarVentana(JInternalFrame frame) {
         VentanaPrincipal.add(frame);
@@ -346,28 +373,32 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane VentanaPrincipal;
+    public javax.swing.JMenuItem add_cliente;
+    public javax.swing.JMenuItem add_producto;
+    public javax.swing.JMenuItem add_vendedor;
+    public javax.swing.JMenu clientes;
+    public javax.swing.JMenuItem de_cliente;
+    public javax.swing.JMenuItem de_producto;
+    public javax.swing.JMenuItem de_vendedor;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     public static javax.swing.JMenu jMenu1;
-    public static javax.swing.JMenu jMenu2;
     public static javax.swing.JMenu jMenu3;
-    public static javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     public static javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    public javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     public static javax.swing.JMenuItem jMenuItem5;
     public static javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     public static javax.swing.JLabel jlrol;
     public static javax.swing.JLabel jlusuario;
+    public javax.swing.JMenu productos;
+    public static javax.swing.JMenu reportes;
+    public javax.swing.JMenuItem up_cliente;
+    public javax.swing.JMenuItem up_producto;
+    public javax.swing.JMenuItem up_vendedor;
+    public javax.swing.JMenu vendedor;
+    public static javax.swing.JMenu ventas;
     // End of variables declaration//GEN-END:variables
 }
