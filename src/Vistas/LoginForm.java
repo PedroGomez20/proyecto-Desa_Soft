@@ -28,6 +28,7 @@ public class LoginForm extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         cargarcombo(combo1);
+        
         //DATOS TEMPORALES
 //        TxtUser.setText("emp01");
 //        TxtPass.setText("12345678");
@@ -55,6 +56,7 @@ public class LoginForm extends javax.swing.JFrame {
     }
 
     public void Validar() {
+        
         String dni = TxtPass.getText();
         aEnccriptar = dni;
         encriptada = encrip.Encriptar(aEnccriptar);
@@ -93,10 +95,7 @@ public class LoginForm extends javax.swing.JFrame {
                     
                     
                     
-//                    ClienteForm cfa = new ClienteForm();
-//                    cfa.setVass(true);
-////                    cfa.ocultar(true);
-//                    cfa.show();
+
 
                 } else if (combo1.getSelectedItem().equals("VENDEDOR")) {
 
@@ -108,10 +107,7 @@ public class LoginForm extends javax.swing.JFrame {
                     m.usuario_rol((String) combo1.getSelectedItem());
                     m.show();
 
-                    //ocualtar el boton 
-                    ClienteForm cfa = new ClienteForm();
-                    cfa.setVass(false);
-                    cfa.show();
+                   
 
                 } else if (combo1.getSelectedItem().equals("GERENTE")) {
 
@@ -348,7 +344,6 @@ public class LoginForm extends javax.swing.JFrame {
                 rc.setNom_rol(rs.getString(1));
                 lr.Agregar_rol(rc);
                 combo.addElement(rc.getNom_rol());
-//                JOptionPane.showMessageDialog(null, "se realio bien ");
 
             }
         } catch (Exception e) {

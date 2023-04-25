@@ -19,9 +19,6 @@ public class ClienteForm_UP extends javax.swing.JInternalFrame {
 
         initComponents();
         listar();
-      
-         
-       
     }
 
     void listar() {
@@ -33,13 +30,10 @@ public class ClienteForm_UP extends javax.swing.JInternalFrame {
             ob[1] = lista.get(i).getDni();
             ob[2] = lista.get(i).getNom();
             ob[3] = lista.get(i).getDir();
-//            ob[4] = lista.get(i).getEstado();
             modelo.addRow(ob);
         }
         TablaC.setModel(modelo);
     }
-
-   
 
     void Actualizar() {
         int fila = TablaC.getSelectedRow();
@@ -49,18 +43,14 @@ public class ClienteForm_UP extends javax.swing.JInternalFrame {
             String dni = TxtDni.getText();
             String nom = TxtNombres.getText();
             String dir = TxtDireccion.getText();
-//            String es = CbxEstado.getSelectedItem().toString();
             Object[] obj = new Object[5];
             obj[0] = dni;
             obj[1] = nom;
             obj[2] = dir;
-//            obj[3] = es;
             obj[3] = id;
             dao.actualizar(obj);
         }
     }
-
-    
 
     void Nuevo() {
         TxtDni.setText("");
@@ -76,23 +66,6 @@ public class ClienteForm_UP extends javax.swing.JInternalFrame {
             i = i - 1;
         }
     }
-    
-    //para oacultar lo botones;
-   boolean vass = true;
-   
-   public boolean isVass() {
-        return vass;
-    }
-
-    public void setVass(boolean vass) {
-        this.vass = vass;
-    }
-   
-  
-
-    
-    
-     
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -296,11 +269,9 @@ public class ClienteForm_UP extends javax.swing.JInternalFrame {
             String dni = TablaC.getValueAt(fila, 1).toString();
             String nom = TablaC.getValueAt(fila, 2).toString();
             String dir = TablaC.getValueAt(fila, 3).toString();
-//            String es = TablaC.getValueAt(fila, 4).toString();
             TxtDni.setText(dni);
             TxtNombres.setText(nom);
             TxtDireccion.setText(dir);
-//            CbxEstado.setSelectedItem(es);
         }
     }//GEN-LAST:event_TablaCMouseClicked
 

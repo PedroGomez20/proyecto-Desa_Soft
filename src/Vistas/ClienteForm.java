@@ -2,8 +2,6 @@ package Vistas;
 
 import Modelo.Cliente;
 import Modelo.ClienteDAO;
-import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ClienteForm extends javax.swing.JInternalFrame {
@@ -18,33 +16,24 @@ public class ClienteForm extends javax.swing.JInternalFrame {
     public ClienteForm() {
 
         initComponents();
-       
-         
-       
-    }
 
-   
+    }
 
     void Agregar() {
         String dni = TxtDni.getText();
         String nom = TxtNombres.getText();
         String dir = TxtDireccion.getText();
-//        String es = CbxEstado.getSelectedItem().toString();
         Object[] ob = new Object[3];
         ob[0] = dni;
         ob[1] = nom;
         ob[2] = dir;
-//        ob[3] = es;
         dao.add(ob);
     }
-
-    
 
     void Nuevo() {
         TxtDni.setText("");
         TxtNombres.setText("");
         TxtDireccion.setText("");
-//        CbxEstado.setSelectedIndex(0);
         TxtDni.requestFocus();
     }
 
@@ -54,23 +43,6 @@ public class ClienteForm extends javax.swing.JInternalFrame {
             i = i - 1;
         }
     }
-    
-    //para oacultar lo botones;
-   boolean vass = true;
-   
-   public boolean isVass() {
-        return vass;
-    }
-
-    public void setVass(boolean vass) {
-        this.vass = vass;
-    }
-   
-  
-
-    
-    
-     
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -201,7 +173,7 @@ public class ClienteForm extends javax.swing.JInternalFrame {
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
         Agregar();
         LimpiarTabla();
-       
+
         Nuevo();
     }//GEN-LAST:event_BtnAgregarActionPerformed
 

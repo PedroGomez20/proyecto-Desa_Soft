@@ -18,10 +18,7 @@ public class ClienteForm_DE extends javax.swing.JInternalFrame {
     public ClienteForm_DE() {
 
         initComponents();
-        listar();
-        BtnEliminar.setVisible(isVass());
-         
-       
+        listar();  
     }
 
     void listar() {
@@ -33,7 +30,6 @@ public class ClienteForm_DE extends javax.swing.JInternalFrame {
             ob[1] = lista.get(i).getDni();
             ob[2] = lista.get(i).getNom();
             ob[3] = lista.get(i).getDir();
-//            ob[4] = lista.get(i).getEstado();
             modelo.addRow(ob);
         }
         TablaC.setModel(modelo);
@@ -54,8 +50,6 @@ public class ClienteForm_DE extends javax.swing.JInternalFrame {
         TxtDni.setText("");
         TxtNombres.setText("");
         TxtDireccion.setText("");
-//        CbxEstado.setSelectedIndex(0);
-//        TxtDni.requestFocus();
     }
 
     void LimpiarTabla() {
@@ -65,16 +59,7 @@ public class ClienteForm_DE extends javax.swing.JInternalFrame {
         }
     }
     
-    //para oacultar lo botones;
-   boolean vass = true;
    
-   public boolean isVass() {
-        return vass;
-    }
-
-    public void setVass(boolean vass) {
-        this.vass = vass;
-    }
    
   
 
@@ -279,11 +264,9 @@ public class ClienteForm_DE extends javax.swing.JInternalFrame {
             String dni = TablaC.getValueAt(fila, 1).toString();
             String nom = TablaC.getValueAt(fila, 2).toString();
             String dir = TablaC.getValueAt(fila, 3).toString();
-//            String es = TablaC.getValueAt(fila, 4).toString();
             TxtDni.setText(dni);
             TxtNombres.setText(nom);
             TxtDireccion.setText(dir);
-//            CbxEstado.setSelectedItem(es);
         }
     }//GEN-LAST:event_TablaCMouseClicked
 
