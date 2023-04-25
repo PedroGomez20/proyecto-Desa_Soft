@@ -19,6 +19,8 @@ public class Principal extends javax.swing.JFrame {
 //                        cfa.ocultar(false);
 //jlusuario.setText(ve.getUser());
     }
+    
+    //AQUI ESTO NOS SIRVE PARA LLEVAR EL DATO OBTENIDO EN LOGIN PARA QUE SE MUESTRE EN ESTA VENTANA
     private String dato;
 
     public void usuario(String dato) {
