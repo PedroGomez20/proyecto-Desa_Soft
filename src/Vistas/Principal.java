@@ -51,8 +51,6 @@ public class Principal extends javax.swing.JFrame {
         ventas = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
         reportes = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         clientes = new javax.swing.JMenu();
@@ -156,23 +154,6 @@ public class Principal extends javax.swing.JFrame {
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/reporte.png"))); // NOI18N
         jMenu3.setText("Mantenimiento");
-
-        jMenuItem5.setText("Producto");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem5);
-
-        jMenuItem6.setText("Vendedor");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem6);
-
         jMenuBar1.add(jMenu3);
 
         reportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/grafico-de-barras.png"))); // NOI18N
@@ -245,6 +226,11 @@ public class Principal extends javax.swing.JFrame {
         vendedor.setText("VENDEDOR");
 
         add_vendedor.setText("AGREGAR");
+        add_vendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add_vendedorActionPerformed(evt);
+            }
+        });
         vendedor.add(add_vendedor);
 
         up_vendedor.setText("MODIFICAR");
@@ -256,6 +242,11 @@ public class Principal extends javax.swing.JFrame {
         vendedor.add(up_vendedor);
 
         de_vendedor.setText("ELIMINAR");
+        de_vendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                de_vendedorActionPerformed(evt);
+            }
+        });
         vendedor.add(de_vendedor);
 
         jMenuBar1.add(vendedor);
@@ -297,18 +288,6 @@ public class Principal extends javax.swing.JFrame {
         CentrarVentana(cf);
 
     }//GEN-LAST:event_add_clienteActionPerformed
-
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        ProductoForm pf = new ProductoForm();
-        pf.show(true);
-        CentrarVentana(pf);
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
-
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        VendedorForm vf = new VendedorForm();
-        vf.show(true);
-        CentrarVentana(vf);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void up_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up_clienteActionPerformed
         // TODO add your handling code here:
@@ -359,7 +338,27 @@ public class Principal extends javax.swing.JFrame {
 
     private void up_vendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up_vendedorActionPerformed
         // TODO add your handling code here:
+        
+        VendedorForm_up vfup = new VendedorForm_up();
+        vfup.show(true);
+        CentrarVentana(vfup);
     }//GEN-LAST:event_up_vendedorActionPerformed
+
+    private void add_vendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_vendedorActionPerformed
+        // TODO add your handling code here:
+        
+        VendedorForm vfadd = new VendedorForm();
+        vfadd.show(true);
+        CentrarVentana(vfadd);
+    }//GEN-LAST:event_add_vendedorActionPerformed
+
+    private void de_vendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_de_vendedorActionPerformed
+        // TODO add your handling code here:
+        VendedorForm_de vfde = new VendedorForm_de();
+        vfde.show(true);
+        CentrarVentana(vfde);
+        
+    }//GEN-LAST:event_de_vendedorActionPerformed
 
     void CentrarVentana(JInternalFrame frame) {
         VentanaPrincipal.add(frame);
@@ -389,9 +388,7 @@ public class Principal extends javax.swing.JFrame {
     public static javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    public static javax.swing.JMenuItem jMenuItem5;
-    public static javax.swing.JMenuItem jMenuItem6;
+    public javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem7;
     public static javax.swing.JLabel jlrol;
     public static javax.swing.JLabel jlusuario;
@@ -401,6 +398,6 @@ public class Principal extends javax.swing.JFrame {
     public javax.swing.JMenuItem up_producto;
     public javax.swing.JMenuItem up_vendedor;
     public javax.swing.JMenu vendedor;
-    public static javax.swing.JMenu ventas;
+    public javax.swing.JMenu ventas;
     // End of variables declaration//GEN-END:variables
 }
