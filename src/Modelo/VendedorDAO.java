@@ -1,11 +1,14 @@
 package Modelo;
 
+import Vistas.VendedorForm_de;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class VendedorDAO implements CRUD {
 
@@ -117,6 +120,39 @@ public class VendedorDAO implements CRUD {
         } catch (Exception e) {
         }
 
+    }
+    String sql;
+
+    public List busqeuda(int Dato, String val) {
+
+        List<Vendedor> lista = new ArrayList<>();
+        if (Dato == 1) {
+            sql = "SELECT v.IdVendedor,v.Dni,v.Nombres,v.Telefono, v.User,r.nombre_rol FROM vendedor v INNER JOIN rol r ON v.id_rol = r.id_rol WHERE v.IdVendedor = '" + val + "' ORDER BY v.IdVendedor ASC ";
+
+        } else if (Dato == 2) {
+            sql = "SELECT v.IdVendedor,v.Dni,v.Nombres,v.Telefono, v.User,r.nombre_rol FROM vendedor v INNER JOIN rol r ON v.id_rol = r.id_rol WHERE v.Nombres = '" + val + "' ORDER BY v.IdVendedor ASC ";
+
+        } else if (Dato == 0) {
+            sql = "SELECT v.IdVendedor,v.Dni,v.Nombres,v.Telefono, v.User,r.nombre_rol FROM vendedor v INNER JOIN rol r ON v.id_rol = r.id_rol  ORDER BY v.IdVendedor ASC ";
+
+        }
+        try {
+            con = cn.Conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Vendedor v = new Vendedor();
+                v.setId(rs.getInt(1));
+                v.setDni(rs.getString(2));
+                v.setNom(rs.getString(3));
+                v.setTel(rs.getString(4));
+                v.setUser(rs.getString(5));
+                v.setId_rol(rs.getString(6));
+                lista.add(v);
+            }
+        } catch (Exception e) {
+        }
+        return lista;
     }
 
 }

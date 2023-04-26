@@ -99,5 +99,40 @@ public class ClienteDAO implements CRUD {
         } catch (Exception e) {
         }
     }
+    
+    
+    
+     String sql;
+    public List busqueda(int Dato, String val) {
+        List<Cliente> lista = new ArrayList<>();
+        
+         if (Dato == 1) {
+            sql = "SELECT * FROM cliente WHERE IdCliente = '" + val + "'";
+
+        } else if (Dato == 2) {
+            sql = "SELECT * FROM cliente WHERE Nombres = '" + val + "'";
+
+        } else if (Dato == 0) {
+            sql = "select * from cliente";
+        }
+        
+         
+     
+        try {
+            con = cn.Conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Cliente c = new Cliente();
+                c.setId(rs.getInt(1));
+                c.setDni(rs.getString(2));
+                c.setNom(rs.getString(3));
+                c.setDir(rs.getString(4));
+                lista.add(c);
+            }
+        } catch (Exception e) {
+        }
+        return lista;
+    }
 
 }

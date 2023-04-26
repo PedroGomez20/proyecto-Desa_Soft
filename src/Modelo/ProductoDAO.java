@@ -102,5 +102,39 @@ public class ProductoDAO implements CRUD {
         } catch (Exception e) {
         }
     }
+    
+    
+     String sql;
+    public List busqueda(int Dato, String val) {
+        List<Producto> lista = new ArrayList<>();
+        
+         if (Dato == 1) {
+            sql = "SELECT * FROM producto WHERE IdProducto = '" + val + "'";
+
+        } else if (Dato == 2) {
+            sql = "SELECT * FROM producto WHERE Nombres = '" + val + "'";
+
+        } else if (Dato == 0) {
+            sql = "SELECT * FROM producto";
+        }
+        
+         
+        try {
+            con = cn.Conectar();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Producto p = new Producto();
+                p.setId(rs.getInt(1));
+                p.setNom(rs.getString(2));
+                p.setPrecio(rs.getDouble(3));
+                p.setStock(rs.getInt(4));
+//                p.setEstado(rs.getString(5));
+                lista.add(p);
+            }
+        } catch (Exception e) {
+        }
+        return lista;
+    }
 
 }

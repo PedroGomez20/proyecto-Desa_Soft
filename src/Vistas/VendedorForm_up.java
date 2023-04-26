@@ -44,7 +44,10 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
 //        cargarcombo(comborool);
         listar();
         sas.cargarcombo(comborool);
-
+        if (this.OPCION.getSelectedIndex() == 0) {
+            dao.busqeuda(0, null);
+            this.buscar.doClick();
+        }
 
     }
 
@@ -67,8 +70,6 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
     }
     //ESTA VARIABLE (roll) NOS AYUDA A OBTENER EL VALOR DEL COMBO BOX (id_mun) QUE HACE REFERENCIA A LA LLAVE PRIMARIA DEL LA TABLA ROL
     String roll;
-
-    
 
     void Actualizar() {
 
@@ -99,7 +100,6 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
         }
     }
 
-
     void Nuevo() {
         TxtDni.setText("");
         TxtNombres.setText("");
@@ -122,7 +122,6 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
 //        ob[0] = ro;
 //
 //    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -146,13 +145,17 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaV = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        OPCION = new javax.swing.JComboBox<>();
+        valor = new javax.swing.JTextField();
+        buscar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
         setTitle("Modulo Vendedor");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("DATOS PERSONALES:"));
 
         jLabel1.setText("CONTRASEÑA:");
 
@@ -275,10 +278,10 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
                         .addComponent(comborool, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(id_num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel7)))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("DATOS:"));
 
         TablaV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -309,15 +312,55 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
                 .addContainerGap())
+        );
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("BUSQUEDA:"));
+
+        OPCION.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "ID EMPLEADO", "NOMBRE" }));
+        OPCION.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                OPCIONItemStateChanged(evt);
+            }
+        });
+
+        buscar.setText("BUSCAR");
+        buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(OPCION, 0, 1, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(valor, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(buscar)
+                .addGap(303, 303, 303))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(valor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(OPCION, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -325,18 +368,21 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -416,15 +462,64 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_comboroolItemStateChanged
 
+    private void OPCIONItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_OPCIONItemStateChanged
+        // TODO add your handling code here:
+
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+
+            // ESTE IF OBTENEMOS LA DIRECCION QUE SE SELECCIONO EN EL COMBO BOX comborool POR MEDIO DE INDEX
+            if (this.OPCION.getSelectedIndex() == 0) {
+
+                this.buscar.doClick();
+            }
+            if (this.OPCION.getSelectedIndex() == 1) {
+
+                LimpiarTabla();
+
+            }
+            if (this.OPCION.getSelectedIndex() == 2) {
+                LimpiarTabla();
+
+            }
+
+        }
+    }//GEN-LAST:event_OPCIONItemStateChanged
+
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        // TODO add your handling code here:
+LimpiarTabla();
+        int opcions = OPCION.getSelectedIndex();
+        String val = valor.getText();
+        //        dao.busqeuda(opcions, val);
+
+        List<Vendedor> lista = dao.busqeuda(opcions, val);
+        modelo = (DefaultTableModel) TablaV.getModel();
+        Object[] ob = new Object[7];
+        for (int i = 0; i < lista.size(); i++) {
+            ob[0] = lista.get(i).getId();
+            ob[1] = lista.get(i).getDni();
+            ob[2] = lista.get(i).getNom();
+            ob[3] = lista.get(i).getTel();
+            ob[4] = lista.get(i).getUser();
+            ob[5] = lista.get(i).getId_rol();
+            modelo.addRow(ob);
+        }
+        TablaV.setModel(modelo);
+
+        valor.setText("");
+    }//GEN-LAST:event_buscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnActualizar;
     private javax.swing.JButton BtnNuevo;
+    private javax.swing.JComboBox<String> OPCION;
     private javax.swing.JTable TablaV;
     private javax.swing.JPasswordField TxtDni;
     private javax.swing.JTextField TxtNombres;
     private javax.swing.JTextField TxtTelefono;
     private javax.swing.JTextField TxtUser;
+    private javax.swing.JButton buscar;
     public javax.swing.JComboBox<String> comborool;
     private javax.swing.JComboBox<String> id_num;
     private javax.swing.JLabel jLabel1;
@@ -436,7 +531,9 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField valor;
     // End of variables declaration//GEN-END:variables
 
     public void id_1_rol(JComboBox c) {

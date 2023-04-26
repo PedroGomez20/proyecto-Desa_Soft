@@ -2,6 +2,7 @@ package Vistas;
 
 import Modelo.Cliente;
 import Modelo.ClienteDAO;
+import java.awt.event.ItemEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -18,7 +19,12 @@ public class ClienteForm_DE extends javax.swing.JInternalFrame {
     public ClienteForm_DE() {
 
         initComponents();
-        listar();  
+//        listar();  
+
+        if (this.OPCION.getSelectedIndex() == 0) {
+            dao.busqueda(0, null);
+            this.buscar.doClick();
+        }
     }
 
     void listar() {
@@ -35,11 +41,10 @@ public class ClienteForm_DE extends javax.swing.JInternalFrame {
         TablaC.setModel(modelo);
     }
 
-    
     void Eliminar() {
         int fila = TablaC.getSelectedRow();
         int ids = Integer.parseInt(TablaC.getValueAt(fila, 0).toString());
-        if (fila == -1){
+        if (fila == -1) {
             JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UNA FILA");
         } else {
             dao.eliminar(ids);
@@ -58,14 +63,6 @@ public class ClienteForm_DE extends javax.swing.JInternalFrame {
             i = i - 1;
         }
     }
-    
-   
-   
-  
-
-    
-    
-     
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -84,13 +81,17 @@ public class ClienteForm_DE extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         BtnEliminar = new javax.swing.JButton();
         BtnNuevo = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        OPCION = new javax.swing.JComboBox<>();
+        valor = new javax.swing.JTextField();
+        buscar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
         setTitle("Modulo Cliente");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("DATOS PERSONALES:"));
 
         jLabel1.setText("DNI:");
 
@@ -133,7 +134,7 @@ public class ClienteForm_DE extends javax.swing.JInternalFrame {
                 .addGap(22, 22, 22))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("DATOS:"));
 
         TablaC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -214,6 +215,45 @@ public class ClienteForm_DE extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("BUSQUEDA:"));
+
+        OPCION.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "ID EMPLEADO", "NOMBRE" }));
+        OPCION.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                OPCIONItemStateChanged(evt);
+            }
+        });
+
+        buscar.setText("BUSCAR");
+        buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(OPCION, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(valor, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(144, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(OPCION, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(valor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -223,9 +263,12 @@ public class ClienteForm_DE extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -236,7 +279,9 @@ public class ClienteForm_DE extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -270,20 +315,69 @@ public class ClienteForm_DE extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_TablaCMouseClicked
 
+    private void OPCIONItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_OPCIONItemStateChanged
+        // TODO add your handling code here:
+
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+
+            // ESTE IF OBTENEMOS LA DIRECCION QUE SE SELECCIONO EN EL COMBO BOX comborool POR MEDIO DE INDEX
+            if (this.OPCION.getSelectedIndex() == 0) {
+
+                this.buscar.doClick();
+            }
+            if (this.OPCION.getSelectedIndex() == 1) {
+
+                LimpiarTabla();
+
+            }
+            if (this.OPCION.getSelectedIndex() == 2) {
+                LimpiarTabla();
+
+            }
+
+        }
+    }//GEN-LAST:event_OPCIONItemStateChanged
+
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        // TODO add your handling code here:
+        LimpiarTabla();
+        int opcions = OPCION.getSelectedIndex();
+        String val = valor.getText();
+        //        dao.busqeuda(opcions, val);
+
+        List<Cliente> lista = dao.busqueda(opcions, val);
+        modelo = (DefaultTableModel) TablaC.getModel();
+        Object[] ob = new Object[4];
+        for (int i = 0; i < lista.size(); i++) {
+            ob[0] = lista.get(i).getId();
+            ob[1] = lista.get(i).getDni();
+            ob[2] = lista.get(i).getNom();
+            ob[3] = lista.get(i).getDir();
+            modelo.addRow(ob);
+        }
+        TablaC.setModel(modelo);
+
+        valor.setText("");
+    }//GEN-LAST:event_buscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnNuevo;
+    private javax.swing.JComboBox<String> OPCION;
     private javax.swing.JTable TablaC;
     private javax.swing.JTextField TxtDireccion;
     private javax.swing.JTextField TxtDni;
     private javax.swing.JTextField TxtNombres;
+    private javax.swing.JButton buscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     public static javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField valor;
     // End of variables declaration//GEN-END:variables
 }
