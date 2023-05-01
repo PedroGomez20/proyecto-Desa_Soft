@@ -10,6 +10,7 @@ import Modelo.Vendedor;
 import Modelo.VendedorDAO;
 import Modelo.encriptacion;
 import com.sun.glass.events.KeyEvent;
+
 import java.awt.event.ItemEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -85,7 +86,6 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         }
 
     }
-    
 
     void Nuevo() {
         TxtDni.setText("");
@@ -94,6 +94,13 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         TxtUser.setText("");
         TxtDni.requestFocus();
         comborool.setSelectedIndex(0);
+    }
+
+    public int contador_telefono() {
+        String caracteres = TxtTelefono.getText().replaceAll("[' '\n]", "");
+        int len = caracteres.length();
+
+        return len;
     }
 
     @SuppressWarnings("unchecked")
@@ -323,10 +330,10 @@ public class VendedorForm extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-   
+
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
         //PARA OBTENER EL NOMBRE Y MOSTRALO EN EL MENSAJE DE ABVERTENCIA
-        String nom1=TxtNombres.getText();
+        String nom1 = TxtNombres.getText();
         int respuesta = JOptionPane.showConfirmDialog(null, "¿ESTA SEGURO DE AGREGAR AL EMPLEADO:  " + nom1 + " ?", "ALERTA", JOptionPane.YES_NO_OPTION, 2);
         switch (respuesta) {
             case JOptionPane.YES_OPTION:
@@ -388,7 +395,7 @@ public class VendedorForm extends javax.swing.JInternalFrame {
 
     private void TxtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtNombresKeyTyped
         // TODO add your handling code here:
-          Character ch = evt.getKeyChar();
+        Character ch = evt.getKeyChar();
 
         //IS LETTER NOS AYUDA A PERMITIR ENTRADAS POR TECLADO SOLAMENTE PERO TENEMOS EL SIGNO ! SI ES DIFERENTE Y SI ES DIFERENTE AL SIMBOLO O A LA ENTRADA ESPACIO
         //SI SE INGRESA COMO UN NUMERO NO LO PERMITE PERO SI PERMITIRA LA ENTRA DE ESAPCIOS Y LETRAS
@@ -400,14 +407,19 @@ public class VendedorForm extends javax.swing.JInternalFrame {
 
     private void TxtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtTelefonoKeyTyped
         // TODO add your handling code here:
-        
-          Character ch = evt.getKeyChar();
 
-        //AQUI PERIMITE SOLO NUMEROS Y LETRAS NO LO PERIMITE
-        if (!Character.isDigit(ch)) {
+        Character ch = evt.getKeyChar();
 
+
+         if (contador_telefono() == 10) {
+            JOptionPane.showMessageDialog(null, "supera los 10 digitos");
             evt.consume();
         }
+         else if (Character.isLetter(ch)) {
+            JOptionPane.showMessageDialog(null, "NO SE PERMITE INGRESAR LETRAS");
+            evt.consume();
+        }
+
     }//GEN-LAST:event_TxtTelefonoKeyTyped
 
 

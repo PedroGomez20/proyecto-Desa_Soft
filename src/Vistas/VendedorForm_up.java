@@ -118,6 +118,12 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
             i = i - 1;
         }
     }
+     public int contador_telefono() {
+        String caracteres = TxtTelefono.getText().replaceAll("[' '\n]", "");
+        int len = caracteres.length();
+
+        return len;
+    }
 
 //    public void rol_nom() {
 //        String ro = comborool.getSelectedItem().toString();
@@ -554,11 +560,15 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
 
     private void TxtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtTelefonoKeyTyped
         // TODO add your handling code here:
-         Character ch = evt.getKeyChar();
+        Character ch = evt.getKeyChar();
 
-        //AQUI PERIMITE SOLO NUMEROS Y LETRAS NO LO PERIMITE
-        if (!Character.isDigit(ch)) {
 
+         if (contador_telefono() == 10) {
+            JOptionPane.showMessageDialog(null, "supera los 10 digitos");
+            evt.consume();
+        }
+         else if (Character.isLetter(ch)) {
+            JOptionPane.showMessageDialog(null, "NO SE PERMITE INGRESAR LETRAS");
             evt.consume();
         }
     }//GEN-LAST:event_TxtTelefonoKeyTyped
