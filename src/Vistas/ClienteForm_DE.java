@@ -290,16 +290,27 @@ public class ClienteForm_DE extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-        Eliminar();
-        LimpiarTabla();
-        listar();
-        Nuevo();
+      int respuesta = JOptionPane.showConfirmDialog(null, "¿ESTAS SEGURO DE ELIMINAR EL REGISTRO DEL CLIENTE:  "+nom+" ?", "ALERTA", JOptionPane.YES_NO_OPTION, 2);
+        switch (respuesta) {
+            case JOptionPane.YES_OPTION:
+                Eliminar();
+                LimpiarTabla();
+                listar();
+                Nuevo();
+                break;
+            case JOptionPane.NO_OPTION:
+                break;
+            case JOptionPane.CLOSED_OPTION:
+                break;
+            default:
+                break;
+        }
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void BtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoActionPerformed
         Nuevo();
     }//GEN-LAST:event_BtnNuevoActionPerformed
-
+String nom;
     private void TablaCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaCMouseClicked
         int fila = TablaC.getSelectedRow();
         if (fila == -1) {
@@ -307,7 +318,7 @@ public class ClienteForm_DE extends javax.swing.JInternalFrame {
         } else {
             id = Integer.parseInt(TablaC.getValueAt(fila, 0).toString());
             String dni = TablaC.getValueAt(fila, 1).toString();
-            String nom = TablaC.getValueAt(fila, 2).toString();
+             nom = TablaC.getValueAt(fila, 2).toString();
             String dir = TablaC.getValueAt(fila, 3).toString();
             TxtDni.setText(dni);
             TxtNombres.setText(nom);

@@ -60,8 +60,8 @@ public class LoginForm extends javax.swing.JFrame {
         //EN EL VALOR DE COMBO BOX OCULTO LO TOMARA LA VARIABLE id_rol YA QUE PARA HACER LA VALIDACION SE NECESITA UN NUMERO QUE CORRESPONDE AL ID ROL
         id_rol = (String) numero_id_rol.getSelectedItem();
 
-        if (TxtUser.getText().equals("") || TxtPass.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "DEBE INGRESAR DATOS EN LAs CAJAS DE TEXTO");
+        if (TxtUser.getText().equals("") || TxtPass.getText().equals("") || combo1.getSelectedIndex()==0) {
+            JOptionPane.showMessageDialog(this, "DEBE INGRESAR DATOS EN LOS CAMPOS");
             TxtUser.requestFocus();
         } else {
 
@@ -70,8 +70,9 @@ public class LoginForm extends javax.swing.JFrame {
 
                 //ESTOS IF ANINADOS HACE REFERENCIA A QUE OPCION SELECCIONO EL USUARIO EN CUESTION DE ROL
                 //LA OPCION 0 ES ADMIN , 1 ES VENDEDOR, 2 ES GENERENTE
+                
                 //Y CON ESTO PODEMOS OCULTAR LAS OPCIONES QUE VA TENER CADA ROL
-                if (combo1.getSelectedIndex() == 0) {
+                if (combo1.getSelectedIndex() == 3) {
                     //LLAMAMOS LA CLASE Principal 
                     Principal m = new Principal();
                     //AQUI MANDAMOS EL VALOR USER PARA QUE SE MUESTRE EN LA VENTANA PRINCIPAL
@@ -80,7 +81,7 @@ public class LoginForm extends javax.swing.JFrame {
                     m.usuario_rol((String) combo1.getSelectedItem());
                     m.show();
 
-                } else if (combo1.getSelectedIndex() == 1) {
+                } else if (combo1.getSelectedIndex() == 2) {
 
                     //VENDEDOR
                     Principal m = new Principal();
@@ -97,7 +98,7 @@ public class LoginForm extends javax.swing.JFrame {
                     m.usuario_rol((String) combo1.getSelectedItem());
                     m.show();
 
-                } else if (combo1.getSelectedIndex() == 2) {
+                } else if (combo1.getSelectedIndex() == 1) {
 
                     Principal m = new Principal();
                     m.ventas.setVisible(false);
@@ -360,19 +361,19 @@ public class LoginForm extends javax.swing.JFrame {
 
             // ESTE IF OBTENEMOS LA DIRECCION QUE SE SELECCIONO EN EL COMBO BOX comborool POR MEDIO DE INDEX
             //0 ES ADMIN, 1 VENDEDOR, 2 GERENTE
-            if (this.combo1.getSelectedIndex() == 0) {
+            if (this.combo1.getSelectedIndex() == 3) {
                 // LLAMAMOS AL METODO QUE ESTA EN LA LINEA 551 Y LE MANDAMDO COMO id_num YA QUE ES UN COMBO BOX Y ESTA PIDIENDO ESE OBJECTO
                 id_1_rol(numero_id_rol);
                 
 
             }
-            if (this.combo1.getSelectedIndex() == 1) {
+            if (this.combo1.getSelectedIndex() == 2) {
 
                 id_2_rol(numero_id_rol);
 //               ;
 
             }
-            if (this.combo1.getSelectedIndex() == 2) {
+            if (this.combo1.getSelectedIndex() == 1) {
                 id_3_rol(numero_id_rol);
 //                
 

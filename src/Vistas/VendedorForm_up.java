@@ -9,6 +9,7 @@ import Modelo.Rol_combo;
 import Modelo.Vendedor;
 import Modelo.VendedorDAO;
 import Modelo.encriptacion;
+import com.sun.glass.events.KeyEvent;
 import java.awt.event.ItemEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -48,6 +49,7 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
             dao.busqeuda(0, null);
             this.buscar.doClick();
         }
+        id_num.setVisible(false);
 
     }
 
@@ -76,8 +78,9 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
         int fila = TablaV.getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UNA FILA");
+        } else if (TxtDni.getText().isEmpty() || TxtNombres.getText().isEmpty() || TxtTelefono.getText().isEmpty() || TxtUser.getText().isEmpty() || comborool.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "FALTO INGRESAR ALGUN DATO EN LOS CAMPOS");
         } else {
-            // AQUI LA VARIABLE roll TOMARA EL VALOR DEL COMBO BOX id_num QUE HACE REFERENCIA AL ID DE LA TABLA ROL
             roll = (String) id_num.getSelectedItem();
             //ES LA CONTRASENIA DEL USUARIO 
             String dni = TxtDni.getText();
@@ -137,7 +140,6 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         comborool = new javax.swing.JComboBox<>();
         id_num = new javax.swing.JComboBox<>();
-        jLabel7 = new javax.swing.JLabel();
         TxtDni = new javax.swing.JPasswordField();
         jPanel3 = new javax.swing.JPanel();
         BtnActualizar = new javax.swing.JButton();
@@ -165,6 +167,18 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
 
         jLabel4.setText("USUARIO:");
 
+        TxtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtNombresKeyTyped(evt);
+            }
+        });
+
+        TxtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtTelefonoKeyTyped(evt);
+            }
+        });
+
         jLabel6.setText("ROL:");
 
         comborool.addItemListener(new java.awt.event.ItemListener() {
@@ -177,8 +191,6 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
                 comboroolActionPerformed(evt);
             }
         });
-
-        jLabel7.setText("COD. Rol:");
 
         BtnActualizar.setBackground(new java.awt.Color(153, 255, 255));
         BtnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/actualizar.png"))); // NOI18N
@@ -233,52 +245,58 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comborool, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(TxtNombres, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                        .addComponent(TxtTelefono)
-                        .addComponent(TxtDni)
-                        .addComponent(TxtUser)))
-                .addGap(25, 25, 25)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(id_num, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(comborool, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(89, 89, 89)
+                        .addComponent(id_num, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(240, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(TxtNombres, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                            .addComponent(TxtTelefono)
+                            .addComponent(TxtDni)
+                            .addComponent(TxtUser))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(14, 14, 14)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel1)
-                                    .addComponent(TxtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(22, 22, 22)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(TxtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3))
-                            .addComponent(TxtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TxtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel1)
+                                .addGap(25, 25, 25))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(TxtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TxtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(TxtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel4))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TxtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(comborool, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comborool, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                        .addComponent(jLabel6))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(id_num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("DATOS:"));
@@ -391,16 +409,28 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-        Actualizar();
-        LimpiarTabla();
-        listar();
-        Nuevo();
+
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿ESTAS SEGURO DE MODIFICAR AL EMPLEADO: " + nom + "? ", "CONFIRMACION", JOptionPane.YES_NO_OPTION, 3);
+        switch (respuesta) {
+            case JOptionPane.YES_OPTION:
+                Actualizar();
+                LimpiarTabla();
+                listar();
+                Nuevo();
+                break;
+            case JOptionPane.NO_OPTION:
+                break;
+            case JOptionPane.CLOSED_OPTION:
+                break;
+            default:
+                break;
+        }
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoActionPerformed
         Nuevo();
     }//GEN-LAST:event_BtnNuevoActionPerformed
-
+    String nom;
     private void TablaVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaVMouseClicked
         int fila = TablaV.getSelectedRow();
         if (fila == -1) {
@@ -417,7 +447,7 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
             //PODEMOS HACER LA DESENCRIPTACION CON EL METODO Desencriptar QUE ES EN LA CLASE encriptacion CON LA VARIABLE encrip Y LE MANDAMOS LA VARIABLE sectdec YA QUE AHI ESTA LA CONTRASENIA
             dese = encrip.Desencriptar(sectdec);
 
-            String nom = TablaV.getValueAt(fila, 2).toString();
+            nom = TablaV.getValueAt(fila, 2).toString();
             String tel = TablaV.getValueAt(fila, 3).toString();
             String user = TablaV.getValueAt(fila, 4).toString();
             String rol = TablaV.getValueAt(fila, 5).toString();
@@ -441,18 +471,18 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
         if (evt.getStateChange() == ItemEvent.SELECTED) {
 
             // ESTE IF OBTENEMOS LA DIRECCION QUE SE SELECCIONO EN EL COMBO BOX comborool POR MEDIO DE INDEX
-            if (this.comborool.getSelectedIndex() == 0) {
+            if (this.comborool.getSelectedIndex() == 3) {
                 id_1_rol(id_num);
                 // LLAMAMOS AL METODO QUE ESTA EN LA LINEA 551 Y LE MANDAMDO COMO id_num YA QUE ES UN COMBO BOX Y ESTA PIDIENDO ESE OBJECTO
 
             }
-            if (this.comborool.getSelectedIndex() == 1) {
+            if (this.comborool.getSelectedIndex() == 2) {
 
                 id_2_rol(id_num);
 //               ;
 
             }
-            if (this.comborool.getSelectedIndex() == 2) {
+            if (this.comborool.getSelectedIndex() == 1) {
                 id_3_rol(id_num);
 //                
 
@@ -485,9 +515,10 @@ public class VendedorForm_up extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_OPCIONItemStateChanged
 
+
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         // TODO add your handling code here:
-LimpiarTabla();
+        LimpiarTabla();
         int opcions = OPCION.getSelectedIndex();
         String val = valor.getText();
         //        dao.busqeuda(opcions, val);
@@ -509,6 +540,29 @@ LimpiarTabla();
         valor.setText("");
     }//GEN-LAST:event_buscarActionPerformed
 
+    private void TxtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtNombresKeyTyped
+        // TODO add your handling code here:
+            Character ch = evt.getKeyChar();
+
+        //IS LETTER NOS AYUDA A PERMITIR ENTRADAS POR TECLADO SOLAMENTE PERO TENEMOS EL SIGNO ! SI ES DIFERENTE Y SI ES DIFERENTE AL SIMBOLO O A LA ENTRADA ESPACIO
+        //SI SE INGRESA COMO UN NUMERO NO LO PERMITE PERO SI PERMITIRA LA ENTRA DE ESAPCIOS Y LETRAS
+        if (!Character.isLetter(ch) && ch != KeyEvent.VK_SPACE) {
+            //CON LA VARIABLE EVT CONSUME NO PERMITIRA ESCRIBIR EN EL CAMPO
+            evt.consume();
+        }
+    }//GEN-LAST:event_TxtNombresKeyTyped
+
+    private void TxtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtTelefonoKeyTyped
+        // TODO add your handling code here:
+         Character ch = evt.getKeyChar();
+
+        //AQUI PERIMITE SOLO NUMEROS Y LETRAS NO LO PERIMITE
+        if (!Character.isDigit(ch)) {
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_TxtTelefonoKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnActualizar;
@@ -527,7 +581,6 @@ LimpiarTabla();
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

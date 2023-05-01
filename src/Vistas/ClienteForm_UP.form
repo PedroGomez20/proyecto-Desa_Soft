@@ -138,8 +138,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="TxtDni">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TxtDniKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="TxtNombres">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TxtNombresKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="TxtDireccion">
         </Component>

@@ -2,6 +2,8 @@ package Vistas;
 
 import Modelo.Cliente;
 import Modelo.ClienteDAO;
+import com.sun.glass.events.KeyEvent;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ClienteForm extends javax.swing.JInternalFrame {
@@ -20,14 +22,19 @@ public class ClienteForm extends javax.swing.JInternalFrame {
     }
 
     void Agregar() {
-        String dni = TxtDni.getText();
-        String nom = TxtNombres.getText();
-        String dir = TxtDireccion.getText();
-        Object[] ob = new Object[3];
-        ob[0] = dni;
-        ob[1] = nom;
-        ob[2] = dir;
-        dao.add(ob);
+        if (TxtDni.getText().isEmpty() || TxtNombres.getText().isEmpty() || TxtDireccion.getText().isEmpty() ) {
+//MANDA UN MENSAJE AL USUARIO DE ESE ERROR
+            JOptionPane.showMessageDialog(null, "FALTO INGRESAR ALGUN DATO EN LOS CAMPOS");
+        } else {
+            String dni = TxtDni.getText();
+            String nom = TxtNombres.getText();
+            String dir = TxtDireccion.getText();
+            Object[] ob = new Object[3];
+            ob[0] = dni;
+            ob[1] = nom;
+            ob[2] = dir;
+            dao.add(ob);
+        }
     }
 
     void Nuevo() {
@@ -35,13 +42,6 @@ public class ClienteForm extends javax.swing.JInternalFrame {
         TxtNombres.setText("");
         TxtDireccion.setText("");
         TxtDni.requestFocus();
-    }
-
-    void LimpiarTabla() {
-        for (int i = 0; i < modelo.getRowCount(); i++) {
-            modelo.removeRow(i);
-            i = i - 1;
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -66,11 +66,29 @@ public class ClienteForm extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel1.setText("DNI:");
+        jLabel1.setText("RFC:");
 
         jLabel2.setText("NOMBRES:");
 
         jLabel3.setText("DIRECCION:");
+
+        TxtDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtDniKeyTyped(evt);
+            }
+        });
+
+        TxtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtNombresKeyTyped(evt);
+            }
+        });
+
+        TxtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtDireccionKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -171,15 +189,56 @@ public class ClienteForm extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
-        Agregar();
-        LimpiarTabla();
 
-        Nuevo();
+        //PARA OBTENER EL NOMBRE Y MOSTRALO EN EL MENSAJE DE ABVERTENCIA
+        String nom1 = TxtNombres.getText();
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿ESTA SEGURO DE AGREGAR AL CLIENTE:  " + nom1 + " ?", "ALERTA", JOptionPane.YES_NO_OPTION, 2);
+        switch (respuesta) {
+            case JOptionPane.YES_OPTION:
+                Agregar();
+                Nuevo();
+                break;
+            case JOptionPane.NO_OPTION:
+                break;
+            case JOptionPane.CLOSED_OPTION:
+                break;
+            default:
+                break;
+        }
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
     private void BtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoActionPerformed
         Nuevo();
     }//GEN-LAST:event_BtnNuevoActionPerformed
+
+    private void TxtDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtDniKeyTyped
+        // TODO add your handling code here:
+        
+        Character ch = evt.getKeyChar();
+
+        //AQUI PERIMITE SOLO NUMEROS Y LETRAS NO LO PERIMITE
+        if (!Character.isDigit(ch) && !Character.isLetter(ch)) {
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_TxtDniKeyTyped
+
+    private void TxtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtNombresKeyTyped
+        // TODO add your handling code here:
+        
+        Character ch = evt.getKeyChar();
+
+        //IS LETTER NOS AYUDA A PERMITIR ENTRADAS POR TECLADO SOLAMENTE PERO TENEMOS EL SIGNO ! SI ES DIFERENTE Y SI ES DIFERENTE AL SIMBOLO O A LA ENTRADA ESPACIO
+        //SI SE INGRESA COMO UN NUMERO NO LO PERMITE PERO SI PERMITIRA LA ENTRA DE ESAPCIOS Y LETRAS
+        if (!Character.isLetter(ch) && ch != KeyEvent.VK_SPACE) {
+            //CON LA VARIABLE EVT CONSUME NO PERMITIRA ESCRIBIR EN EL CAMPO
+            evt.consume();
+        }
+    }//GEN-LAST:event_TxtNombresKeyTyped
+
+    private void TxtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtDireccionKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtDireccionKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

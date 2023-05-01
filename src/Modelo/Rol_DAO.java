@@ -32,7 +32,7 @@ DefaultComboBoxModel combo1 = new DefaultComboBoxModel();
         c.setModel(combo);
         Listado_rol lr = new Listado_rol();
 
-        String sql = ("SELECT nombre_rol FROM rol");
+        String sql = ("SELECT nombre_rol FROM `rol` ORDER BY id_rol DESC ");
 
         try {
             con = cn.Conectar();

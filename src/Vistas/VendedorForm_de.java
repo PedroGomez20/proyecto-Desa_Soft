@@ -45,8 +45,11 @@ public class VendedorForm_de extends javax.swing.JInternalFrame {
 //        listar();
         sas.cargarcombo(comborool);
 
+        //AQUI PONEMOS ESTE IF PARA QUE SE CARGUE LA TABLA CON LOS VALORES POR DEFAULT QUE SON TODOS SIN FILTRO
         if (this.OPCION.getSelectedIndex() == 0) {
+            //ES UN METODO EN LA CLASE DE VENDEODR DAO
             dao.busqeuda(0, null);
+            //ES UNA PROPIEDAD DEL BOTON QUE DA CLIK SOLITO JAJAJA Y SE CARGUE O ENVIE LOS DATOS DEL METODO DE BUSQUEDA
             this.buscar.doClick();
         }
 
@@ -378,16 +381,28 @@ public class VendedorForm_de extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-        Eliminar();
-        LimpiarTabla();
-        listar();
-        Nuevo();
+
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿ESTAS SEGURO DE ELIMINAR EL REGISTRO DEL EMPALEADO:  "+nom+" ?", "ALERTA", JOptionPane.YES_NO_OPTION, 2);
+        switch (respuesta) {
+            case JOptionPane.YES_OPTION:
+                Eliminar();
+                LimpiarTabla();
+                listar();
+                Nuevo();
+                break;
+            case JOptionPane.NO_OPTION:
+                break;
+            case JOptionPane.CLOSED_OPTION:
+                break;
+            default:
+                break;
+        }
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void BtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoActionPerformed
         Nuevo();
     }//GEN-LAST:event_BtnNuevoActionPerformed
-
+String nom;
     private void TablaVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaVMouseClicked
         int fila = TablaV.getSelectedRow();
         if (fila == -1) {
@@ -404,7 +419,7 @@ public class VendedorForm_de extends javax.swing.JInternalFrame {
             //PODEMOS HACER LA DESENCRIPTACION CON EL METODO Desencriptar QUE ES EN LA CLASE encriptacion CON LA VARIABLE encrip Y LE MANDAMOS LA VARIABLE sectdec YA QUE AHI ESTA LA CONTRASENIA
             dese = encrip.Desencriptar(sectdec);
 
-            String nom = TablaV.getValueAt(fila, 2).toString();
+             nom = TablaV.getValueAt(fila, 2).toString();
             String tel = TablaV.getValueAt(fila, 3).toString();
             String user = TablaV.getValueAt(fila, 4).toString();
             String rol = TablaV.getValueAt(fila, 5).toString();
@@ -452,11 +467,11 @@ public class VendedorForm_de extends javax.swing.JInternalFrame {
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         // TODO add your handling code here:
-LimpiarTabla();
+        //SE LIEMPIA LA TABLA CUANDO QUEREMOS HACER UNA NUEVA CONSULTA Y NO SE ESTE ACOMULANDO
+        LimpiarTabla();
         int opcions = OPCION.getSelectedIndex();
         String val = valor.getText();
-//        dao.busqeuda(opcions, val);
-
+//AQUI LLENAMOS LA TABLA SEGUN SEA LA CONSULTA SELECCIONADA ID, NOMBRES
         List<Vendedor> lista = dao.busqeuda(opcions, val);
         modelo = (DefaultTableModel) TablaV.getModel();
         Object[] ob = new Object[7];

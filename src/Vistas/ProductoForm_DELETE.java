@@ -2,6 +2,7 @@ package Vistas;
 
 import Modelo.Producto;
 import Modelo.ProductoDAO;
+import com.sun.glass.events.KeyEvent;
 import java.awt.event.ItemEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -101,6 +102,12 @@ public class ProductoForm_DELETE extends javax.swing.JInternalFrame {
         jLabel2.setText("PRECIO:");
 
         jLabel3.setText("STOCK:");
+
+        TxtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtNombresKeyTyped(evt);
+            }
+        });
 
         TxtStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -299,23 +306,34 @@ public class ProductoForm_DELETE extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-        Eliminar();
-        LimpiarTabla();
-        listar();
-        Nuevo();
+       int respuesta = JOptionPane.showConfirmDialog(null, "¿ESTA SEGURO DE ELIMINAR EL REGISTRO DEL PRODUCTO:  "+nom+" ?", "ALERTA", JOptionPane.YES_NO_OPTION, 2);
+        switch (respuesta) {
+            case JOptionPane.YES_OPTION:
+                Eliminar();
+                LimpiarTabla();
+                listar();
+                Nuevo();
+                break;
+            case JOptionPane.NO_OPTION:
+                break;
+            case JOptionPane.CLOSED_OPTION:
+                break;
+            default:
+                break;
+        }
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void BtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoActionPerformed
         Nuevo();
     }//GEN-LAST:event_BtnNuevoActionPerformed
-
+String nom;
     private void TablaPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaPMouseClicked
         int fila = TablaP.getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UNA FILA");
         } else {
             id = Integer.parseInt(TablaP.getValueAt(fila, 0).toString());
-            String nom = TablaP.getValueAt(fila, 1).toString();
+             nom = TablaP.getValueAt(fila, 1).toString();
             double precio = Double.parseDouble(TablaP.getValueAt(fila, 2).toString());
             int stock = Integer.parseInt(TablaP.getValueAt(fila, 3).toString());
 //            String es = TablaP.getValueAt(fila, 4).toString();
@@ -375,6 +393,18 @@ LimpiarTabla();
 
         valor.setText("");
     }//GEN-LAST:event_buscarActionPerformed
+
+    private void TxtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtNombresKeyTyped
+        // TODO add your handling code here:
+        Character ch = evt.getKeyChar();
+        
+        
+        if (!Character.isLetter(ch) && ch != KeyEvent.VK_SPACE ) {
+            
+            evt.consume();
+        }
+         
+    }//GEN-LAST:event_TxtNombresKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -2,6 +2,7 @@ package Vistas;
 
 import Modelo.Producto;
 import Modelo.ProductoDAO;
+import com.sun.glass.events.KeyEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -18,25 +19,27 @@ public class ProductoForm extends javax.swing.JInternalFrame {
     public ProductoForm() {
 
         initComponents();
-        
-    }
 
-    
+    }
 
     void Agregar() {
-        String nom = TxtNombres.getText();
-        String precio = TxtPrecio.getText();
-        String stock = TxtStock.getText();
-//        String es = CbxEstado.getSelectedItem().toString();
-        Object[] ob = new Object[3];
-        ob[0] = nom;
-        ob[1] = precio;
-        ob[2] = stock;
-//        ob[3] = es;
-        dao.add(ob);
-    }
 
-   
+        if (TxtStock.getText().isEmpty() || TxtNombres.getText().isEmpty() || TxtPrecio.getText().isEmpty()) {
+//MANDA UN MENSAJE AL USUARIO DE ESE ERROR
+            JOptionPane.showMessageDialog(null, "FALTO INGRESAR ALGUN DATO EN LOS CAMPOS");
+        } else {
+            String nom = TxtNombres.getText();
+            String precio = TxtPrecio.getText();
+            String stock = TxtStock.getText();
+
+            Object[] ob = new Object[3];
+            ob[0] = nom;
+            ob[1] = precio;
+            ob[2] = stock;
+
+            dao.add(ob);
+        }
+    }
 
     void Nuevo() {
         TxtNombres.setText("");
@@ -44,13 +47,6 @@ public class ProductoForm extends javax.swing.JInternalFrame {
         TxtStock.setText("");
 //        CbxEstado.setSelectedIndex(0);
         TxtNombres.requestFocus();
-    }
-
-    void LimpiarTabla() {
-        for (int i = 0; i < modelo.getRowCount(); i++) {
-            modelo.removeRow(i);
-            i = i - 1;
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -62,8 +58,8 @@ public class ProductoForm extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         TxtNombres = new javax.swing.JTextField();
-        TxtPrecio = new javax.swing.JTextField();
         TxtStock = new javax.swing.JTextField();
+        TxtPrecio = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         BtnAgregar = new javax.swing.JButton();
         BtnNuevo = new javax.swing.JButton();
@@ -81,6 +77,24 @@ public class ProductoForm extends javax.swing.JInternalFrame {
 
         jLabel3.setText("STOCK:");
 
+        TxtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtNombresKeyTyped(evt);
+            }
+        });
+
+        TxtStock.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtStockKeyTyped(evt);
+            }
+        });
+
+        TxtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtPrecioKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -93,23 +107,27 @@ public class ProductoForm extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(TxtNombres)
-                    .addComponent(TxtPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addComponent(TxtNombres, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addComponent(TxtPrecio)
                     .addComponent(TxtStock))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TxtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TxtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel2)
+                        .addGap(24, 24, 24))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TxtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TxtStock, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                     .addComponent(jLabel3))
@@ -167,26 +185,79 @@ public class ProductoForm extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(132, 132, 132)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
-        Agregar();
-        LimpiarTabla();
-        
-        Nuevo();
+
+        //PARA OBTENER EL NOMBRE Y MOSTRALO EN EL MENSAJE DE ABVERTENCIA
+        String nom1 = TxtNombres.getText();
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿ESTA SEGURO DE AGREGAR EL PRODUCTO:  " + nom1 + " ?", "ALERTA", JOptionPane.YES_NO_OPTION, 2);
+        switch (respuesta) {
+            case JOptionPane.YES_OPTION:
+                Agregar();
+                Nuevo();
+                break;
+            case JOptionPane.NO_OPTION:
+                break;
+            case JOptionPane.CLOSED_OPTION:
+                break;
+            default:
+                break;
+        }
     }//GEN-LAST:event_BtnAgregarActionPerformed
 
     private void BtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoActionPerformed
         Nuevo();
     }//GEN-LAST:event_BtnNuevoActionPerformed
+
+    //ESTE METODO O ACCION QUE SE PUEDE OBTENER EN LOS EVENTOS DEL CAMPO NOS AYUDA AQUE NO SE ESCRIBA NUMEROS EN CAMPOS DONDE LO NECESITA COMO ES EN NOMBRES NO PERMITE ESCRIBIR NUMEROS
+    private void TxtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtNombresKeyTyped
+        // TODO add your handling code here:
+
+        Character ch = evt.getKeyChar();
+
+        //IS LETTER NOS AYUDA A PERMITIR ENTRADAS POR TECLADO SOLAMENTE PERO TENEMOS EL SIGNO ! SI ES DIFERENTE Y SI ES DIFERENTE AL SIMBOLO O A LA ENTRADA ESPACIO
+        //SI SE INGRESA COMO UN NUMERO NO LO PERMITE PERO SI PERMITIRA LA ENTRA DE ESAPCIOS Y LETRAS
+        if (!Character.isLetter(ch) && ch != KeyEvent.VK_SPACE) {
+            //CON LA VARIABLE EVT CONSUME NO PERMITIRA ESCRIBIR EN EL CAMPO
+            evt.consume();
+        }
+    }//GEN-LAST:event_TxtNombresKeyTyped
+
+    private void TxtStockKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtStockKeyTyped
+        // TODO add your handling code here:
+
+        Character ch = evt.getKeyChar();
+
+        //AQUI PERIMITE SOLO NUMEROS Y LETRAS NO LO PERIMITE
+        if (!Character.isDigit(ch)) {
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_TxtStockKeyTyped
+
+    private void TxtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtPrecioKeyTyped
+        // TODO add your handling code here:
+
+        Character ch = evt.getKeyChar();
+
+        //AQUI PERIMITE SOLO NUMEROS Y LETRAS NO LO PERIMITE
+        if (!Character.isDigit(ch) && Character.isLetter(ch)) {
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_TxtPrecioKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

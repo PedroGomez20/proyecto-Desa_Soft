@@ -2,6 +2,7 @@ package Vistas;
 
 import Modelo.Producto;
 import Modelo.ProductoDAO;
+import com.sun.glass.events.KeyEvent;
 import java.awt.event.ItemEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -20,7 +21,6 @@ public class ProductoForm_UP extends javax.swing.JInternalFrame {
 
         initComponents();
 //        listar();
-
 
         if (this.OPCION.getSelectedIndex() == 0) {
             dao.busqueda(0, null);
@@ -43,28 +43,29 @@ public class ProductoForm_UP extends javax.swing.JInternalFrame {
         TablaP.setModel(modelo);
     }
 
-   
-
     void Actualizar() {
         int fila = TablaP.getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UNA FILA");
+        } else if (TxtStock.getText().isEmpty() || TxtNombres.getText().isEmpty() || TxtPrecio.getText().isEmpty()) {
+//MANDA UN MENSAJE AL USUARIO DE ESE ERROR
+            JOptionPane.showMessageDialog(null, "FALTO INGRESAR ALGUN DATO EN LOS CAMPOS");
         } else {
-            String nom = TxtNombres.getText();
-            String precio = TxtPrecio.getText();
-            String stock = TxtStock.getText();
+            {
+                String nom = TxtNombres.getText();
+                String precio = TxtPrecio.getText();
+                String stock = TxtStock.getText();
 //            String es = CbxEstado.getSelectedItem().toString();
-            Object[] obj = new Object[4];
-            obj[0] = nom;
-            obj[1] = precio;
-            obj[2] = stock;
+                Object[] obj = new Object[4];
+                obj[0] = nom;
+                obj[1] = precio;
+                obj[2] = stock;
 //            obj[3] = es;
-            obj[3] = id;
-            dao.actualizar(obj);
+                obj[3] = id;
+                dao.actualizar(obj);
+            }
         }
     }
-
-   
 
     void Nuevo() {
         TxtNombres.setText("");
@@ -115,6 +116,24 @@ public class ProductoForm_UP extends javax.swing.JInternalFrame {
         jLabel2.setText("PRECIO:");
 
         jLabel3.setText("STOCK:");
+
+        TxtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtNombresKeyTyped(evt);
+            }
+        });
+
+        TxtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtPrecioKeyTyped(evt);
+            }
+        });
+
+        TxtStock.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtStockKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -308,12 +327,23 @@ public class ProductoForm_UP extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-        Actualizar();
-        LimpiarTabla();
-        listar();
-        Nuevo();
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿ESTAS SEGURO DE MODIFICAR EL PRODUCTO: " + nom + " ? ", "CONFIRMACION", JOptionPane.YES_NO_OPTION, 3);
+        switch (respuesta) {
+            case JOptionPane.YES_OPTION:
+                Actualizar();
+                LimpiarTabla();
+                listar();
+                Nuevo();
+                break;
+            case JOptionPane.NO_OPTION:
+                break;
+            case JOptionPane.CLOSED_OPTION:
+                break;
+            default:
+                break;
+        }
     }//GEN-LAST:event_BtnActualizarActionPerformed
-
+    String nom;
     private void BtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoActionPerformed
         Nuevo();
     }//GEN-LAST:event_BtnNuevoActionPerformed
@@ -324,7 +354,7 @@ public class ProductoForm_UP extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UNA FILA");
         } else {
             id = Integer.parseInt(TablaP.getValueAt(fila, 0).toString());
-            String nom = TablaP.getValueAt(fila, 1).toString();
+            nom = TablaP.getValueAt(fila, 1).toString();
             double precio = Double.parseDouble(TablaP.getValueAt(fila, 2).toString());
             int stock = Integer.parseInt(TablaP.getValueAt(fila, 3).toString());
 //            String es = TablaP.getValueAt(fila, 4).toString();
@@ -380,6 +410,45 @@ public class ProductoForm_UP extends javax.swing.JInternalFrame {
 
         valor.setText("");
     }//GEN-LAST:event_buscarActionPerformed
+
+    private void TxtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtNombresKeyTyped
+        // TODO add your handling code here:
+
+       Character ch = evt.getKeyChar();
+
+        //IS LETTER NOS AYUDA A PERMITIR ENTRADAS POR TECLADO SOLAMENTE PERO TENEMOS EL SIGNO ! SI ES DIFERENTE Y SI ES DIFERENTE AL SIMBOLO O A LA ENTRADA ESPACIO
+        //SI SE INGRESA COMO UN NUMERO NO LO PERMITE PERO SI PERMITIRA LA ENTRA DE ESAPCIOS Y LETRAS
+        if (!Character.isLetter(ch) && ch != KeyEvent.VK_SPACE) {
+            //CON LA VARIABLE EVT CONSUME NO PERMITIRA ESCRIBIR EN EL CAMPO
+            evt.consume();
+        }
+    }//GEN-LAST:event_TxtNombresKeyTyped
+
+    private void TxtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtPrecioKeyTyped
+        // TODO add your handling code here:
+        
+         Character ch = evt.getKeyChar();
+
+        //AQUI PERIMITE SOLO NUMEROS Y LETRAS NO LO PERIMITE
+        if (!Character.isDigit(ch) && Character.isLetter(ch)) {
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_TxtPrecioKeyTyped
+
+    private void TxtStockKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtStockKeyTyped
+        // TODO add your handling code here:
+        Character ch = evt.getKeyChar();
+
+        //AQUI PERIMITE SOLO NUMEROS Y LETRAS NO LO PERIMITE
+        if (!Character.isDigit(ch)) {
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_TxtStockKeyTyped
+
+                              
+                                
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -2,6 +2,7 @@ package Vistas;
 
 import Modelo.Cliente;
 import Modelo.ClienteDAO;
+import com.sun.glass.events.KeyEvent;
 import java.awt.event.ItemEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -44,6 +45,9 @@ public class ClienteForm_UP extends javax.swing.JInternalFrame {
         int fila = TablaC.getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(this, "DEBE SELECCIONAR UNA FILA");
+        } else if (TxtDni.getText().isEmpty() || TxtNombres.getText().isEmpty() || TxtDireccion.getText().isEmpty()) {
+            //MANDA UN MENSAJE AL USUARIO DE ESE ERROR
+            JOptionPane.showMessageDialog(null, "FALTO INGRESAR ALGUN DATO EN LOS CAMPOS");
         } else {
             String dni = TxtDni.getText();
             String nom = TxtNombres.getText();
@@ -106,6 +110,18 @@ public class ClienteForm_UP extends javax.swing.JInternalFrame {
         jLabel2.setText("NOMBRES:");
 
         jLabel3.setText("DIRECCION:");
+
+        TxtDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtDniKeyTyped(evt);
+            }
+        });
+
+        TxtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TxtNombresKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -301,16 +317,27 @@ public class ClienteForm_UP extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-        Actualizar();
-        LimpiarTabla();
-        listar();
-        Nuevo();
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿ESTAS SEGURO DE MODIFICAR AL CLIENTE: " + nom + "? ", "CONFIRMACION", JOptionPane.YES_NO_OPTION, 3);
+        switch (respuesta) {
+            case JOptionPane.YES_OPTION:
+                Actualizar();
+                LimpiarTabla();
+                listar();
+                Nuevo();
+                break;
+            case JOptionPane.NO_OPTION:
+                break;
+            case JOptionPane.CLOSED_OPTION:
+                break;
+            default:
+                break;
+        }
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoActionPerformed
         Nuevo();
     }//GEN-LAST:event_BtnNuevoActionPerformed
-
+    String nom;
     private void TablaCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaCMouseClicked
         int fila = TablaC.getSelectedRow();
         if (fila == -1) {
@@ -318,7 +345,7 @@ public class ClienteForm_UP extends javax.swing.JInternalFrame {
         } else {
             id = Integer.parseInt(TablaC.getValueAt(fila, 0).toString());
             String dni = TablaC.getValueAt(fila, 1).toString();
-            String nom = TablaC.getValueAt(fila, 2).toString();
+            nom = TablaC.getValueAt(fila, 2).toString();
             String dir = TablaC.getValueAt(fila, 3).toString();
             TxtDni.setText(dni);
             TxtNombres.setText(nom);
@@ -370,6 +397,30 @@ public class ClienteForm_UP extends javax.swing.JInternalFrame {
 
         valor.setText("");
     }//GEN-LAST:event_buscarActionPerformed
+
+    private void TxtDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtDniKeyTyped
+        // TODO add your handling code here:
+
+        Character ch = evt.getKeyChar();
+
+        //AQUI PERIMITE SOLO NUMEROS Y LETRAS NO LO PERIMITE
+        if (!Character.isDigit(ch) && !Character.isLetter(ch)) {
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_TxtDniKeyTyped
+
+    private void TxtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TxtNombresKeyTyped
+        // TODO add your handling code here:
+        Character ch = evt.getKeyChar();
+
+        //IS LETTER NOS AYUDA A PERMITIR ENTRADAS POR TECLADO SOLAMENTE PERO TENEMOS EL SIGNO ! SI ES DIFERENTE Y SI ES DIFERENTE AL SIMBOLO O A LA ENTRADA ESPACIO
+        //SI SE INGRESA COMO UN NUMERO NO LO PERMITE PERO SI PERMITIRA LA ENTRA DE ESAPCIOS Y LETRAS
+        if (!Character.isLetter(ch) && ch != KeyEvent.VK_SPACE) {
+            //CON LA VARIABLE EVT CONSUME NO PERMITIRA ESCRIBIR EN EL CAMPO
+            evt.consume();
+        }
+    }//GEN-LAST:event_TxtNombresKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
